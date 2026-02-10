@@ -28,7 +28,8 @@ const formatDate = (dateString: string) => {
     year: 'numeric', 
     month: 'long', 
     day: 'numeric',
-    weekday: 'short'
+    weekday: 'short',
+    timeZone: 'UTC'
   };
   return new Date(dateString).toLocaleDateString('en-US', options);
 };
@@ -51,7 +52,11 @@ const formatDate = (dateString: string) => {
           <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start">
             <div class="mb-1 sm:mb-0">
                <span class="font-bold text-gray-800 text-lg">{event.Title}</span>
-               {event.Description && <p class="text-sm text-gray-500 mt-1">{event.Description}</p>}
+               {event.Description && (
+                  event.Description.trim() ? 
+                  <p class="text-sm text-gray-500 mt-1">{event.Description}</p> : 
+                  <div class="text-sm mt-1">&nbsp;</div>
+               )}
             </div>
             <div class="text-primary font-medium whitespace-nowrap bg-primary/10 px-3 py-1 rounded text-sm">
               {formatDate(event.Date)}
