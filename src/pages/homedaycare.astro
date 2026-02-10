@@ -1,0 +1,68 @@
+---
+import Layout from '../layouts/Layout.astro';
+import NavBar from '../components/NavBar.astro';
+import Footer from '../components/Footer.astro';
+import ScheduleWidget from '../components/ScheduleWidget.astro';
+---
+
+<Layout title="Montessori Home Daycare - Kubo Montessori">
+  <NavBar />
+
+  <!-- Hero Section -->
+  <div class="relative bg-cover bg-center h-[400px]" style="background-image: url('/images/japan.jpg');">
+    <div class="absolute inset-0 bg-black/30"></div>
+    <div class="relative max-w-7xl mx-auto px-4 h-full flex flex-col items-center justify-center text-center text-white">
+      <h1 class="text-3xl md:text-5xl font-bold mb-4 drop-shadow-md">Montessori Home Daycare</h1>
+      <p class="text-lg drop-shadow">
+          <a href="/" class="hover:underline">Home</a> <span class="mx-3 opacity-60">/</span>
+          <a href="/services" class="hover:underline hidden md:inline">Programs</a> <span class="mx-3 hidden md:inline opacity-60">/</span>
+          <span class="opacity-90">Home Daycare</span>
+      </p>
+    </div>
+  </div>
+
+  <!-- Content Section -->
+  <div class="py-24 bg-white">
+      <div class="container mx-auto px-4">
+          <div class="max-w-4xl mx-auto">
+              <h2 class="text-2xl font-bold mb-4 text-gray-800">What We Provide</h2>
+              <ul class="space-y-4 mb-8 text-gray-600 list-disc pl-5">
+                  <li>Long hours of Montessori care for your developing young ones (9 am to 5:30 pm)</li>
+                  <li>We have a toddler program to help your child understand Montessori at an early age with credentialed Infant toddler teachers</li>
+                  <li>Hot lunch prepared by our in-house cook and served freshly made every day. Kids also bake and do food preparation with our teachers. Snacks are also included.</li>
+                  <li>Newsletter sent monthly to help the parents understand what we do inside the classroom</li>
+                  <li>We have <a href="https://schools.mybrightwheel.com/sign-in" class="text-primary hover:underline">Brightwheel</a> app to keep open communication with parents and teachers.</li>
+                  <li>We help out the parents and their child adjust from home to school to big school.</li>
+              </ul>
+
+              <h2 class="text-2xl font-bold mb-4 text-gray-800">License #</h2>
+              <ul class="space-y-2 mb-8 text-gray-600 list-disc pl-5">
+                  <li>414004177</li>
+                  <li>414004696</li>
+              </ul>
+          </div>
+      </div>
+  </div>
+
+  <!-- Locations Section -->
+  <div class="py-16 bg-gray-50">
+      <div class="container mx-auto px-4">
+          <div class="flex flex-col lg:flex-row gap-12 items-center">
+              <div class="lg:w-1/2">
+                  <span class="block text-sm font-bold text-gray-500 uppercase mb-2">Casa Dei Bambini</span>
+                  <div class="w-12 h-1 bg-primary mb-6"></div>
+                  <h2 class="text-3xl font-bold mb-6 text-gray-800">Locations in <strong>San Mateo</strong></h2>
+                   <ul class="space-y-2 text-gray-600 list-disc pl-5">
+                      <li>2823 Flores St San Mateo, CA 94403</li>
+                      <li>2821 Flores St San Mateo, CA 94403</li>
+                  </ul>
+              </div>
+              <div class="lg:w-1/2">
+                  <ScheduleWidget file="sm-schedule.csv" />
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <Footer />
+</Layout>

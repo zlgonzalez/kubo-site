@@ -1,0 +1,253 @@
+---
+import Layout from '../layouts/Layout.astro';
+import NavBar from '../components/NavBar.astro';
+import Footer from '../components/Footer.astro';
+import ScheduleWidget from '../components/ScheduleWidget.astro';
+import CalendarWidget from '../components/CalendarWidget.astro';
+
+const teachers = [
+    {
+        name: "Mr. Roi Brigino",
+        img: "/images/roi-brigino.jpeg",
+        bio: "Mr. Roi Brigino has been a preschool teacher since 2012. He completed 18 units of Early Childhood Education from Canada College. Mr. Roi attended AMI training courses for Early Childhood Education. He has 8 years of teaching experience in a Montessori classroom and constantly attending seminars to update his Montessori teaching skills."
+    },
+    {
+        name: "Ms. Griselda Salazar",
+        img: "/images/griselda-salazar.jpeg",
+        bio: "Ms. Griselda Salazar was born and raised in the Bay Area. She is Mexican American and can speak both English and Spanish. She started her teaching journey in community college studying Early Childhood Education. During her time in college, she learned about the Montessori Method and was instantly a huge fan. She became extremely passionate about the teaching approach. She worked as a teacher at Outschool for a few years where she did more traditional teaching but over time realized that her interest in learning and practicing the Montessori Method is something she wants to pursue. Working and teaching at Roots N Wings Montessori was a wonderful opportunity to start her teaching career. She is currently taking her Montesori certificate at MTEC/San Francisco Bay Area and taking each day as a one big step of becoming a true Montessori guide."
+    },
+    {
+        name: "Mr. Lawrence Viray",
+        img: "/images/lawrence-viray.jpeg",
+        bio: "Mr. Lawrence has been with Roots N Wings Montessori since the school year 2023. He has a Bachelor of Science Degree in Physical Therapy and an Early Childhood Montessori teacher credential from American Montessori Society. He was teaching kids with disabilities for 2 years before exploring the preschool age group. Mr. Lawrence's mother was a teacher as well and he wanted to continue his mother's legacy. Mr. Lawrence is very patient and knowledgeable on the Montessori approach. He is currently continuing his education in the infant toddler program with Montessori Teacher Education Center San Francisco Bay Area."
+    },
+    {
+        name: "Ms. Aileen Amar",
+        img: "/images/aileen-amar.jpeg",
+        bio: "Aileen is a passionate educator at Roots N Wings Montessori School, holding an Early Childhood Montessori teacher credential from the American Montessori Society. She has a Bachelor of Science in Economics with a Minor in Math and Statistics, which enhances her ability to create a structured and engaging learning environment. Her love for teaching began early—she started tutoring children during high school and continues to be inspired by working with young learners. Writing is another passion, allowing her to creatively express ideas and explore educational concepts. Aileen is committed to understanding each child’s individual needs and fostering a nurturing environment where they can thrive academically and emotionally."
+    },
+    {
+        name: "Mr. Ron Gonzalez",
+        img: "/images/ron-gonzalez.jpg",
+        bio: "Mr. Ron Gonzalez is the Japanese language teacher every Friday. He passed the first level Japanese Language Proficiency exam many years ago. Early on in his career, he lived in Tokyo, Japan while interning at Hitachi Semiconductor Ltd, working on semiconductor simulation software. He moved to the US and has worked in technology companies like Oracle, Salesforce and Apple specializing in Data, Machine Learning and AI. Today, he is Vice President at WEX, where he leads the AI and Data Lake Engineering teams. He loves playing the guitar and singing both English and Japanese songs with the kids and he constantly seeks to find technology applications in preschool education."
+    }
+];
+
+// Carousel images
+const carouselImages = [
+    "/images/image1.jpg",
+    "/images/image3.jpg",
+    "/images/image4.jpg",
+    "/images/image5.jpg",
+    "/images/image6.jpg",
+    "/images/image7.jpg",
+    "/images/image8.jpg"
+];
+---
+
+<Layout title="Roots N' Wings Montessori School - Kubo Montessori">
+    <fragment slot="head">
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "EducationalOrganization",
+                "name": "Roots and Wings by Kubo Montessori",
+                "address": {
+                    "@type": "PostalAddress",
+                    "streetAddress": "2323 Euclid Ave",
+                    "addressLocality": "Redwood City",
+                    "addressRegion": "CA",
+                    "postalCode": "94061",
+                    "addressCountry": "US"
+                },
+                "geo": {
+                    "@type": "GeoCoordinates",
+                    "latitude": "37.487846",
+                    "longitude": "-122.236115"
+                },
+                "url": "https://www.kubomontessori.com/rw.html",
+                "telephone": "+1-408-502-6198",
+                "openingHours": "Mo-Fr 08:00-17:30",
+                "image": "https://www.kubomontessori.com/images/logo.png",
+                "sameAs": [
+                    "https://www.facebook.com/kubomontessori",
+                    "https://twitter.com/kubomontessori",
+                    "https://www.instagram.com/kubomontessori"
+                ]
+            } 
+        </script>
+    </fragment>
+  <NavBar />
+
+  <!-- Hero Section -->
+  <div class="relative bg-cover bg-center h-[400px]" style="background-image: url('/images/image6.jpg');">
+    <div class="absolute inset-0 bg-black/30"></div>
+    <div class="relative max-w-7xl mx-auto px-4 h-full flex flex-col items-center justify-center text-center text-white">
+      <h1 class="text-3xl md:text-5xl font-bold mb-4 drop-shadow-md">Roots N' Wings Montessori School</h1>
+       <p class="text-lg drop-shadow">
+          <a href="/" class="hover:underline">Home</a> <span class="mx-3 opacity-60">/</span>
+          <a href="/services" class="hover:underline hidden md:inline">Programs</a> <span class="mx-3 hidden md:inline opacity-60">/</span>
+          <span class="opacity-90">Roots N' Wings</span>
+      </p>
+    </div>
+  </div>
+
+  <!-- Content Section -->
+  <div class="py-24 bg-white">
+      <div class="container mx-auto px-4 max-w-4xl">
+          <h2 class="text-2xl font-bold mb-4 text-gray-800">About Roots N' Wings Montessori School</h2>
+          <p class="text-gray-600 mb-8">
+              Roots N' Wings Montessori is a child care center tucked away in Redwood City and
+              surrounded by nature. We serve children from 2-6 years old, and we are proud of
+              our low child to teacher ratio of 6:1. Our teachers are all Montessori trained and
+              have many years of teaching experience.
+          </p>
+
+          <h2 class="text-2xl font-bold mb-4 text-gray-800">Video Tour</h2>
+          <div class="aspect-w-16 aspect-h-9 mb-8">
+              <iframe width="560" height="315" class="w-full h-[400px] rounded shadow-lg"
+                  src="https://www.youtube.com/embed/xllfiPEzJPc" title="Roots N' Wings Video Tour"
+                  frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen>
+              </iframe>
+          </div>
+          <p class="text-gray-600 mb-12">Want to see more? Schedule an onsite tour below!</p>
+
+          <!-- Parent Dashboard -->
+          <div class="mb-16">
+              <h2 class="text-2xl font-bold mb-6 text-gray-800">Parent Dashboard</h2>
+              <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                  <div class="space-y-8">
+                      <div>
+                          <h3 class="text-xl font-bold mb-4 text-gray-800">Rabbits Schedule</h3>
+                          <ScheduleWidget file="rw-rabbits-schedule.csv" />
+                      </div>
+                      <div>
+                          <h3 class="text-xl font-bold mb-4 text-gray-800">Penguins Schedule</h3>
+                          <ScheduleWidget file="rw-penguins-schedule.csv" />
+                      </div>
+                  </div>
+                  <div>
+                      <h3 class="text-xl font-bold mb-4 text-gray-800">School Calendar</h3>
+                      <CalendarWidget />
+                  </div>
+              </div>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-8 mb-8">
+              <div>
+                  <h2 class="text-xl font-bold mb-2 text-gray-800">License #</h2>
+                  <p class="text-gray-600">414004531</p>
+              </div>
+              <div>
+                  <h2 class="text-xl font-bold mb-2 text-gray-800">Hours</h2>
+                  <p class="text-gray-600">8:30 am to 5:30 pm daily Monday to Friday.</p>
+              </div>
+          </div>
+
+          <h2 class="text-2xl font-bold mb-4 text-gray-800">Enrichment</h2>
+          <ul class="space-y-2 mb-8 text-gray-600 list-disc pl-5">
+               <li><a href="/rw-baking" class="text-primary hover:underline">Baking</a></li>
+               <li><a href="/rw-gardening" class="text-primary hover:underline">Gardening</a></li>
+               <li><a href="/rw-gymnastics" class="text-primary hover:underline">Gymnastics</a></li>
+               <li>Japanese and Spanish language classes</li>
+               <li>Music and Movement</li>
+               <li><a href="/rw-technology" class="text-primary hover:underline">Technology, the Montessori Way</a></li>
+          </ul>
+
+             <h2 class="text-2xl font-bold mb-4 text-gray-800">Admissions</h2>
+             <ul class="space-y-4 mb-8 text-gray-600 list-disc pl-5">
+                <li>Schedule a learning tour. Directions to RnW <a href="/rw-location-directions" class="text-primary hover:underline">here.</a></li>
+                <li>After completing the tour, we will email you the link to the Admissions process through Brightwheel. This includes specifying the desired start date of your child, payments, licensing forms and other required information. All of the steps will be facilitated through the Brightwheel app.</li>
+                <li>Once you complete the enrollment process you will receive a welcome email from the school administrator.</li>
+             </ul>
+
+             <div class="bg-gray-50 p-6 rounded-lg mb-8">
+                 <p class="mb-4 text-gray-600">
+                     Roots N Wings of Woodside by Kubo Montessori LLC strives to create an inclusive community in our small school in the Woodside. For admissions, we consider:
+                 </p>
+                  <ul class="space-y-2 mb-4 text-gray-600 list-disc pl-5">
+                    <li>Gender and diversity balance within each class</li>
+                    <li>Child’s age and current developmental range of the class</li>
+                    <li>Siblings of current families, who are given preference</li>
+                    <li>Date of application/fee</li>
+                    <li>Completion of learning tour</li>
+                 </ul>
+                 <p class="text-sm text-gray-500 italic">
+                     Roots N Wings of Redwood City by Kubo Montessori LLC admits students of any race, color, religion,
+                     disability, and national or ethnic origin... (Non-discrimination policy)
+                 </p>
+             </div>
+      </div>
+  </div>
+
+  <!-- Center (Carousel) -->
+  <div class="py-16 bg-gray-50">
+       <div class="container mx-auto px-4">
+             <h2 class="text-3xl font-bold mb-12 text-center text-gray-800">Our Center</h2>
+             <!-- Simple CSS Grid for now instead of Owl Carousel -->
+             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                 {carouselImages.map(img => (
+                     <div class="h-64 overflow-hidden rounded shadow-lg">
+                         <img src={img} class="w-full h-full object-cover hover:scale-110 transition-transform duration-500" />
+                     </div>
+                 ))}
+             </div>
+       </div>
+  </div>
+
+  <!-- Teachers -->
+  <div class="py-24 bg-white">
+      <div class="container mx-auto px-4">
+           <h2 class="text-3xl font-bold mb-16 text-center text-gray-800">Our Teachers</h2>
+           <div class="space-y-16">
+               {teachers.map((teacher, index) => (
+                   <div class={`flex flex-col lg:flex-row gap-8 items-center ${index % 2 !== 0 ? 'lg:flex-row-reverse' : ''}`}>
+                        <div class="lg:w-1/2">
+                             <h3 class="text-2xl font-bold mb-4 text-gray-800">{teacher.name}</h3>
+                             <p class="text-gray-600 leading-relaxed">{teacher.bio}</p>
+                        </div>
+                        <div class="lg:w-1/2">
+                            <div class="relative max-w-sm mx-auto">
+                                <img src={teacher.img} alt={teacher.name} class="rounded shadow-lg w-full" />
+                            </div>
+                        </div>
+                   </div>
+               ))}
+           </div>
+      </div>
+  </div>
+
+  <!-- Location/Schedule -->
+  <div class="py-16 bg-gray-50">
+      <div class="container mx-auto px-4">
+          <div class="flex flex-col lg:flex-row gap-12 items-center">
+              <div class="lg:w-1/2">
+                  <span class="block text-sm font-bold text-gray-500 uppercase mb-2">Roots N' Wings</span>
+                  <div class="w-12 h-1 bg-primary mb-6"></div>
+                  <h2 class="text-3xl font-bold mb-6 text-gray-800">Our Location and Schedule in <strong>Redwood City</strong></h2>
+                   <ul class="space-y-2 text-gray-600 list-disc pl-5">
+                      <li>2323 Euclid Ave Redwood City, CA 94061</li>
+                  </ul>
+              </div>
+              <div class="lg:w-1/2">
+                   <div class="w-full h-80 rounded-lg overflow-hidden shadow-lg bg-gray-200">
+                       <iframe 
+                           src="https://maps.google.com/maps?q=2323+Euclid+Ave+Redwood+City,+CA+94061&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+                           width="100%" 
+                           height="100%" 
+                           style="border:0;" 
+                           allowfullscreen="" 
+                           loading="lazy">
+                       </iframe>
+                   </div>
+              </div>
+          </div>
+      </div>
+      </div>
+  </div>
+
+
+
+  <Footer />
+</Layout>

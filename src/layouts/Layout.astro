@@ -1,0 +1,60 @@
+---
+interface Props {
+	title: string;
+	description?: string;
+}
+
+const { title, description = "Fun and Academic Preschool Montessori Child Care in San Mateo and Redwood City" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content={description} />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<meta name="keywords" content="kubo, child care centers, play, technology, montessori, redwood city, san mateo, daycare centers in my area, preschool, home, daycare, early education, childhood education, local Redwood City day care center" />
+		<title>{title}</title>
+		
+		<slot name="head" />
+
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:400,700&display=swap" rel="stylesheet">
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-BE43SM2H4T"></script>
+        <script is:inline>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-BE43SM2H4T');
+        </script>
+
+        <!-- Calendly badge widget begin -->
+        <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+        <script src="https://assets.calendly.com/assets/external/widget.js" async is:inline></script>
+        <script is:inline>
+            window.onload = function () {
+                Calendly.initBadgeWidget({
+                    url: 'https://calendly.com/mary-kubo',
+                    text: 'Click to Schedule a Tour',
+                    color: '#0069ff',
+                    textColor: '#ffffff',
+                    branding: true
+                });
+            }
+        </script>
+	</head>
+	<body class="font-sans text-gray-700 antialiased">
+		<slot />
+	</body>
+</html>
+
+<style is:global>
+    /* Global styles if needed, though Tailwind covers most */
+    body {
+        font-family: 'Raleway', sans-serif;
+    }
+</style>

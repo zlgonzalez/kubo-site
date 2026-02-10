@@ -1,0 +1,62 @@
+---
+import Layout from '../layouts/Layout.astro';
+import NavBar from '../components/NavBar.astro';
+import Footer from '../components/Footer.astro';
+
+const images = [
+    "/images/baking-1.jpeg",
+    "/images/baking-2.jpeg",
+    "/images/baking-3.jpeg",
+    "/images/baking-4.jpeg",
+    "/images/baking-5.jpeg"
+];
+---
+
+<Layout title="Baking - Roots N' Wings">
+  <NavBar />
+
+  <!-- Hero Section -->
+  <div class="relative bg-cover bg-center h-[400px]" style="background-image: url('/images/image6.jpg');">
+    <div class="absolute inset-0 bg-black opacity-50"></div>
+    <div class="relative max-w-7xl mx-auto px-4 h-full flex flex-col items-center justify-center text-center text-white">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">Roots N' Wings Montessori School</h1>
+      <p class="text-lg">
+          <a href="/" class="hover:underline">Home</a> <span class="mx-3">/</span>
+          <a href="/services" class="hover:underline">Programs</a> <span class="mx-3">/</span>
+          <a href="/rw" class="hover:underline">Roots N' Wings</a> <span class="mx-3">/</span>
+          Baking
+      </p>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="py-16 bg-white">
+      <div class="container mx-auto px-4 text-center max-w-3xl">
+          <h2 class="text-3xl font-bold mb-6 text-gray-800">As easy as Pie</h2>
+          <p class="text-gray-600 mb-8 leading-relaxed">
+              Baking aligns beautifully with the Montessori philosophy as it encourages hands-on learning,
+              independence, and practical life skills. Through baking, children engage in sensory exploration,
+              measuring, and sequencing, all while developing fine motor skills and concentration.
+              It also fosters independence, as they follow step-by-step instructions and take pride in creating
+              something tangible. Montessori emphasizes real-world experiences, and baking provides children
+              with a purposeful activity that promotes both cognitive and emotional development.
+          </p>
+      </div>
+  </div>
+
+  <!-- Carousel (Grid) -->
+  <div class="py-16 bg-gray-50">
+      <div class="container mx-auto px-4">
+          <h2 class="text-3xl font-bold mb-12 text-center text-gray-800">Our Sweetie Pies</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {images.map(img => (
+                  <div class="h-64 overflow-hidden rounded shadow-lg">
+                      <img src={img} class="w-full h-full object-cover hover:scale-110 transition-transform duration-500" />
+                  </div>
+              ))}
+          </div>
+      </div>
+  </div>
+
+  <Footer />
+</Layout>

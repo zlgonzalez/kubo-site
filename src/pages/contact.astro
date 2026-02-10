@@ -1,0 +1,46 @@
+---
+import Layout from '../layouts/Layout.astro';
+import NavBar from '../components/NavBar.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Contact - Kubo Montessori">
+  <NavBar />
+
+  <!-- Hero Section -->
+  <div class="relative bg-cover bg-center h-[400px]" style="background-image: url('/images/km3.jpg');">
+    <div class="absolute inset-0 bg-black opacity-50"></div>
+    <div class="relative max-w-7xl mx-auto px-4 h-full flex flex-col items-center justify-center text-center text-white">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">Contact Us</h1>
+      <p class="text-lg"><a href="/" class="hover:underline">Home</a> <span class="mx-3">/</span> Contact</p>
+    </div>
+  </div>
+
+  <!-- Contact Info -->
+  <div class="py-16 bg-white">
+      <div class="container mx-auto px-4 max-w-3xl text-center">
+          <h2 class="text-3xl font-bold mb-8 text-gray-800">Contact</h2>
+          
+          <div class="mb-8">
+               <p class="text-lg mb-2"><strong>Redwood City: </strong>contact@kubomontessori.com or call <a href="tel:+14085026198" class="text-primary hover:underline">408-502-6198</a></p>
+               <p class="text-lg"><strong>San Mateo: </strong>kubomontessori2006@gmail.com</p>
+          </div>
+
+          <h2 class="text-3xl font-bold mb-8 text-gray-800">Connect with Us!</h2>
+          
+          <div class="mb-4">
+              <p class="font-bold mb-2">Facebook</p>
+              <p><a href="https://www.facebook.com/Kubo-Montessori-152010708167589/" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline block mb-1">Montessori Home Daycare</a></p>
+              <p><a href="https://www.facebook.com/Roots-N-Wings-Montessori-by-Kubo-Montessori-LLC-104738995560952/" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline block">Roots N Wings School</a></p>
+          </div>
+
+          <div>
+              <p class="mb-2">Leave us a review on <strong>Yelp</strong>!</p>
+              <p><a href="https://www.yelp.com/biz/kubo-montessori-san-mateo-2" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline block mb-1">Montessori Home Daycare</a></p>
+              <p><a href="https://www.yelp.com/biz/roots-n-wings-montessori-school-redwood-city" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline block">Roots N Wings School</a></p>
+          </div>
+      </div>
+  </div>
+
+  <Footer />
+</Layout>

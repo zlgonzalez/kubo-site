@@ -1,0 +1,152 @@
+---
+import Layout from '../layouts/Layout.astro';
+import NavBar from '../components/NavBar.astro';
+import Footer from '../components/Footer.astro';
+import TestimonialCarousel from '../components/TestimonialCarousel.astro';
+---
+
+<Layout title="Fun and Academic Preschool Montessori Child Care in San Mateo and Redwood City">
+  <NavBar />
+
+  <!-- Hero Section -->
+  <div class="relative bg-cover bg-center h-[500px]" style="background-image: url('/images/km3.jpg');">
+    <div class="absolute inset-0 bg-black/30"></div>
+    <div class="relative max-w-7xl mx-auto px-4 h-full flex items-center justify-center text-center">
+      <h1 class="text-3xl md:text-6xl font-bold text-white mb-4 drop-shadow-md">Changing the world and touching lives</h1>
+    </div>
+  </div>
+
+  <!-- Logos -->
+  <div class="container mx-auto px-4 py-8 flex flex-col md:flex-row justify-center items-center gap-8">
+
+      <img src="/images/ams.jpg" alt="AMS Logo" class="h-24 object-contain" />
+  </div>
+
+  <!-- Mission Section -->
+  <div class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+          <div class="flex flex-col lg:flex-row gap-12 items-center">
+              <div class="lg:w-1/2">
+                  <span class="block text-sm font-bold text-gray-500 uppercase mb-2">Mission and Vision Statement</span>
+                  <div class="w-12 h-1 bg-primary mb-6"></div>
+                  <h2 class="text-3xl font-bold mb-6 text-gray-800">Children are <strong class="text-primary">naturally eager</strong> to learn.</h2>
+                  <p class="text-gray-600 mb-6">
+                      Kubo Montessori in the Peninsula offers a child-centered educational approach. Montessori education
+                      aims to develop the physical, social, emotional, and cognitive skills of children.
+                  </p>
+                  <a href="/about" class="inline-block border-2 border-gray-800 text-gray-800 px-6 py-2 hover:bg-gray-800 hover:text-white transition-colors duration-300">Learn More</a>
+              </div>
+              <div class="lg:w-1/2">
+                  <div class="relative">
+                      <!-- Dot pattern placeholder or image styling -->
+                       <img src="/images/roots-1-600x600.jpg" alt="Children learning" class="rounded shadow-lg w-full" />
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <!-- Programs Section -->
+  <div class="py-16 bg-gray-50">
+      <div class="container mx-auto px-4">
+          <div class="text-center md:text-left">
+              <h2 class="text-3xl font-bold mb-8 text-gray-800">Our Programs</h2>
+              
+              <div class="space-y-6 text-gray-600 mb-12">
+                  <p>
+                      Our <strong>San Mateo</strong> location has 2 home-based child care Montessori classrooms serving working
+                      parents in the area. Casa Dei Bambini or “Children’s house” was established 1906 in Roma Italia in
+                      the basement of her home. We offer the same environment to San Mateo families. A great transition
+                      school for your children in preparation for big school environment. Our child to teacher ratio is
+                      12:2 and we provide freshly cooked healthy hot lunch and organic snacks. We accept kids from ages 20
+                      months to 6 years of age and do not require potty training. There is always one credentialed
+                      Montessori teacher in each classroom to ensure the Montessori philosophy is maintained daily.
+                  </p>
+                  <p>
+                      Our <strong>Redwood City</strong> location is a Montessori Day Care Center with 2 classrooms. Our
+                      child to teacher ratio is 6:1. We take in kids ages 2-6 years of age. We can help potty-train your child if needed.
+                      We run a year round school program and offer TK/K after school Montessori classes.
+                  </p>
+              </div>
+
+               <div class="flex flex-col md:flex-row justify-center gap-6">
+                    <a href="/homedaycare" class="border-2 border-gray-800 text-gray-800 px-8 py-3 hover:bg-gray-800 hover:text-white transition-colors duration-300 text-center">San Mateo Location</a>
+                    <a href="/rw" class="border-2 border-gray-800 text-gray-800 px-8 py-3 hover:bg-gray-800 hover:text-white transition-colors duration-300 text-center">Redwood City Location</a>
+               </div>
+          </div>
+      </div>
+  </div>
+
+  <!-- Locations Section -->
+  <div class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+          <div class="flex flex-col lg:flex-row gap-12">
+              <div class="lg:w-5/12">
+                  <span class="block text-sm font-bold text-gray-500 uppercase mb-2">Our Locations</span>
+                  <div class="w-12 h-1 bg-primary mb-6"></div>
+                  <h2 class="text-3xl font-bold mb-6 text-gray-800">Where to find <strong>Kubo Montessori</strong></h2>
+                  <p class="text-gray-600">
+                      Kubo Montessori offers both children and adults an amazing learning experience. Benefit from the
+                      time-tested Montessori education that’s trusted by several educational institutions from across the
+                      globe for over 100 years. If you wish to learn more about how <a href="/about" class="text-primary hover:underline">Montessori for children</a> works, do not hesitate to get in touch with us.
+                  </p>
+              </div>
+              <div class="lg:w-7/12">
+                  <div class="grid md:grid-cols-2 gap-8 mt-4">
+                      <!-- Location 1 -->
+                      <div class="flex">
+                          <div class="mr-4 text-primary text-2xl">
+                              <!-- Icon placeholer -->
+                              ❤️
+                          </div>
+                          <div>
+                              <h3 class="font-bold text-lg mb-2">Children's School 1</h3>
+                              <p class="text-gray-600">2823 Flores St San Mateo, CA 94403</p>
+                          </div>
+                      </div>
+                       <!-- Location 2 -->
+                       <div class="flex">
+                          <div class="mr-4 text-primary text-2xl">
+                              ❤️
+                          </div>
+                          <div>
+                              <h3 class="font-bold text-lg mb-2">Children's School 2</h3>
+                              <p class="text-gray-600">2821 Flores St San Mateo, CA 94403</p>
+                          </div>
+                      </div>
+                       <!-- Location 3 -->
+                       <div class="col-span-1 md:col-span-2 flex">
+                          <div class="mr-4 text-primary text-2xl">
+                              ❤️
+                          </div>
+                          <div>
+                              <h3 class="font-bold text-lg mb-2">Roots N Wings Montessori of Woodside</h3>
+                              <p class="text-gray-600">2323 Euclid Ave Redwood City, CA 94061</p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <!-- Testimonials -->
+  <div class="bg-gray-50">
+      <TestimonialCarousel />
+  </div>
+
+  <!-- Newsletter -->
+  <div class="bg-primary py-16">
+      <div class="container mx-auto px-4 text-center">
+          <h3 class="text-3xl text-white font-normal mb-6">Sign up for the newsletter!</h3>
+          <p class="text-white mb-8 max-w-2xl mx-auto">
+              Stay up to date on what's new at Kubo Montessori!
+              Subscribers to the newsletter will periodically receive emails alerting them of events and new
+              programs as well as tips and tricks for fostering and continuing the Montessori education at home.
+          </p>
+          <a href="https://deluxemarketing.verticalresponse.com/s/websitesignupform38482906972492" target="_blank" rel="noopener noreferrer" class="inline-block border-2 border-white text-white px-8 py-3 hover:bg-white hover:text-primary transition-colors duration-300">Sign Up</a>
+      </div>
+  </div>
+
+  <Footer />
+</Layout>

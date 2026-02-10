@@ -1,0 +1,68 @@
+---
+import Layout from '../layouts/Layout.astro';
+import NavBar from '../components/NavBar.astro';
+import Footer from '../components/Footer.astro';
+
+const images = [
+    "/images/gardening-1.jpeg",
+    "/images/gardening-2.jpeg",
+    "/images/gardening-3.jpeg",
+    "/images/gardening-4.jpeg",
+    "/images/gardening-5.jpeg"
+];
+---
+
+<Layout title="Gardening - Roots N' Wings">
+  <NavBar />
+
+  <!-- Hero Section -->
+  <div class="relative bg-cover bg-center h-[400px]" style="background-image: url('/images/image6.jpg');">
+    <div class="absolute inset-0 bg-black opacity-50"></div>
+    <div class="relative max-w-7xl mx-auto px-4 h-full flex flex-col items-center justify-center text-center text-white">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">Roots N' Wings Montessori School</h1>
+       <p class="text-lg">
+          <a href="/" class="hover:underline">Home</a> <span class="mx-3">/</span>
+          <a href="/services" class="hover:underline">Programs</a> <span class="mx-3">/</span>
+          <a href="/rw" class="hover:underline">Roots N' Wings</a> <span class="mx-3">/</span>
+          Gardening
+      </p>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="py-16 bg-white">
+      <div class="container mx-auto px-4 text-center max-w-3xl">
+          <h2 class="text-3xl font-bold mb-6 text-gray-800">A Breath of Fresh Air</h2>
+           <p class="text-gray-600 mb-6 leading-relaxed">
+                Gardening is a natural extension of the Montessori philosophy, which emphasizes hands-on learning,
+                respect for nature, and the development of independence. In a Montessori setting, gardening
+                activities allow children to engage with the environment in a meaningful way, fostering a sense of
+                responsibility, patience, and care for living things.
+            </p>
+            <p class="text-gray-600 mb-8 leading-relaxed">
+                By planting seeds, watering plants, and observing growth, children not only develop fine motor
+                skills but also experience the life cycle of plants firsthand. These real-world lessons align with
+                Montessori’s focus on practical life activities, teaching children about sustainability, biology, a
+                nd the interconnectedness of nature. Gardening in Montessori also encourages mindfulness, as
+                children learn to work at their own pace and care for their plants with attention and focus,
+                mirroring the calm, purposeful approach that defines Montessori education.
+            </p>
+      </div>
+  </div>
+
+  <!-- Carousel (Grid) -->
+  <div class="py-16 bg-gray-50">
+      <div class="container mx-auto px-4">
+          <h2 class="text-3xl font-bold mb-12 text-center text-gray-800">Our Little Saplings</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {images.map(img => (
+                  <div class="h-64 overflow-hidden rounded shadow-lg">
+                      <img src={img} class="w-full h-full object-cover hover:scale-110 transition-transform duration-500" />
+                  </div>
+              ))}
+          </div>
+      </div>
+  </div>
+
+  <Footer />
+</Layout>

@@ -1,0 +1,69 @@
+---
+import Layout from '../layouts/Layout.astro';
+import NavBar from '../components/NavBar.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Our Programs - Kubo Montessori">
+  <NavBar />
+
+  <!-- Hero Section -->
+  <div class="relative bg-cover bg-center h-[400px]" style="background-image: url('/images/km2.jpg');">
+    <div class="absolute inset-0 bg-black opacity-50"></div>
+    <div class="relative max-w-7xl mx-auto px-4 h-full flex flex-col items-center justify-center text-center text-white">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">Our Programs</h1>
+      <p class="text-lg"><a href="/" class="hover:underline">Home</a> <span class="mx-3">/</span> Programs</p>
+    </div>
+  </div>
+
+  <!-- San Mateo Program -->
+  <div class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+          <div class="flex flex-col lg:flex-row gap-12 items-center">
+              <div class="lg:w-1/2">
+                  <span class="block text-sm font-bold text-gray-500 uppercase mb-2">San Mateo</span>
+                  <div class="w-12 h-1 bg-primary mb-6"></div>
+                  <h2 class="text-3xl font-bold mb-6 text-gray-800">Kubo Montessori <strong>Casa dei Bambini</strong></h2>
+                  <ul class="space-y-4 mb-8 text-gray-600 list-disc pl-5">
+                      <li>Long hours of Montessori care for your developing young ones (9 am to 5:30 pm)</li>
+                      <li>Toddler program to help your child understand Montessori at an early age with credentialed Infant toddler teachers</li>
+                      <li>We have <a href="https://schools.mybrightwheel.com/sign-in" class="text-primary hover:underline">Brightwheel</a> app to keep open communication with parents and teachers</li>
+                  </ul>
+                  <a href="/homedaycare" class="inline-block border-2 border-gray-800 text-gray-800 px-6 py-2 hover:bg-gray-800 hover:text-white transition-colors duration-300">Learn More</a>
+              </div>
+              <div class="lg:w-1/2">
+                   <div class="relative">
+                      <img src="/images/square2.png" alt="San Mateo Program" class="rounded shadow-lg w-full" />
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <!-- Redwood City Program -->
+  <div class="py-16 bg-gray-50">
+      <div class="container mx-auto px-4">
+          <div class="flex flex-col lg:flex-row gap-12 items-center">
+              <div class="lg:w-1/2">
+                  <span class="block text-sm font-bold text-gray-500 uppercase mb-2">Redwood City</span>
+                  <div class="w-12 h-1 bg-primary mb-6"></div>
+                  <h2 class="text-3xl font-bold mb-6 text-gray-800">Kubo Montessori <strong>Roots N Wings</strong></h2>
+                  <ul class="space-y-4 mb-8 text-gray-600 list-disc pl-5">
+                      <li>Individualized Montessori approach in prepared environment guiding children ages 2 - 6 years old</li>
+                      <li>Music, sports and Japanese/Spanish classes for all day kids</li>
+                      <li>Year round Montessori curriculum</li>
+                      <li>Different programs available</li>
+                  </ul>
+                  <a href="/rw" class="inline-block border-2 border-gray-800 text-gray-800 px-6 py-2 hover:bg-gray-800 hover:text-white transition-colors duration-300">Learn More</a>
+              </div>
+               <div class="lg:w-1/2">
+                   <div class="relative">
+                      <img src="/images/roots-1-600x600.jpg" alt="Redwood City Program" class="rounded shadow-lg w-full" />
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <Footer />
+</Layout>
