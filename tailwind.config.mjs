@@ -10,7 +10,8 @@ export default {
                 light: '#f8f9fa',
             },
             fontFamily: {
-                sans: ['Raleway', 'sans-serif'],
+                sans: ['Lato', 'sans-serif'],
+                serif: ['Playfair Display', 'serif'],
             },
         },
     },
