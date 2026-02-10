@@ -1,0 +1,53 @@
+---
+import Layout from '../layouts/Layout.astro';
+import NavBar from '../components/NavBar.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Location & Directions - Boots N' Wings">
+  <NavBar />
+
+  <!-- Hero Section -->
+  <div class="relative bg-cover bg-center h-[400px]" style="background-image: url('/images/image6.jpg');">
+    <div class="absolute inset-0 bg-black opacity-50"></div>
+    <div class="relative max-w-7xl mx-auto px-4 h-full flex flex-col items-center justify-center text-center text-white">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">Roots N' Wings Montessori School</h1>
+       <p class="text-lg">
+          <a href="/" class="hover:underline">Home</a> <span class="mx-3">/</span>
+          <a href="/services" class="hover:underline">Programs</a> <span class="mx-3">/</span>
+          <a href="/rw" class="hover:underline">Roots N' Wings</a> <span class="mx-3">/</span>
+          Location & Directions
+      </p>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="py-16 bg-white">
+      <div class="container mx-auto px-4 text-center max-w-3xl">
+          <h2 class="text-3xl font-bold mb-6 text-gray-800">How to get to Roots N' Wings</h2>
+           <p class="text-gray-600 mb-6 leading-relaxed">
+                Some parents have given feedback that getting to Roots N' Wings can be confusing, even with the aid of online maps.
+                A suggested route is the following:
+            </p>
+            <ul class="text-left text-gray-600 list-disc pl-5 mb-8 inline-block">
+                <li>Take Roosevelt Ave</li>
+                <li>Turn right on Connecticut Drive</li>
+                <li>Turn right after the 5th house</li>
+                <li>The Montessori school should be on your right behind the Redwood Baptist Church</li>
+            </ul>
+      </div>
+  </div>
+
+  <!-- Images -->
+  <div class="py-16 bg-gray-50">
+      <div class="container mx-auto px-4">
+          <div class="flex justify-center">
+              <div class="max-w-md w-full">
+                  <img src="/images/rw-location.png" alt="Map Location" class="rounded shadow-lg w-full" />
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <Footer />
+</Layout>

@@ -1,0 +1,18 @@
+- [x] Initialize Astro project with Tailwind
+- [x] Configure `astro.config.mjs` and `tailwind.config.mjs`
+- [x] Create `src/layouts/Layout.astro`
+- [x] Create `src/components/NavBar.astro` (with mobile toggle)
+- [x] Create `src/components/Footer.astro`
+- [x] Create `src/components/TestimonialCarousel.astro`
+- [x] Migrate `index.html` to `src/pages/index.astro`
+- [x] Migrate `about.html` to `src/pages/about.astro`
+- [x] Migrate `services.html` to `src/pages/services.astro`
+- [x] Migrate `rw.html` (Roots N' Wings) to `src/pages/rw.astro`
+- [x] Migrate `homedaycare.html` to `src/pages/homedaycare.astro`
+- [x] Migrate `blog.html` to `src/pages/blog.astro`
+- [x] Migrate `contact.html` to `src/pages/contact.astro`
+- [x] Migrate `rw-*.html` sub-pages
+- [x] Move images to `public/images`
+- [x] Verify Mobile Menu interaction
+- [x] Verify Carousel interaction
+- [x] Verify Calendly widget integration

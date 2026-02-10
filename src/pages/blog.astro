@@ -1,0 +1,29 @@
+---
+import Layout from '../layouts/Layout.astro';
+import NavBar from '../components/NavBar.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Blog - Kubo Montessori">
+  <NavBar />
+
+  <!-- Hero Section -->
+  <div class="relative bg-cover bg-center h-[400px]" style="background-image: url('/images/km1.jpg');">
+    <div class="absolute inset-0 bg-black opacity-50"></div>
+    <div class="relative max-w-7xl mx-auto px-4 h-full flex flex-col items-center justify-center text-center text-white">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">Our Thoughts</h1>
+      <p class="text-lg"><a href="/" class="hover:underline">Home</a> <span class="mx-3">/</span> Blog</p>
+    </div>
+  </div>
+
+  <!-- Blog Content -->
+  <div class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+          <div id="dib-posts"></div>
+      </div>
+  </div>
+
+  <script is:inline src="https://io.dropinblog.com/embedjs/0530ca52-f373-4292-800a-b93c30543ee4.js"></script>
+
+  <Footer />
+</Layout>

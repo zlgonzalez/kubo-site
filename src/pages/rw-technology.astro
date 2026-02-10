@@ -1,0 +1,53 @@
+---
+import Layout from '../layouts/Layout.astro';
+import NavBar from '../components/NavBar.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Technology - Roots N' Wings">
+  <NavBar />
+
+  <!-- Hero Section -->
+  <div class="relative bg-cover bg-center h-[400px]" style="background-image: url('/images/image6.jpg');">
+    <div class="absolute inset-0 bg-black opacity-50"></div>
+    <div class="relative max-w-7xl mx-auto px-4 h-full flex flex-col items-center justify-center text-center text-white">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">Roots N' Wings Montessori School</h1>
+       <p class="text-lg">
+          <a href="/" class="hover:underline">Home</a> <span class="mx-3">/</span>
+          <a href="/services" class="hover:underline">Programs</a> <span class="mx-3">/</span>
+          <a href="/rw" class="hover:underline">Roots N' Wings</a> <span class="mx-3">/</span>
+          Technology
+      </p>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="py-16 bg-white">
+      <div class="container mx-auto px-4 text-center max-w-3xl">
+          <h2 class="text-3xl font-bold mb-6 text-gray-800">Cubetto: A Montessori-Friendly Introduction to Coding</h2>
+           <p class="text-gray-600 mb-6 leading-relaxed">
+                The Cubetto robot perfectly embodies these Montessori principles. Designed for preschool-aged children,
+                Cubetto is a wooden, screen-free robot that teaches the basics of coding through physical play.
+                Children use a control board and colorful coding blocks to create sequences that guide the robot’s
+                movements. By manipulating these tangible blocks, children learn to program Cubetto, effectively
+                mastering the basics of coding without even realizing it.
+            </p>
+            <p class="text-gray-600 mb-8 leading-relaxed">
+                This approach aligns beautifully with Montessori’s emphasis on concrete learning before abstract
+                thinking. Just as Montessori students might use physical beads to understand mathematical concepts,
+                Cubetto allows children to physically manipulate coding commands, making the abstract concept of
+                coding both accessible and fun.
+            </p>
+
+            <div class="aspect-w-16 aspect-h-9 mb-8">
+              <iframe width="560" height="315" class="w-full h-[400px] rounded shadow-lg"
+                  src="https://youtube.com/embed/lYqSJaDyhE0" title="Software Programming in Montessori Environment"
+                  frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen>
+              </iframe>
+          </div>
+      </div>
+  </div>
+
+  <Footer />
+</Layout>

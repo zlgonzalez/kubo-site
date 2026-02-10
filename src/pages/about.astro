@@ -1,0 +1,155 @@
+---
+import Layout from '../layouts/Layout.astro';
+import NavBar from '../components/NavBar.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="About - Kubo Montessori">
+  <NavBar />
+
+  <!-- Hero Section -->
+  <div class="relative bg-cover bg-center h-[400px]" style="background-image: url('/images/km1.jpg');">
+    <div class="absolute inset-0 bg-black opacity-50"></div>
+    <div class="relative max-w-7xl mx-auto px-4 h-full flex flex-col items-center justify-center text-center text-white">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">About Us</h1>
+      <p class="text-lg"><a href="/" class="hover:underline">Home</a> <span class="mx-3">/</span> About</p>
+    </div>
+  </div>
+
+  <!-- Logo -->
+
+
+  <!-- Mission Section -->
+  <div class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+          <div class="flex flex-col lg:flex-row gap-12 items-center">
+              <div class="lg:w-1/2">
+                  <span class="block text-sm font-bold text-gray-500 uppercase mb-2">Who We Are</span>
+                  <div class="w-12 h-1 bg-primary mb-6"></div>
+                  <h2 class="text-3xl font-bold mb-6 text-gray-800">Kubo Montessori LLC <strong>Mission</strong> and <strong>Vision</strong> Statement</h2>
+                  <p class="text-gray-600 mb-4">
+                      Kubo Montessori LLC is committed to provide a home like feel school environment with the prepared
+                      Montessori classroom and philosophy. We strive to help each child reach their full emotional and
+                      cognitive potential. We aspire to have the family atmosphere so that each child will feel the
+                      support and love everyday as they discover the world. We recognize the importance of stimulating the
+                      inner drive of each child to learn, to positively encourage their curiosity and have the courage to
+                      always explore. Because every child is an unique individual, we tailor your child's education to fit
+                      their specific needs.
+                  </p>
+                  <p class="text-gray-600">
+                      Our program desires to promote independence, organization, concentration, grace and
+                      courtesy, inner peace, drive to learn/explore and confidence to empower the child to achieve.
+                  </p>
+              </div>
+              <div class="lg:w-1/2">
+                  <div class="relative">
+                      <img src="/images/kubo1.jpg" alt="Children in classroom" class="rounded shadow-lg w-full" />
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <!-- What is Montessori -->
+  <div class="py-16 bg-gray-50">
+      <div class="container mx-auto px-4">
+          <div class="text-center max-w-3xl mx-auto mb-16">
+               <h2 class="text-3xl font-bold mb-6 text-gray-800">What is <strong>Montessori?</strong></h2>
+               <p class="text-lg text-gray-600 leading-relaxed">
+                    It is a method of education that was developed by Maria Montessori in 1897. Maria
+                    Montessori was the first Italian woman doctor in Italy. She focused on child psychology and pedagogy
+                    (Pedagogy refers more broadly to the theory and practice of education, and how this influences the
+                    growth of learners. Pedagogy, taken as an academic discipline, is the study of how knowledge and
+                    skills are exchanged in an educational context, and it considers the interactions that take place
+                    during learning). Using her scientific understanding and observation, Maria Montessori formulated
+                    materials that are auto educating. Allowing the child to learn on their own and prepare them to
+                    academics.
+               </p>
+          </div>
+
+          <div class="grid md:grid-cols-3 gap-8">
+              <!-- Item 1 -->
+              <div class="text-center">
+                  <div class="mb-4 overflow-hidden rounded-lg">
+                       <img src="/images/square1.png" alt="Prepared Environment" class="mx-auto img-fluid hover:scale-105 transition-transform duration-300" />
+                  </div>
+                  <h3 class="text-xl font-bold text-gray-800 mb-2">Prepared Environment</h3>
+                  <p class="text-gray-600">
+                      The prepared environment is essential in every Montessori classroom. The areas of Practical
+                      Life, Sensorial, Cultural, Math and Language are defined learning space for each child. All
+                      Montessori materials are designed to help the brain tap into its scientific and mathematical
+                      potential.
+                  </p>
+              </div>
+              <!-- Item 2 -->
+              <div class="text-center">
+                  <div class="mb-4 overflow-hidden rounded-lg">
+                      <img src="/images/square3.png" alt="Inner Drive" class="mx-auto img-fluid hover:scale-105 transition-transform duration-300" />
+                  </div>
+                  <h3 class="text-xl font-bold text-gray-800 mb-2">Inner Drive</h3>
+                  <p class="text-gray-600">
+                      Every moment is a learning opportunity. Every hands on concrete manipulation of the material
+                      is always a revelation. Always an “Aha moment” that build their self esteem and creates a
+                      better independent interpretation of information.
+                  </p>
+              </div>
+              <!-- Item 3 -->
+              <div class="text-center">
+                  <div class="mb-4 overflow-hidden rounded-lg">
+                      <img src="/images/square2.png" alt="Mastery through repetition" class="mx-auto img-fluid hover:scale-105 transition-transform duration-300" />
+                  </div>
+                  <h3 class="text-xl font-bold text-gray-800 mb-2">Mastery Through Repetition</h3>
+                  <p class="text-gray-600">
+                      Each Montessori material is sequenced accordingly and Montessori teachers are there to
+                      oversee each child’s ability to move forwards. Montessori teachers support mastery through
+                      repetition.
+                  </p>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <!-- About the Family -->
+  <div class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+           <h2 class="text-3xl font-bold mb-8 text-gray-800 text-center md:text-left">About the family behind Kubo Montessori LLC</h2>
+           <div class="space-y-6 text-gray-600 text-lg leading-relaxed">
+               <p>
+                   Ms. Mary has been a teacher since 1996, and was inspired into the profession during her
+                   college years while doing outreach programs tutoring less fortunate children in South East
+                   Asia. She began her teaching career with Jean Piaget Approach with a focus on experiential
+                   activities and core curriculum. She felt that she needed more education to be able to learn
+                   the child’s specific needs as they discover themselves and the world. She went back to
+                   school and began her Masters in Special Education. Eventually, she became a Special
+                   Education teacher to children with special needs. She took her Montessori Teacher Training
+                   year 2000 (American Montessori Society 2002) in the Bay Area to be able help mainstream
+                   special children in a regular classroom set up. She fell in love with the Montessori
+                   Philosophy and made a conscious mission to be of service to all children and their families.
+                   She continued her studies and completed more ECE and Administration units both from Canada
+                   College and Cal State Hayward.
+               </p>
+               <p>
+                   Ms. Mary opened her home to families of Foster City and San Mateo year 2006. She continued
+                   serving more families and extended her classroom to 3 locations. We have a Hillsdale
+                   location and now Redwood City.
+               </p>
+               <p>
+                   She has two boys of her own who are 19 and 15 years old. Both were Montessori children
+                   themselves and attended public Montessori schools. Her husband is the Senior Director of Marqeta’s Data and AI platform.
+                   He holds a Masters in Biomedical Informatics from Stanford University. They work together on ensuring that the
+                   curriculum stays current and reflects the needs of the rapidly changing industry of Silicon
+                   Valley, while preserving the principles of Montessori - independent and self-directed
+                   education. As a family, they love making music. Mr. Ron plays the guitar, Ms. Mary sings,
+                   Matthew plays violin and Mark plays the piano serving their ministry for Sunday
+                   service.
+               </p>
+               <p>
+                   In June 2019, Ms. Mary received her credential with Association Montessori Internationale
+                   (AMI) for Montessori for the Elderly.
+               </p>
+           </div>
+      </div>
+  </div>
+
+  <Footer />
+</Layout>

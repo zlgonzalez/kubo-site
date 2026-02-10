@@ -1,0 +1,66 @@
+---
+const links = [
+  { href: '/', label: 'Home' },
+  { href: '/about', label: 'About' },
+  { href: '/services', label: 'Our Programs', dropdown: [
+      { href: '/rw', label: "Roots N' Wings Montessori School" },
+      { href: '/homedaycare', label: 'Montessori Home Daycare' }
+  ]},
+  { href: '/blog', label: 'Blog' },
+  { href: 'https://schools.mybrightwheel.com/sign-in', label: 'Brightwheel', external: true },
+  { href: '/contact', label: 'Contact' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="bg-dark text-white">
+  <nav class="container mx-auto px-4 py-4 flex flex-wrap items-center justify-between">
+    <a href="/" class="text-xl font-bold flex items-center gap-2">
+      <img src="/images/kubo-logo.jpeg" alt="Kubo Logo" class="h-10 w-auto" />
+      <span>Kubo Montessori</span>
+    </a>
+
+    <button id="mobile-menu-toggle" class="lg:hidden block text-white focus:outline-none">
+      <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+
+    <div id="nav-content" class="hidden w-full lg:flex lg:w-auto lg:items-center mt-4 lg:mt-0">
+      <ul class="flex flex-col lg:flex-row lg:space-x-6">
+        {links.map(link => (
+          <li class="relative group">
+            <a 
+              href={link.href} 
+              class={`block py-2 lg:py-0 hover:text-gray-300 ${currentPath === link.href ? 'text-primary' : ''}`}
+              {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+            >
+              {link.label}
+            </a>
+            {link.dropdown && (
+              <div class="hidden group-hover:block lg:absolute lg:bg-white lg:text-black lg:shadow-lg lg:mt-2 lg:py-2 lg:rounded z-50">
+                {link.dropdown.map(sublink => (
+                  <a href={sublink.href} class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">
+                    {sublink.label}
+                  </a>
+                ))}
+              </div>
+            )}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<script>
+  const toggle = document.getElementById('mobile-menu-toggle');
+  const navContent = document.getElementById('nav-content');
+
+  if (toggle && navContent) {
+    toggle.addEventListener('click', () => {
+      navContent.classList.toggle('hidden');
+    });
+  }
+</script>
