@@ -21,6 +21,8 @@ const { title, description = "Fun and Academic Preschool Montessori Child Care i
 		<slot name="head" />
 
         <!-- Google Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
 
         <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -34,7 +36,7 @@ const { title, description = "Fun and Academic Preschool Montessori Child Care i
 
         <!-- Calendly badge widget begin -->
         <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
-        <script src="https://assets.calendly.com/assets/external/widget.js" async is:inline></script>
+        <script src="https://assets.calendly.com/assets/external/widget.js" async defer is:inline></script>
         <script is:inline>
             window.onload = function () {
                 Calendly.initBadgeWidget({
