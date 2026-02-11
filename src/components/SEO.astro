@@ -1,0 +1,91 @@
+---
+interface Props {
+	title: string;
+	description?: string;
+	image?: string;
+	article?: boolean;
+}
+
+const { 
+  title, 
+  description = "Fun and Academic Preschool Montessori Child Care in San Mateo and Redwood City", 
+  image = "/images/kubo1.jpg", 
+  article = false 
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || Astro.url.origin);
+const socialImageURL = new URL(image, Astro.url);
+const siteName = "Kubo Montessori";
+---
+
+<!-- Global Metadata -->
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<meta name="generator" content={Astro.generator} />
+<meta name="keywords" content="kubo, child care centers, play, technology, montessori, redwood city, san mateo, daycare centers in my area, preschool, home, daycare, early education, childhood education, local Redwood City day care center" />
+
+<!-- Canonical URL -->
+<link rel="canonical" href={canonicalURL} />
+
+<!-- Primary Meta Tags -->
+<title>{title}</title>
+<meta name="description" content={description} />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content={article ? 'article' : 'website'} />
+<meta property="og:url" content={Astro.url} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={socialImageURL} />
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content={Astro.url} />
+<meta property="twitter:title" content={title} />
+<meta property="twitter:description" content={description} />
+<meta property="twitter:image" content={socialImageURL} />
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+
+<!-- JSON-LD Structured Data -->
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "ChildCare",
+  "name": "Kubo Montessori",
+  "image": socialImageURL,
+  "description": description,
+  "url": Astro.site || Astro.url.origin,
+  "telephone": "", 
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "2823 Flores St",
+    "addressLocality": "San Mateo",
+    "addressRegion": "CA",
+    "postalCode": "94403",
+    "addressCountry": "US"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 37.5483,
+    "longitude": -122.3072
+  },
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "opens": "08:00",
+      "closes": "18:00"
+    }
+  ],
+   "priceRange": "$$$"
+})} />

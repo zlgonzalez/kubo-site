@@ -1,29 +1,27 @@
 ---
+import SEO from '../components/SEO.astro';
+
 interface Props {
 	title: string;
 	description?: string;
+	image?: string;
+	article?: boolean;
 }
 
-const { title, description = "Fun and Academic Preschool Montessori Child Care in San Mateo and Redwood City" } = Astro.props;
+const { title, description, image, article } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content={description} />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<meta name="keywords" content="kubo, child care centers, play, technology, montessori, redwood city, san mateo, daycare centers in my area, preschool, home, daycare, early education, childhood education, local Redwood City day care center" />
-		<title>{title}</title>
+		<SEO 
+			title={title} 
+			description={description} 
+			image={image}
+			article={article}
+		/>
 		
 		<slot name="head" />
-
-        <!-- Google Fonts -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
 
         <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-BE43SM2H4T"></script>
