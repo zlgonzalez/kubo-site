@@ -16,6 +16,7 @@ const {
 const canonicalURL = new URL(Astro.url.pathname, Astro.site || Astro.url.origin);
 const socialImageURL = new URL(image, Astro.url);
 const siteName = "Kubo Montessori";
+const id = Astro.url + "#school";
 ---
 
 <!-- Global Metadata -->
@@ -61,13 +62,14 @@ const siteName = "Kubo Montessori";
 <script
   type="application/ld+json"
   set:html={JSON.stringify({
+    "@id": id,
     "@context": "https://schema.org",
     "@type": "Preschool",
     name: "Kubo Montessori",
     image: socialImageURL,
     description: description,
     url: Astro.site || Astro.url.origin,
-    telephone: "",
+    telephone: "+1-408-502-6198",
     address: {
       "@type": "PostalAddress",
       streetAddress: "2323 Euclid St",
