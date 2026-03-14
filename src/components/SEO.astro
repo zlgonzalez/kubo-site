@@ -16,7 +16,7 @@ const {
 const canonicalURL = new URL(Astro.url.pathname, Astro.site || Astro.url.origin);
 const socialImageURL = new URL(image, Astro.url);
 const siteName = "Kubo Montessori";
-const id = Astro.url + "#school";
+const id = Astro.url + "#organization";
 ---
 
 <!-- Global Metadata -->
@@ -64,7 +64,7 @@ const id = Astro.url + "#school";
   set:html={JSON.stringify({
     "@id": id,
     "@context": "https://schema.org",
-    "@type": "Preschool",
+    "@type": "EducationalOrganization",
     name: "Kubo Montessori",
     image: socialImageURL,
     description: description,
@@ -78,20 +78,64 @@ const id = Astro.url + "#school";
       postalCode: "94061",
       addressCountry: "US",
     },
-    geo: {
-      "@type": "GeoCoordinates",
-      latitude: 37.5483,
-      longitude: -122.3072,
+    "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5.0",
+    "reviewCount": "25" 
     },
+    "subOrganization": [
+    {
+      "@type": "Preschool",
+      "name": "Kubo Montessori - San Mateo (School 1)",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "2823 Flores St",
+        "addressLocality": "San Mateo",
+        "addressRegion": "CA",
+        "postalCode": "94403"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 37.540350,
+        "longitude": -122.304768
+      }
+    },
+    {
+      "@type": "Preschool",
+      "name": "Kubo Montessori - San Mateo (School 2)",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "2821 Flores St",
+        "addressLocality": "San Mateo",
+        "addressRegion": "CA",
+        "postalCode": "94403"
+      }
+    },
+    {
+      "@type": "Preschool",
+      "name": "Roots N' Wings Montessori - Redwood City",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "2323 Euclid Ave",
+        "addressLocality": "Redwood City",
+        "addressRegion": "CA",
+        "postalCode": "94061"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 37.463372, 
+        "longitude": -122.203770
+        }
+      }
+    ],
     openingHoursSpecification: [
       {
         "@type": "OpeningHoursSpecification",
         dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
         opens: "08:00",
         closes: "17:00",
-      },
+      }
     ],
-    priceRange: "$$$",
     knowsAbout: [
       "Montessori",
       "Early Childhood Education and Development",
@@ -110,8 +154,7 @@ const id = Astro.url + "#school";
           itemOffered: {
             "@type": "EducationalOccupationalProgram",
             name: "Montessori Preschool Program",
-            description: "An authentic Montessori environment focusing on independence, social development, and academic foundation.",
-            typicalAgeRange: "2-6",
+            description: "An authentic Montessori environment focusing on independence, social development, and academic foundation."
           },
         },
       ],
