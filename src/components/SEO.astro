@@ -13,7 +13,10 @@ const {
   article = false,
 } = Astro.props;
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site || Astro.url.origin);
+const canonicalURL = new URL(
+  Astro.url.pathname,
+  Astro.site || Astro.url.origin,
+);
 const socialImageURL = new URL(image, Astro.url);
 const siteName = "Kubo Montessori";
 const id = Astro.url + "#organization";
@@ -54,8 +57,10 @@ const id = Astro.url + "#organization";
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link
-  href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
   rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+  media="print"
+  onload="this.media='all'"
 />
 
 <!-- JSON-LD Structured Data -->
@@ -69,64 +74,86 @@ const id = Astro.url + "#organization";
     image: socialImageURL,
     description: description,
     url: Astro.site || Astro.url.origin,
+    logo: (Astro.site || Astro.url.origin) + "/images/logo.png",
     telephone: "+1-408-502-6198",
     address: {
       "@type": "PostalAddress",
-      streetAddress: "2323 Euclid St",
+      streetAddress: "2323 Euclid Ave",
       addressLocality: "Redwood City",
       addressRegion: "CA",
       postalCode: "94061",
       addressCountry: "US",
     },
-    "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "5.0",
-    "reviewCount": "25" 
+    sameAs: [
+      "https://amshq.org/schools/roots-n-wings-montessori-by-kubo-montessori-llc-128193/",
+      "https://www.facebook.com/kubomontessori",
+      "https://www.instagram.com/kubomontessori",
+    ],
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "5.0",
+      reviewCount: "25",
     },
-    "subOrganization": [
-    {
-      "@type": "Preschool",
-      "name": "Kubo Montessori - San Mateo (School 1)",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "2823 Flores St",
-        "addressLocality": "San Mateo",
-        "addressRegion": "CA",
-        "postalCode": "94403"
+    subOrganization: [
+      {
+        "@type": "DayCare",
+        "@id": (Astro.site || Astro.url.origin) + "/#sanmateo",
+        name: "Kubo Montessori - San Mateo Campus",
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: "2823 Flores St",
+          addressLocality: "San Mateo",
+          addressRegion: "CA",
+          postalCode: "94403",
+          addressCountry: "US",
+        },
+        telephone: "+16504304118",
+        typicalAgeRange: "20m-6y",
+        amenityFeature: [
+          {
+            "@type": "LocationFeatureSpecification",
+            name: "Fresh Cooked Hot Lunch",
+            value: true,
+          },
+          {
+            "@type": "LocationFeatureSpecification",
+            name: "Potty Training Assistance",
+            value: true,
+          },
+        ],
+        geo: {
+          "@type": "GeoCoordinates",
+          latitude: 37.54035,
+          longitude: -122.304768,
+        },
       },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": 37.540350,
-        "longitude": -122.304768
-      }
-    },
-    {
-      "@type": "Preschool",
-      "name": "Kubo Montessori - San Mateo (School 2)",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "2821 Flores St",
-        "addressLocality": "San Mateo",
-        "addressRegion": "CA",
-        "postalCode": "94403"
-      }
-    },
-    {
-      "@type": "Preschool",
-      "name": "Roots N' Wings Montessori - Redwood City",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "2323 Euclid Ave",
-        "addressLocality": "Redwood City",
-        "addressRegion": "CA",
-        "postalCode": "94061"
+      {
+        "@type": "Preschool",
+        "@id": (Astro.site || Astro.url.origin) + "/#redwoodcity",
+        name: "Roots N' Wings Montessori by Kubo Montessori LLC",
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: "2323 Euclid Ave",
+          addressLocality: "Redwood City",
+          addressRegion: "CA",
+          postalCode: "94061",
+          addressCountry: "US",
+        },
+        telephone: "+14085026198",
+        typicalAgeRange: "2y-6y",
+        amenityFeature: [
+          {
+            "@type": "LocationFeatureSpecification",
+            name: "Potty Training Assistance",
+            value: true,
+          },
+        ],
+        geo: {
+          "@type": "GeoCoordinates",
+          latitude: 37.463372,
+          longitude: -122.20377,
+        },
       },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": 37.463372, 
-        "longitude": -122.203770
-        }
-      }
     ],
     openingHoursSpecification: [
       {
@@ -134,14 +161,12 @@ const id = Astro.url + "#organization";
         dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
         opens: "08:00",
         closes: "17:00",
-      }
+      },
     ],
     knowsAbout: [
-      "Montessori",
-      "Early Childhood Education and Development",
-      "Preschool",
-      "Child Care",
-      "Montessori Education",
+      "Montessori Method",
+      "Early Childhood Education",
+      "Child Development",
       "Practical Life Skills",
       "Maria Montessori Method",
     ],
@@ -154,7 +179,8 @@ const id = Astro.url + "#organization";
           itemOffered: {
             "@type": "EducationalOccupationalProgram",
             name: "Montessori Preschool Program",
-            description: "An authentic Montessori environment focusing on independence, social development, and academic foundation."
+            description:
+              "An authentic Montessori environment focusing on independence, social development, and academic foundation.",
           },
         },
       ],

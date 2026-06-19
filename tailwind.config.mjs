@@ -4,7 +4,7 @@ export default {
     theme: {
         extend: {
             colors: {
-                primary: '#f4b214', // Example from existing design (yellow)
+                primary: '#b45309', // Deeper amber for accessibility contrast (minimum 4.5:1)
                 secondary: '#6c757d',
                 dark: '#343a40',
                 light: '#f8f9fa',

@@ -1,11 +1,11 @@
 ---
-import SEO from '../components/SEO.astro';
+import SEO from "../components/SEO.astro";
 
 interface Props {
-	title: string;
-	description?: string;
-	image?: string;
-	article?: boolean;
+  title: string;
+  description?: string;
+  image?: string;
+  article?: boolean;
 }
 
 const { title, description, image, article } = Astro.props;
@@ -13,49 +13,69 @@ const { title, description, image, article } = Astro.props;
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<SEO 
-			title={title} 
-			description={description} 
-			image={image}
-			article={article}
-		/>
-		
-		<slot name="head" />
+  <head>
+    <SEO
+      title={title}
+      description={description}
+      image={image}
+      article={article}
+    />
 
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-BE43SM2H4T"></script>
-        <script is:inline>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-BE43SM2H4T');
-        </script>
+    <slot name="head" />
 
-        <!-- Calendly badge widget begin -->
-        <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
-        <script src="https://assets.calendly.com/assets/external/widget.js" async defer is:inline></script>
-        <script is:inline>
-            window.onload = function () {
-                Calendly.initBadgeWidget({
-                    url: 'https://calendly.com/mary-kubo',
-                    text: 'Click to Schedule a Tour',
-                    color: '#0069ff',
-                    textColor: '#ffffff',
-                    branding: true
-                });
-            }
-        </script>
-	</head>
-	<body class="font-sans text-gray-700 antialiased">
-		<slot />
-	</body>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BE43SM2H4T"
+    ></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-BE43SM2H4T");
+    </script>
+
+    <!-- Calendly badge widget begin -->
+    <link
+      rel="stylesheet"
+      href="https://assets.calendly.com/assets/external/widget.css"
+      media="print"
+      onload="this.media='all'"
+    />
+    <script
+      src="https://assets.calendly.com/assets/external/widget.js"
+      async
+      defer
+      is:inline></script>
+    <script is:inline>
+      window.onload = function () {
+        Calendly.initBadgeWidget({
+          url: "https://calendly.com/mary-kubo",
+          text: "Click to Schedule a Tour",
+          color: "#0069ff",
+          textColor: "#ffffff",
+          branding: true,
+        });
+      };
+    </script>
+  </head>
+  <body class="font-sans text-gray-700 antialiased">
+    <main>
+      <slot />
+    </main>
+    <style is:global>
+      /* Global styles if needed, though Tailwind covers most */
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: "Playfair Display", serif;
+      }
+      body {
+        font-family: "Lato", sans-serif;
+      }
+    </style>
+  </body>
 </html>
-
-<style is:global>
-    /* Global styles if needed, though Tailwind covers most */
-    h1, h2, h3, h4, h5, h6 { font-family: 'Playfair Display', serif; }
-    body {
-        font-family: 'Lato', sans-serif;
-    }
-</style>
