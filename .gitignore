@@ -16,8 +16,6 @@ lighthouse-report*.json
 .lighthouseci/
 
 # Agent/Local tools
-.agent/
 .ai/
-.specify/
-specs/
+.specify/memory
 
