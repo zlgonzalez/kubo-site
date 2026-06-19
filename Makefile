@@ -1,4 +1,4 @@
-.PHONY: all install dev build preview clean help
+.PHONY: all install dev build preview test clean help
 
 # Default target
 all: help
@@ -19,6 +19,11 @@ build:
 preview:
 	npm run preview
 
+# Run test suite
+test:
+	npm test
+
+
 # Clean build artifacts
 clean:
 	rm -rf dist
@@ -30,4 +35,5 @@ help:
 	@echo "  make dev      - Run development server"
 	@echo "  make build    - Build the project"
 	@echo "  make preview  - Preview the built project"
+	@echo "  make test     - Run full test suite"
 	@echo "  make clean    - Clean build artifacts"

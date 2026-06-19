@@ -1,0 +1,265 @@
+---
+import Layout from "../layouts/Layout.astro";
+import NavBar from "../components/NavBar.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<Layout
+  title="Parent Handbook - Kubo Montessori"
+  description="Official Kubo Montessori Parent Handbook. Review operating hours, daily schedules, potty training policies, meal programs, and school guidelines."
+>
+  <NavBar />
+
+  <!-- Hero Section -->
+  <div
+    class="relative bg-cover bg-center h-[300px] no-print"
+    style="background-image: url('/images/image3.jpg');"
+  >
+    <div class="absolute inset-0 bg-black/45"></div>
+    <div
+      class="relative max-w-7xl mx-auto px-4 h-full flex flex-col items-center justify-center text-center text-white"
+    >
+      <h1 class="text-3xl md:text-5xl font-bold mb-4 drop-shadow-md">
+        Parent Handbook
+      </h1>
+      <p class="text-lg drop-shadow max-w-2xl">
+        Operating policies, daily routines, nutritional programs, and guidelines
+        for our San Mateo and Redwood City campuses.
+      </p>
+    </div>
+  </div>
+
+  <!-- Print Actions -->
+  <div class="bg-gray-50 border-b py-4 no-print">
+    <div
+      class="container mx-auto px-4 max-w-4xl flex justify-between items-center"
+    >
+      <span class="text-sm text-gray-600"
+        >Need a copy? Save this page as a PDF or print it directly.</span
+      >
+      <button
+        onclick="window.print()"
+        class="bg-primary hover:bg-primary-dark text-white font-bold py-2 px-6 rounded shadow transition duration-200 flex items-center gap-2"
+        style="background-color: #0069ff;"
+      >
+        🖨️ Print Handbook
+      </button>
+    </div>
+  </div>
+
+  <!-- Handbook Content -->
+  <div class="py-16 bg-white print-container">
+    <div class="container mx-auto px-4 max-w-4xl">
+      <div class="prose prose-lg max-w-none text-gray-700 space-y-12">
+        <!-- Header for Print -->
+        <div class="hidden print:block text-center border-b pb-8 mb-8">
+          <h1 class="text-4xl font-bold text-gray-900">Kubo Montessori</h1>
+          <p class="text-xl text-gray-600 mt-2">
+            Official Parent Handbook & Operating Guidelines
+          </p>
+          <p class="text-sm text-gray-500 mt-1">
+            San Mateo Campus & Redwood City Campus (Roots N' Wings)
+          </p>
+        </div>
+
+        <!-- Section 1 -->
+        <section id="philosophy" class="border-b pb-8">
+          <h2 class="text-3xl font-bold text-gray-800 mb-4">
+            1. Welcome & Educational Philosophy
+          </h2>
+          <p class="mb-4">
+            Welcome to Kubo Montessori! With over 20 years of dedicated history
+            in early childhood education across the San Francisco Bay Area, our
+            mission is to provide nurturing, authentic Montessori environments
+            that empower children to reach their full potential.
+          </p>
+          <p class="mb-4">
+            Rooted in the teachings of Dr. Maria Montessori, we foster
+            independence, organization, concentration, self-discipline, and a
+            lifelong love of learning. We design our classrooms to be
+            child-centered spaces where every child feels loved, respected, and
+            free to explore at their own developmental pace.
+          </p>
+        </section>
+
+        <!-- Section 2 -->
+        <section id="campuses" class="border-b pb-8">
+          <h2 class="text-3xl font-bold text-gray-800 mb-4">
+            2. Our Campuses & Program Structure
+          </h2>
+          <p class="mb-6">
+            Kubo Montessori operates two unique campus environments on the
+            Peninsula to accommodate the needs of our families:
+          </p>
+
+          <div class="grid md:grid-cols-2 gap-8">
+            <div class="bg-gray-50 p-6 rounded-lg border">
+              <h3 class="text-xl font-bold text-gray-800 mb-3">
+                San Mateo Campus
+              </h3>
+              <p class="text-sm text-gray-500 mb-4">
+                Home-Based Child Care Framework
+              </p>
+              <ul class="space-y-2 text-sm text-gray-600">
+                <li>
+                  <strong>Addresses:</strong> 2821 & 2823 Flores St, San Mateo, CA
+                  94403
+                </li>
+                <li>
+                  <strong>Ratio:</strong> 12:2 (low child-to-teacher ratio)
+                </li>
+                <li><strong>Ages Served:</strong> 20 months to 6 years</li>
+                <li>
+                  <strong>Classrooms:</strong> Casa dei Bambini (Children's House)
+                </li>
+              </ul>
+            </div>
+
+            <div class="bg-gray-50 p-6 rounded-lg border">
+              <h3 class="text-xl font-bold text-gray-800 mb-3">
+                Redwood City Campus
+              </h3>
+              <p class="text-sm text-gray-500 mb-4">
+                Preschool Child Care Center (Roots N' Wings)
+              </p>
+              <ul class="space-y-2 text-sm text-gray-600">
+                <li>
+                  <strong>Address:</strong> 2323 Euclid Ave, Redwood City, CA 94061
+                </li>
+                <li>
+                  <strong>Ratio:</strong> 6:1 (low child-to-teacher ratio)
+                </li>
+                <li><strong>Ages Served:</strong> 2 years to 6 years</li>
+                <li>
+                  <strong>Offerings:</strong> Year-round care + Transitional Kindergarten
+                  (TK)
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 3 -->
+        <section id="operations" class="border-b pb-8">
+          <h2 class="text-3xl font-bold text-gray-800 mb-4">
+            3. Hours of Operation & Schedules
+          </h2>
+          <p class="mb-4">
+            We understand the demands on working families and provide generous
+            hours of care.
+          </p>
+          <ul class="list-disc pl-6 space-y-2 mb-4">
+            <li>
+              <strong>San Mateo Campus Hours:</strong> 9:00 AM to 5:30 PM, Monday
+              through Friday.
+            </li>
+            <li>
+              <strong>Redwood City Campus Hours:</strong> 8:30 AM to 5:30 PM, Monday
+              through Friday.
+            </li>
+            <li>
+              <strong>Schedules Offered:</strong> We offer full-time schedules, academic-day
+              programs, and transitional kindergarten (TK) after-school enrichment
+              options.
+            </li>
+          </ul>
+        </section>
+
+        <!-- Section 4 -->
+        <section id="potty-training" class="border-b pb-8">
+          <h2 class="text-3xl font-bold text-gray-800 mb-4">
+            4. Potty Training Policy
+          </h2>
+          <p class="mb-4">
+            <strong
+              >Potty training is NOT a requirement for enrollment at either our
+              San Mateo or Redwood City campus.</strong
+            >
+          </p>
+          <p class="mb-4">
+            We support families during this developmental transition. Our
+            credentialed teachers work closely with parents to establish a
+            consistent, gentle routine that encourages independence. We assist
+            with diaper changes, recognize readiness signals, and guide children
+            in using toilets without pressure or shame.
+          </p>
+        </section>
+
+        <!-- Section 5 -->
+        <section id="nutrition" class="border-b pb-8">
+          <h2 class="text-3xl font-bold text-gray-800 mb-4">
+            5. Meal & Nutrition Program
+          </h2>
+          <p class="mb-4">
+            Proper nutrition is vital for children's cognitive and physical
+            growth. Our program emphasizes organic, wholesome, and delicious
+            meals:
+          </p>
+          <ul class="list-disc pl-6 space-y-3">
+            <li>
+              <strong>Freshly Cooked Hot Lunch (San Mateo):</strong> For our San Mateo
+              campus, our in-house cook prepares and serves fresh, healthy, organic
+              hot meals every day.
+            </li>
+            <li>
+              <strong>Organic Snacks (Both Locations):</strong> We provide healthy,
+              organic snacks during morning and afternoon intervals.
+            </li>
+            <li>
+              <strong>Practical Life Kitchen Skills:</strong> Children actively participate
+              in table setting, pouring, food preparation, and baking activities as
+              part of the Montessori curriculum.
+            </li>
+          </ul>
+        </section>
+
+        <!-- Section 6 -->
+        <section id="admissions" class="pb-4">
+          <h2 class="text-3xl font-bold text-gray-800 mb-4">
+            6. Enrollment & Communications
+          </h2>
+          <p class="mb-4">
+            Admissions at Kubo Montessori are facilitated online to keep
+            processing simple:
+          </p>
+          <ol class="list-decimal pl-6 space-y-3 mb-4">
+            <li>
+              <strong>Learning Tour:</strong> Parents must schedule a tour using our
+              online Calendly link to visit the campus and understand our classrooms.
+            </li>
+            <li>
+              <strong>Brightwheel Application:</strong> Following the tour, families
+              receive a registration link via Brightwheel. Enrollment contracts, emergency
+              contacts, licensing forms, and tuition payments are all managed directly
+              through the Brightwheel app.
+            </li>
+            <li>
+              <strong>Daily Updates:</strong> Teachers communicate check-ins, pictures,
+              and notes daily through the Brightwheel app to keep you connected to
+              your child's day.
+            </li>
+          </ol>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <Footer />
+</Layout>
+
+<style>
+  @media print {
+    .no-print {
+      display: none !important;
+    }
+    body {
+      background-color: white !important;
+      color: black !important;
+      font-size: 12pt;
+    }
+    .print-container {
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+  }
+</style>

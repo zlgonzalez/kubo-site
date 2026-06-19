@@ -14,7 +14,8 @@ export default defineConfig({
         robotsTxt({
             sitemap: [
                 'https://www.kubomontessori.com/sitemap-index.xml',
-                'https://www.kubomontessori.com/sitemap-http.xml'
+                'https://www.kubomontessori.com/sitemap-http.xml',
+                'https://www.kubomontessori.com/ai-sitemap.xml'
             ],
             policy: [
                 {
