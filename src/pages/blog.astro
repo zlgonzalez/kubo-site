@@ -2,6 +2,18 @@
 import Layout from "../layouts/Layout.astro";
 import NavBar from "../components/NavBar.astro";
 import Footer from "../components/Footer.astro";
+
+// Fetch posts at build-time for SEO and search engine pre-rendering
+let posts = [];
+try {
+  const res = await fetch("https://api.dropinblog.com/v1/json/?b=0530ca52-f373-4292-800a-b93c30543ee4");
+  if (res.ok) {
+    const json = await res.json();
+    posts = json.data?.posts || [];
+  }
+} catch (e) {
+  console.error("Failed to fetch blog posts for static pre-rendering:", e);
+}
 ---
 
 <Layout
@@ -34,7 +46,22 @@ import Footer from "../components/Footer.astro";
   <!-- Blog Content -->
   <div class="py-16 bg-white">
     <div class="container mx-auto px-4">
-      <div id="dib-posts" class="min-h-[800px]"></div>
+      <div id="dib-posts" class="min-h-[800px]">
+        {posts.map((post) => (
+          <div class="mb-12 border-b border-gray-100 pb-8 last:border-b-0 max-w-3xl mx-auto">
+            <h2 class="text-2xl md:text-3xl font-bold mb-3 text-gray-800">
+              <a href={`/blog/${post.slug}`} class="hover:text-primary transition-colors blog-post-link">
+                {post.title}
+              </a>
+            </h2>
+            <p class="text-gray-500 text-sm mb-4">Published on {post.publishedAt}</p>
+            <p class="text-gray-600 leading-relaxed mb-4">{post.summary}</p>
+            <a href={`/blog/${post.slug}`} class="text-primary font-semibold hover:underline">
+              Read more &rarr;
+            </a>
+          </div>
+        ))}
+      </div>
     </div>
   </div>
 

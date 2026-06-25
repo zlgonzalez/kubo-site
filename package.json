@@ -7,7 +7,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "test": "npm run test:unit && npm run test:lighthouse && npm run test:e2e",
+    "test": "npm run build && npm run test:unit && npm run test:lighthouse && npm run test:e2e",
     "test:unit": "vitest run",
     "test:e2e": "playwright test",
     "test:lighthouse": "lhci collect --staticDistDir=./dist && lhci assert"

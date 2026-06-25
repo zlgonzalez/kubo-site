@@ -1,0 +1,86 @@
+---
+import Layout from "../layouts/Layout.astro";
+import NavBar from "../components/NavBar.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<Layout
+  title="Directions & Parking - San Mateo Campus | Kubo Montessori"
+  description="Directions, maps, and parking guidelines for Kubo Montessori's toddler child care campuses in San Mateo, CA."
+  image="/images/km1.jpg"
+>
+  <NavBar />
+
+  <!-- Hero Section -->
+  <div
+    class="relative bg-cover bg-center h-[400px]"
+    style="background-image: url('/images/km1.jpg');"
+  >
+    <div class="absolute inset-0 bg-black opacity-50"></div>
+    <div
+      class="relative max-w-7xl mx-auto px-4 h-full flex flex-col items-center justify-center text-center text-white"
+    >
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">
+        Directions & Parking
+      </h1>
+      <p class="text-lg">
+        <a href="/" class="hover:underline">Home</a>
+        <span class="mx-3">/</span>
+        <a href="/san-mateo-preschool-daycare" class="hover:underline">San Mateo Campus</a>
+        <span class="mx-3">/</span>
+        Location & Directions
+      </p>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="py-16 bg-white">
+    <div class="container mx-auto px-4 text-center max-w-3xl">
+      <h2 class="text-3xl font-bold mb-6 text-gray-800">
+        How to Find Us on Flores Street
+      </h2>
+      <p class="text-gray-600 mb-8 leading-relaxed">
+        Our home-based Montessori campuses are located in a quiet, safe residential neighborhood in San Mateo at **2821 & 2823 Flores Street**. They are easily accessible from Highway 92 and El Camino Real, making pick-ups and drop-offs simple for parents commuting on the Peninsula.
+      </p>
+      
+      <div class="text-left bg-gray-50 p-8 rounded-lg border border-gray-100 mb-12 inline-block w-full">
+        <h3 class="text-xl font-bold mb-4 text-gray-800">Drop-Off & Parking Guidelines:</h3>
+        <ul class="text-gray-600 list-disc pl-5 space-y-3">
+          <li>
+            <strong>Street Parking:</strong> Street parking is available directly in front of the 2821 and 2823 Flores St properties for quick drop-offs.
+          </li>
+          <li>
+            <strong>Safety First:</strong> Please turn off your engine and escort your child to the secure entry gates. Never leave children unattended in vehicles.
+          </li>
+          <li>
+            <strong>Commuting Routes:</strong>
+            <ul class="list-circle pl-5 mt-2 space-y-1">
+              <li>From US-101: Take the CA-92 West exit toward Half Moon Bay, merge onto El Camino Real South, turn right on 28th Ave, then right onto Flores St.</li>
+              <li>From I-280: Take the CA-92 East exit toward San Mateo, exit El Camino Real North, turn left onto 28th Ave, then right onto Flores St.</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Maps -->
+  <div class="py-16 bg-gray-50 border-t border-gray-100 flex justify-center">
+    <div class="container mx-auto px-4 max-w-3xl">
+      <div class="h-[400px] w-full rounded-lg overflow-hidden shadow-lg border border-gray-200 bg-white">
+        <iframe
+          src="https://maps.google.com/maps?q=2823+Flores+St+San+Mateo,+CA+94403&t=&z=16&ie=UTF8&iwloc=&output=embed"
+          width="100%"
+          height="100%"
+          style="border:0;"
+          allowfullscreen=""
+          loading="lazy"
+          title="Google Map showing Kubo Montessori San Mateo campus locations"
+        >
+        </iframe>
+      </div>
+    </div>
+  </div>
+
+  <Footer />
+</Layout>

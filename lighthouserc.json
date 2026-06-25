@@ -2,6 +2,13 @@
   "ci": {
     "collect": {
       "staticDistDir": "./dist",
+      "url": [
+        "/",
+        "/san-mateo-preschool-daycare/",
+        "/redwood-city-preschool-center/",
+        "/san-mateo-location-directions/",
+        "/blog/"
+      ],
       "numberOfRuns": 1
     },
     "assert": {
