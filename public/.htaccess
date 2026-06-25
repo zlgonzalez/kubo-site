@@ -1,3 +1,9 @@
+# Force HTTPS and WWW
+RewriteEngine On 
+RewriteCond %{SERVER_PORT} 80
+RewriteCond %{HTTP_HOST} ^(www\.)?kubomontessori\.com
+RewriteRule ^(.*)$ https://www.kubomontessori.com/$1 [R,L]
+
 # 301 Redirects to preserve search equity
 Redirect 301 /rw /redwood-city-preschool-center
 Redirect 301 /rw/ /redwood-city-preschool-center
