@@ -5,12 +5,28 @@ export const GET: APIRoute = async ({ site, url }) => {
 
   const pages = [
     "",
-    "/homedaycare",
-    "/rw",
+    "/san-mateo-preschool-daycare",
+    "/redwood-city-preschool-center",
     "/parent-handbook",
     "/about",
     "/services",
+    "/san-mateo-location-directions",
+    "/rw-location-directions",
   ];
+
+  // Fetch blog posts for AI sitemap
+  try {
+    const res = await fetch("https://api.dropinblog.com/v1/json/?b=0530ca52-f373-4292-800a-b93c30543ee4");
+    if (res.ok) {
+      const json = await res.json();
+      const posts = json.data?.posts || [];
+      posts.forEach((post: any) => {
+        pages.push(`/blog/${post.slug}`);
+      });
+    }
+  } catch (e) {
+    console.error("Failed to fetch blog posts for AI sitemap:", e);
+  }
 
   const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
