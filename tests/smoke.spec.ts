@@ -146,5 +146,34 @@ test.describe('Kubo Montessori Smoke Tests', () => {
       await expect(link).toHaveText('Parent Handbook');
     });
   });
+
+  test.describe('Calendly Analytics Event Tracking', () => {
+    test('should capture calendly.event_scheduled postMessage and push tour_booking_scheduled to dataLayer', async ({ page }) => {
+      await page.goto('/');
+
+      // Simulate Calendly widget dispatching event_scheduled message with valid origin
+      await page.evaluate(() => {
+        window.dispatchEvent(
+          new MessageEvent('message', {
+            data: { event: 'calendly.event_scheduled', payload: {} },
+            origin: 'https://calendly.com',
+          })
+        );
+      });
+
+      // Verify dataLayer captures conversion event
+      const dataLayerEvent = await page.evaluate(() => {
+        return (window.dataLayer || []).find((item) => item.event === 'tour_booking_scheduled');
+      });
+
+      expect(dataLayerEvent).toBeDefined();
+      expect(dataLayerEvent).toMatchObject({
+        event: 'tour_booking_scheduled',
+        event_category: 'engagement',
+        event_label: 'Calendly Widget',
+        value: 1,
+      });
+    });
+  });
 });
 
