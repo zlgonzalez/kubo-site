@@ -10,6 +10,26 @@ const redirects = {
   '/rw/': '/redwood-city-preschool-center',
   '/homedaycare': '/san-mateo-preschool-daycare',
   '/homedaycare/': '/san-mateo-preschool-daycare',
+  '/rw.html': '/redwood-city-preschool-center',
+  '/rw.html/': '/redwood-city-preschool-center',
+  '/rw-location-directions.html': '/rw-location-directions',
+  '/rw-location-directions.html/': '/rw-location-directions',
+  '/about.html': '/about',
+  '/about.html/': '/about',
+  '/rw-baking.html': '/rw-baking',
+  '/rw-baking.html/': '/rw-baking',
+  '/homedaycare.html': '/san-mateo-preschool-daycare',
+  '/homedaycare.html/': '/san-mateo-preschool-daycare',
+  '/rw-gardening.html': '/rw-gardening',
+  '/rw-gardening.html/': '/rw-gardening',
+  '/services.html': '/services',
+  '/services.html/': '/services',
+  '/contact.html': '/contact',
+  '/contact.html/': '/contact',
+  '/rw-gymnastics.html': '/rw-gymnastics',
+  '/rw-gymnastics.html/': '/rw-gymnastics',
+  '/roots-n-wings-montessori-school': '/redwood-city-preschool-center',
+  '/roots-n-wings-montessori-school/': '/redwood-city-preschool-center',
 };
 
 const mimeTypes = {
@@ -40,16 +60,30 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  // Dynamic /blog/:slug redirect (excluding assets and root list page)
+  if (pathname.startsWith('/blog/') && pathname !== '/blog/' && !pathname.startsWith('/blog/c/') && !pathname.endsWith('.js') && !pathname.endsWith('.css') && !pathname.endsWith('.json')) {
+    const slug = pathname.replace('/blog/', '').replace(/\/$/, '');
+    if (slug) {
+      res.writeHead(301, {
+        'Location': `/blog?p=${slug}`,
+        'Content-Type': 'text/html',
+      });
+      res.end(`<!doctype html><title>Redirecting</title><h1>301 Redirect</h1>Redirecting to <a href="/blog?p=${slug}">/blog?p=${slug}</a>`);
+      return;
+    }
+  }
+
   // 2. Serve Static Files
   let filePath = path.join(DIST_DIR, pathname);
   
-  // If requesting directory or a extensionless file, append index.html
-  if (pathname.endsWith('/') || !path.extname(filePath)) {
-    // If it's a directory, append index.html
+  if (fs.existsSync(filePath) && fs.statSync(filePath).isDirectory()) {
+    filePath = path.join(filePath, 'index.html');
+  } else if (!fs.existsSync(filePath) && fs.existsSync(filePath + '/index.html')) {
+    filePath = filePath + '/index.html';
+  } else if (pathname.endsWith('/') || !path.extname(filePath)) {
     if (pathname.endsWith('/')) {
       filePath = path.join(filePath, 'index.html');
     } else {
-      // It might be a static file reference like "/about" -> "/about/index.html"
       filePath = path.join(filePath, 'index.html');
     }
   }
