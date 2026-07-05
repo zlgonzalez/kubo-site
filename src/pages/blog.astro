@@ -50,13 +50,13 @@ try {
         {posts.map((post) => (
           <div class="mb-12 border-b border-gray-100 pb-8 last:border-b-0 max-w-3xl mx-auto">
             <h2 class="text-2xl md:text-3xl font-bold mb-3 text-gray-800">
-              <a href={`/blog/${post.slug}`} class="hover:text-primary transition-colors blog-post-link">
+              <a href={`/blog?p=${post.slug}`} class="hover:text-primary transition-colors blog-post-link">
                 {post.title}
               </a>
             </h2>
             <p class="text-gray-500 text-sm mb-4">Published on {post.publishedAt}</p>
             <p class="text-gray-600 leading-relaxed mb-4">{post.summary}</p>
-            <a href={`/blog/${post.slug}`} class="text-primary font-semibold hover:underline">
+            <a href={`/blog?p=${post.slug}`} class="text-primary font-semibold hover:underline">
               Read more &rarr;
             </a>
           </div>

@@ -4,32 +4,84 @@ import sitemap from '@astrojs/sitemap';
 import robotsTxt from 'astro-robots-txt';
 import sitemapHttp from './src/integrations/sitemap-http';
 
-// Fetch blog posts at build-time for sitemap inclusion
+// Fetch blog posts at build-time for sitemap inclusion and dynamic redirects
 let blogPostUrls = [];
+let postsList = [];
 try {
   const res = await fetch("https://api.dropinblog.com/v1/json/?b=0530ca52-f373-4292-800a-b93c30543ee4");
   if (res.ok) {
     const json = await res.json();
-    const posts = json.data?.posts || [];
-    blogPostUrls = posts.map(post => `https://www.kubomontessori.com/blog/${post.slug}`);
+    postsList = json.data?.posts || [];
+    blogPostUrls = postsList.map(post => `https://www.kubomontessori.com/blog?p=${post.slug}`);
   }
 } catch (e) {
   console.error("Failed to fetch blog posts for sitemap dynamic configuration:", e);
 }
 
+// Define redirects mapping
+const redirects = {
+    '/rw': {
+        status: 301,
+        destination: '/redwood-city-preschool-center'
+    },
+    '/homedaycare': {
+        status: 301,
+        destination: '/san-mateo-preschool-daycare'
+    },
+    '/rw.html': {
+        status: 301,
+        destination: '/redwood-city-preschool-center'
+    },
+    '/rw-location-directions.html': {
+        status: 301,
+        destination: '/rw-location-directions'
+    },
+    '/about.html': {
+        status: 301,
+        destination: '/about'
+    },
+    '/rw-baking.html': {
+        status: 301,
+        destination: '/rw-baking'
+    },
+    '/homedaycare.html': {
+        status: 301,
+        destination: '/san-mateo-preschool-daycare'
+    },
+    '/rw-gardening.html': {
+        status: 301,
+        destination: '/rw-gardening'
+    },
+    '/services.html': {
+        status: 301,
+        destination: '/services'
+    },
+    '/contact.html': {
+        status: 301,
+        destination: '/contact'
+    },
+    '/rw-gymnastics.html': {
+        status: 301,
+        destination: '/rw-gymnastics'
+    },
+    '/roots-n-wings-montessori-school': {
+        status: 301,
+        destination: '/redwood-city-preschool-center'
+    }
+};
+
+// Add dynamic blog post redirects
+postsList.forEach(post => {
+  redirects[`/blog/${post.slug}`] = {
+    status: 301,
+    destination: `/blog?p=${post.slug}`
+  };
+});
+
 // https://astro.build/config
 export default defineConfig({
     site: 'https://www.kubomontessori.com',
-    redirects: {
-        '/rw': {
-            status: 301,
-            destination: '/redwood-city-preschool-center'
-        },
-        '/homedaycare': {
-            status: 301,
-            destination: '/san-mateo-preschool-daycare'
-        }
-    },
+    redirects: redirects,
     integrations: [
         tailwind(),
         sitemap({

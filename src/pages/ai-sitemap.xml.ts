@@ -21,7 +21,7 @@ export const GET: APIRoute = async ({ site, url }) => {
       const json = await res.json();
       const posts = json.data?.posts || [];
       posts.forEach((post: any) => {
-        pages.push(`/blog/${post.slug}`);
+        pages.push(`/blog?p=${post.slug}`);
       });
     }
   } catch (e) {
