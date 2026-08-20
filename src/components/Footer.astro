@@ -4,57 +4,61 @@ const year = new Date().getFullYear();
 
 <footer class="bg-dark text-white pt-12 pb-24 md:pb-12">
   <div class="container mx-auto px-4">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
       <!-- About -->
       <div>
-        <h3 class="text-xl font-bold mb-4">About Kubo Montessori</h3>
-        <p class="text-gray-400">
-          Kubo Montessori LLC desires to promote independence, organization,
-          concentration, grace and courtesy, inner peace, drive to learn/explore
-          and confidence to empower the child to achieve.
+        <h3 class="text-xl font-bold mb-4 text-amber-400">About Kubo Montessori</h3>
+        <p class="text-gray-400 text-sm leading-relaxed">
+          Kubo Montessori LLC promotes independence, organization, concentration, and self-confidence to empower children aged 20 months to 6 years in authentic Montessori environments.
         </p>
       </div>
 
       <!-- Contact -->
       <div>
-        <h3 class="text-xl font-bold mb-4">Contact Info</h3>
-        <ul class="space-y-2 text-gray-400">
-          <li><strong class="block text-white">Locations:</strong></li>
-          <li>2823 Flores St San Mateo, CA 94403</li>
-          <li>2821 Flores St San Mateo, CA 94403</li>
-          <li>2323 Euclid Ave Redwood City, CA 94061</li>
-          <li class="mt-4">
-            <strong class="text-white">San Mateo:</strong> kubomontessori2006@gmail.com
-          </li>
-          <li>
-            <strong class="text-white">Redwood City:</strong> contact@kubomontessori.com
+        <h3 class="text-xl font-bold mb-4 text-amber-400">Campuses</h3>
+        <ul class="space-y-2 text-gray-400 text-sm">
+          <li><strong class="block text-white">San Mateo Campus:</strong></li>
+          <li>2823 & 2821 Flores St, San Mateo, CA 94403</li>
+          <li class="mt-3"><strong class="block text-white">Redwood City Campus:</strong></li>
+          <li>2323 Euclid Ave, Redwood City, CA 94061</li>
+          <li class="mt-3 text-xs">
+            <strong class="text-white">Email:</strong> contact@kubomontessori.com
           </li>
         </ul>
       </div>
 
-      <!-- Quick Links -->
+      <!-- Peninsula Communities Served -->
       <div>
-        <h3 class="text-xl font-bold mb-4">Quick Links</h3>
-        <ul class="space-y-2">
-          <li>
-            <a href="/about" class="text-gray-400 hover:text-white">About</a>
-          </li>
-          <li>
-            <a href="/contact" class="text-gray-400 hover:text-white">Contact</a
-            >
-          </li>
+        <h3 class="text-xl font-bold mb-4 text-amber-400">Peninsula Communities</h3>
+        <ul class="space-y-1.5 text-sm">
+          <li><a href="/san-mateo-preschool-daycare" class="text-gray-400 hover:text-white transition-colors">San Mateo Preschool & Daycare</a></li>
+          <li><a href="/redwood-city-preschool-center" class="text-gray-400 hover:text-white transition-colors">Redwood City Preschool & TK</a></li>
+          <li><a href="/foster-city-preschool-daycare" class="text-gray-400 hover:text-white transition-colors">Foster City Preschool & Daycare</a></li>
+          <li><a href="/belmont-ca-montessori-daycare" class="text-gray-400 hover:text-white transition-colors">Belmont Montessori Daycare</a></li>
+          <li><a href="/san-carlos-montessori-preschool" class="text-gray-400 hover:text-white transition-colors">San Carlos Montessori Preschool</a></li>
+          <li><a href="/burlingame-montessori-preschool" class="text-gray-400 hover:text-white transition-colors">Burlingame Montessori Preschool</a></li>
+          <li><a href="/menlo-park-montessori-preschool" class="text-gray-400 hover:text-white transition-colors">Menlo Park Montessori Preschool</a></li>
+        </ul>
+      </div>
+
+      <!-- Parent Resources & Quick Links -->
+      <div>
+        <h3 class="text-xl font-bold mb-4 text-amber-400">Parent Resources</h3>
+        <ul class="space-y-1.5 text-sm mb-4">
+          <li><a href="/resources/montessori-vs-traditional-preschool" class="text-gray-400 hover:text-white transition-colors">Montessori vs. Traditional</a></li>
+          <li><a href="/resources/potty-training-preschool-guide" class="text-gray-400 hover:text-white transition-colors">Potty Training Policy Guide</a></li>
+          <li><a href="/resources/home-vs-center-childcare" class="text-gray-400 hover:text-white transition-colors">Home vs. Center Daycare</a></li>
+          <li><a href="/resources/parent-handbook" class="text-gray-400 hover:text-white transition-colors">Parent Handbook</a></li>
+          <li><a href="/about" class="text-gray-400 hover:text-white transition-colors">About Us</a></li>
+          <li><a href="/contact" class="text-gray-400 hover:text-white transition-colors">Contact & Tour</a></li>
         </ul>
       </div>
     </div>
 
-    <div
-      class="col-span-1 md:col-span-3 text-center pt-8 border-t border-gray-700"
-    >
+    <div class="col-span-1 md:col-span-4 text-center pt-8 border-t border-gray-800 text-sm text-slate-300">
       <p>
         Copyright &copy; {year} All Rights Reserved |
-        <a href="/" class="text-white hover:text-primary transition-colors"
-          >Kubo Montessori</a
-        >
+        <a href="/" class="underline text-white hover:text-amber-400 transition-colors">Kubo Montessori LLC</a>
       </p>
     </div>
   </div>

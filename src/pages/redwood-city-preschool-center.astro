@@ -4,6 +4,8 @@ import NavBar from "../components/NavBar.astro";
 import Footer from "../components/Footer.astro";
 import ScheduleWidget from "../components/ScheduleWidget.astro";
 import CalendarWidget from "../components/CalendarWidget.astro";
+import QuickFactTable from "../components/QuickFactTable.astro";
+import FAQSection from "../components/FAQSection.astro";
 
 const teachers = [
   {
@@ -87,7 +89,7 @@ const carouselImages = [
   </div>
 
   <!-- Content Section -->
-  <div class="py-24 bg-white">
+  <div class="py-16 bg-white">
     <div class="container mx-auto px-4 max-w-4xl">
       <h2 class="text-2xl font-bold mb-4 text-gray-800">
         About Roots N' Wings Montessori School
@@ -96,44 +98,12 @@ const carouselImages = [
         Roots N' Wings Montessori by Kubo Montessori LLC is an authentic Montessori preschool and child care center tucked away in Redwood City and surrounded by nature. Building on Kubo Montessori's deep 20+ year history of educational excellence in the Bay Area, we serve children from 2 to 6 years old, including specialized infant, toddler, and transitional kindergarten (TK) options. We do not require children to be potty trained before enrolling and provide active, supportive potty training assistance. We are proud of our exceptionally low student-to-teacher ratio of 6:1, allowing our credentialed Montessori guides to nurture each child's independence, concentration, and love of learning using classic materials.
       </p>
 
-      <!-- Key Campus Specifications Table (AI Crawler Optimization) -->
-      <h3 class="text-2xl font-bold mb-4 text-gray-800">Quick Campus Specifications</h3>
-      <div class="overflow-x-auto mb-12 shadow-sm border border-gray-200 rounded-lg">
-        <table class="min-w-full bg-white text-left">
-          <thead>
-            <tr class="bg-gray-50 border-b border-gray-200 text-xs font-semibold text-gray-500 uppercase tracking-wider">
-              <th class="px-6 py-4">Campus Attribute</th>
-              <th class="px-6 py-4">Policy / Details</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-gray-200 text-sm text-gray-700">
-            <tr>
-              <td class="px-6 py-4 font-semibold text-gray-900">Ages Served</td>
-              <td class="px-6 py-4">2 to 6 years old (Toddler, Preschool, and Transitional Kindergarten options)</td>
-            </tr>
-            <tr>
-              <td class="px-6 py-4 font-semibold text-gray-900">Student-Teacher Ratio</td>
-              <td class="px-6 py-4">Highly attentive 6:1 student-to-teacher ratio with credentialed guides</td>
-            </tr>
-            <tr>
-              <td class="px-6 py-4 font-semibold text-gray-900">Hours of Operation</td>
-              <td class="px-6 py-4">8:30 AM to 5:30 PM, Monday through Friday</td>
-            </tr>
-            <tr>
-              <td class="px-6 py-4 font-semibold text-gray-900">Potty Training</td>
-              <td class="px-6 py-4">**Not Required** (Nurturing, active potty-training support is fully included)</td>
-            </tr>
-            <tr>
-              <td class="px-6 py-4 font-semibold text-gray-900">Enrichment Classes</td>
-              <td class="px-6 py-4">Baking, Gardening, Gymnastics, Japanese, Spanish, and Music & Movement</td>
-            </tr>
-            <tr>
-              <td class="px-6 py-4 font-semibold text-gray-900">License Number</td>
-              <td class="px-6 py-4">Facility #414004531</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <!-- Quick-Fact Comparison Table -->
+      <QuickFactTable
+        title="Redwood City Campus Specifications & Comparison"
+        subtitle="Key details for our Roots N' Wings nature-based preschool & TK center on Euclid Ave."
+        highlightCampus="redwood-city"
+      />
 
       <h2 class="text-2xl font-bold mb-4 text-gray-800">Video Tour</h2>
       <div class="aspect-w-16 aspect-h-9 mb-8 relative group cursor-pointer rounded overflow-hidden shadow-lg h-[400px]" id="youtube-facade">
@@ -222,18 +192,18 @@ const carouselImages = [
       <h2 class="text-2xl font-bold mb-4 text-gray-800">Enrichment</h2>
       <ul class="space-y-2 mb-8 text-gray-600 list-disc pl-5">
         <li>
-          <a href="/rw-baking" class="underline text-primary">Baking</a>
+          <a href="/rw-baking" class="underline text-blue-600 font-semibold">Baking</a>
         </li>
         <li>
-          <a href="/rw-gardening" class="underline text-primary">Gardening</a>
+          <a href="/rw-gardening" class="underline text-blue-600 font-semibold">Gardening</a>
         </li>
         <li>
-          <a href="/rw-gymnastics" class="underline text-primary">Gymnastics</a>
+          <a href="/rw-gymnastics" class="underline text-blue-600 font-semibold">Gymnastics</a>
         </li>
         <li>Japanese and Spanish language classes</li>
         <li>Music and Movement</li>
         <li>
-          <a href="/rw-technology" class="underline text-primary"
+          <a href="/rw-technology" class="underline text-blue-600 font-semibold"
             >Technology, the Montessori Way</a
           >
         </li>
@@ -244,7 +214,7 @@ const carouselImages = [
         <li>
           Schedule a learning tour. Directions to RnW <a
             href="/rw-location-directions"
-            class="underline text-primary">here.</a
+            class="underline text-blue-600 font-semibold">here.</a
           >
         </li>
         <li>
@@ -270,6 +240,12 @@ const carouselImages = [
           Roots N Wings of Redwood City by Kubo Montessori LLC admits students of any race, color, religion, disability, and national or ethnic origin... (Non-discrimination policy)
         </p>
       </div>
+
+      <!-- FAQ Section -->
+      <FAQSection
+        title="Redwood City Campus Frequently Asked Questions"
+        subtitle="Common questions about our Roots N' Wings nature-based preschool, TK program, ratios, and potty training."
+      />
     </div>
   </div>
 
@@ -343,7 +319,7 @@ const carouselImages = [
           <span class="block text-sm font-bold text-gray-500 uppercase mb-2"
             >Roots N' Wings</span
           >
-          <div class="w-12 h-1 bg-primary mb-6"></div>
+          <div class="w-12 h-1 bg-amber-900 mb-6"></div>
           <h2 class="text-3xl font-bold mb-6 text-gray-800">
             Our Location and Schedule in <strong>Redwood City</strong>
           </h2>

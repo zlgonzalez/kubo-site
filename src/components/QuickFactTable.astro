@@ -1,0 +1,127 @@
+---
+interface Props {
+  title?: string;
+  subtitle?: string;
+  highlightCampus?: 'san-mateo' | 'redwood-city' | 'both';
+}
+
+const {
+  title = "Kubo Montessori Campuses at a Glance",
+  subtitle = "Direct comparison of our San Mateo and Redwood City programs for Peninsula families.",
+  highlightCampus = "both",
+} = Astro.props;
+
+const specs = [
+  {
+    metric: "Ages Served",
+    sanMateo: "20 months – 6 years (Toddler & Primary)",
+    redwoodCity: "2 years – 6 years (Includes TK)",
+  },
+  {
+    metric: "Student-Teacher Ratio",
+    sanMateo: "12:2 (6:1 effective ratio)",
+    redwoodCity: "6:1 ratio",
+  },
+  {
+    metric: "Hours of Operation",
+    sanMateo: "9:00 AM – 5:30 PM (M–F)",
+    redwoodCity: "8:30 AM – 5:30 PM (M–F)",
+  },
+  {
+    metric: "Potty Training Policy",
+    sanMateo: "Not Required (Support provided)",
+    redwoodCity: "Not Required (Support provided)",
+  },
+  {
+    metric: "Daily Meal Program",
+    sanMateo: "Hot organic lunches & snacks cooked in-house daily",
+    redwoodCity: "Organic morning & afternoon snacks provided",
+  },
+  {
+    metric: "Campus Environment",
+    sanMateo: "Home-based Casa dei Bambini setting & garden",
+    redwoodCity: "Center-based preschool, nature grounds & TK",
+  },
+  {
+    metric: "Enrichment & Languages",
+    sanMateo: "Practical life, gardening, music & art",
+    redwoodCity: "Multilingual enrichment (Spanish, Japanese, Mandarin)",
+  },
+  {
+    metric: "State Licensing",
+    sanMateo: "State Licensed #414004177 & #414004696",
+    redwoodCity: "State Licensed #414004531",
+  },
+];
+---
+
+<section class="my-10 bg-gradient-to-br from-slate-50 via-white to-amber-50/30 p-6 md:p-8 rounded-2xl border border-slate-200/80 shadow-sm">
+  <div class="text-center max-w-2xl mx-auto mb-6">
+    <h2 class="text-2xl md:text-3xl font-bold text-slate-900">{title}</h2>
+    <p class="text-sm md:text-base text-slate-600 mt-2">{subtitle}</p>
+  </div>
+
+  <div class="overflow-x-auto rounded-xl border border-slate-200 shadow-sm bg-white">
+    <table class="w-full text-left text-sm text-slate-700 border-collapse">
+      <thead class="bg-slate-900 text-white text-xs uppercase tracking-wider font-semibold">
+        <tr>
+          <th scope="col" class="py-3.5 px-4 md:px-6 w-1/3">Program Metric</th>
+          <th
+            scope="col"
+            class={`py-3.5 px-4 md:px-6 w-1/3 border-l border-slate-800 ${
+              highlightCampus === 'san-mateo' ? 'bg-slate-800 text-amber-300' : ''
+            }`}
+          >
+            San Mateo Campus <span class="block text-[10px] font-normal text-slate-300 normal-case">Casa dei Bambini (Flores St)</span>
+          </th>
+          <th
+            scope="col"
+            class={`py-3.5 px-4 md:px-6 w-1/3 border-l border-slate-800 ${
+              highlightCampus === 'redwood-city' ? 'bg-slate-800 text-amber-300' : ''
+            }`}
+          >
+            Redwood City Campus <span class="block text-[10px] font-normal text-slate-300 normal-case">Roots N' Wings (Euclid Ave)</span>
+          </th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-slate-100">
+        {
+          specs.map((row, index) => (
+            <tr class={index % 2 === 0 ? "bg-white" : "bg-slate-50/50 hover:bg-slate-100/50"}>
+              <th scope="row" class="py-3.5 px-4 md:px-6 font-bold text-slate-900 whitespace-nowrap">
+                {row.metric}
+              </th>
+              <td
+                class={`py-3.5 px-4 md:px-6 border-l border-slate-100 ${
+                  row.metric.includes("Potty") ? "font-semibold text-emerald-700" : ""
+                } ${highlightCampus === 'san-mateo' ? 'bg-amber-500/10 font-medium text-slate-900' : ''}`}
+              >
+                {row.sanMateo}
+              </td>
+              <td
+                class={`py-3.5 px-4 md:px-6 border-l border-slate-100 ${
+                  row.metric.includes("Potty") ? "font-semibold text-emerald-700" : ""
+                } ${highlightCampus === 'redwood-city' ? 'bg-amber-500/10 font-medium text-slate-900' : ''}`}
+              >
+                {row.redwoodCity}
+              </td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+  <div class="mt-6 text-center">
+    <a
+      href="https://calendly.com/mary-kubo"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm rounded-xl transition-colors shadow-md hover:shadow-lg"
+    >
+      Schedule a Private Campus Tour
+      <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+      </svg>
+    </a>
+  </div>
+</section>

@@ -1,0 +1,129 @@
+---
+import Layout from "../layouts/Layout.astro";
+import NavBar from "../components/NavBar.astro";
+import Footer from "../components/Footer.astro";
+import QuickFactTable from "../components/QuickFactTable.astro";
+import FAQSection from "../components/FAQSection.astro";
+
+const menloParkFaqs = [
+  {
+    question: "How close is Kubo Montessori to Menlo Park, CA?",
+    answer: "Our Redwood City campus (Roots N' Wings) on Euclid Ave is located just 10 to 12 minutes north of Menlo Park via El Camino Real or Middlefield Rd.",
+  },
+  {
+    question: "What programs are offered for Menlo Park preschoolers?",
+    answer: "Menlo Park families enjoy our Roots N' Wings campus, featuring a 6:1 ratio, nature grounds, multilingual enrichment (Spanish, Japanese, Mandarin), TK program, and full potty training assistance.",
+  },
+];
+---
+
+<Layout
+  title="Montessori Preschool & Daycare Serving Menlo Park, CA | Kubo Montessori"
+  description="Looking for an authentic Montessori preschool near Menlo Park? Roots N' Wings by Kubo Montessori in Redwood City offers low 6:1 ratios, nature-based grounds, TK, and potty training support just 10 minutes north."
+  image="/images/image6.jpg"
+  targetCity="Menlo Park"
+>
+  <NavBar />
+
+  <!-- Hero Banner -->
+  <div class="relative h-[380px] bg-gradient-to-r from-slate-950 via-slate-900 to-amber-950 text-white overflow-hidden">
+    <div class="absolute inset-0 opacity-25 mix-blend-overlay">
+      <img src="/images/image6.jpg" alt="Roots N Wings Montessori serving Menlo Park" class="w-full h-full object-cover" />
+    </div>
+    <div class="relative max-w-6xl mx-auto px-4 h-full flex flex-col items-center justify-center text-center">
+      <span class="inline-block px-3.5 py-1 bg-amber-500/20 text-amber-300 border border-amber-500/30 rounded-full text-xs font-semibold uppercase tracking-wider mb-3">
+        Menlo Park Childcare Guide
+      </span>
+      <h1 class="text-3xl md:text-5xl font-bold drop-shadow-md mb-4">
+        Montessori Preschool & Daycare Serving Menlo Park
+      </h1>
+      <p class="text-base md:text-lg text-slate-300 max-w-2xl">
+        Located just 10 minutes north of Menlo Park! Nature-rich campus with low 6:1 ratios, Transitional Kindergarten (TK), and potty training assistance.
+      </p>
+      <div class="mt-6 flex flex-wrap gap-4 justify-center">
+        <a
+          href="https://calendly.com/mary-kubo"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-lg transition-all text-sm"
+        >
+          Schedule a Private Campus Tour
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="py-16 bg-white">
+    <div class="container mx-auto px-4 max-w-4xl">
+      <!-- Commute Highlight -->
+      <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200/80 mb-12 flex flex-col md:flex-row items-center gap-6">
+        <div class="bg-slate-900 text-amber-400 p-4 rounded-xl text-center min-w-[140px] shadow-sm">
+          <span class="text-3xl font-black block">10-12</span>
+          <span class="text-xs uppercase font-medium tracking-wide text-slate-300">Minutes Drive</span>
+        </div>
+        <div>
+          <h2 class="text-xl font-bold text-slate-900 mb-2">Convenient Commute from Menlo Park</h2>
+          <p class="text-slate-600 text-sm leading-relaxed">
+            Located at <strong>2323 Euclid Ave, Redwood City</strong>, our Roots N' Wings campus is easily accessible via El Camino Real or Middlefield Rd from Menlo Park and Atherton.
+          </p>
+        </div>
+      </div>
+
+      <h2 class="text-2xl font-bold text-slate-900 mb-4">Authentic Early Education for Menlo Park Children</h2>
+      <p class="text-slate-600 leading-relaxed mb-6">
+        Menlo Park families choose Kubo Montessori for our low 6:1 ratio, nature-immersed environment, and holistic curriculum bridging practical life skills, early literacy, math, and social-emotional development.
+      </p>
+
+      <!-- Quick Fact Table -->
+      <QuickFactTable
+        title="Menlo Park Family Program Guide"
+        subtitle="Key campus specifications for Menlo Park parents."
+        highlightCampus="redwood-city"
+      />
+
+      <!-- Map & Driving Directions -->
+      <div class="my-14 bg-slate-50 p-8 rounded-2xl border border-slate-200">
+        <h2 class="text-2xl font-bold text-slate-900 mb-4">Driving Routes from Menlo Park</h2>
+        <div class="grid md:grid-cols-2 gap-8 items-center">
+          <div>
+            <p class="text-slate-600 text-sm leading-relaxed mb-3">
+              <strong>Via El Camino Real North:</strong> Take El Camino Real North ~3.5 miles into Redwood City, turn right on Woodside Rd / Euclid Ave (2323 Euclid Ave).
+            </p>
+            <p class="text-slate-600 text-sm leading-relaxed mb-6">
+              <strong>Via Middlefield Rd North:</strong> Head North on Middlefield Rd toward Woodside Rd, turn left onto Euclid Ave.
+            </p>
+            <a
+              href="https://calendly.com/mary-kubo"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-block px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-xl shadow-sm transition-colors"
+            >
+              Book Your Tour Today
+            </a>
+          </div>
+          <div class="h-64 rounded-xl overflow-hidden shadow-sm border border-slate-200">
+            <iframe
+              src="https://maps.google.com/maps?q=2323+Euclid+Ave+Redwood+City,+CA+94061&t=&z=14&ie=UTF8&iwloc=&output=embed"
+              width="100%"
+              height="100%"
+              style="border:0;"
+              allowfullscreen=""
+              loading="lazy"
+              title="Map from Menlo Park to Kubo Montessori Redwood City"
+            ></iframe>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ Section -->
+      <FAQSection
+        title="Menlo Park Parents FAQ"
+        subtitle="Answers to common questions from Menlo Park families."
+        faqs={menloParkFaqs}
+      />
+    </div>
+  </div>
+
+  <Footer />
+</Layout>

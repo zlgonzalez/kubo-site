@@ -67,6 +67,14 @@ const redirects = {
     '/roots-n-wings-montessori-school': {
         status: 301,
         destination: '/redwood-city-preschool-center'
+    },
+    '/parent-handbook': {
+        status: 301,
+        destination: '/resources/parent-handbook'
+    },
+    '/parent-handbook.html': {
+        status: 301,
+        destination: '/resources/parent-handbook'
     }
 };
 

@@ -1,0 +1,139 @@
+---
+import Layout from "../layouts/Layout.astro";
+import NavBar from "../components/NavBar.astro";
+import Footer from "../components/Footer.astro";
+import QuickFactTable from "../components/QuickFactTable.astro";
+import FAQSection from "../components/FAQSection.astro";
+
+const fosterCityFaqs = [
+  {
+    question: "How close is Kubo Montessori to Foster City, CA?",
+    answer: "Kubo Montessori's San Mateo campus on Flores St is located just 8 to 10 minutes from Foster City via CA-92 W and Hillsdale Blvd. It offers an easy, stress-free morning drop-off for commuting Foster City parents.",
+  },
+  {
+    question: "Are Foster City toddlers required to be potty trained before starting?",
+    answer: "No, potty training is not required for enrollment. Our credentialed Montessori guides provide gentle, nurturing potty-training support tailored to your child's readiness.",
+  },
+  {
+    question: "What age groups are served at the San Mateo campus near Foster City?",
+    answer: "Our San Mateo Casa dei Bambini program serves children from 20 months up to 6 years old in a low 12:2 ratio home-based setting with hot organic lunches cooked daily.",
+  },
+  {
+    question: "How do I schedule a private tour for a Foster City family?",
+    answer: "You can schedule a tour directly online using our Calendly link below. Tours are conducted during morning work cycles so you can observe our Montessori guides and active classrooms.",
+  },
+];
+---
+
+<Layout
+  title="Montessori Preschool & Daycare Serving Foster City, CA | Kubo Montessori"
+  description="Looking for an authentic Montessori preschool or daycare near Foster City? Kubo Montessori provides low 6:1 ratios, hot organic lunches, screen-free learning, and potty training support just minutes away in San Mateo."
+  image="/images/km1.jpg"
+  targetCity="Foster City"
+>
+  <NavBar />
+
+  <!-- Hero Banner -->
+  <div class="relative h-[380px] bg-gradient-to-r from-slate-950 via-slate-900 to-amber-950 text-white overflow-hidden">
+    <div class="absolute inset-0 opacity-25 mix-blend-overlay">
+      <img src="/images/km1.jpg" alt="Montessori classroom serving Foster City families" class="w-full h-full object-cover" />
+    </div>
+    <div class="relative max-w-6xl mx-auto px-4 h-full flex flex-col items-center justify-center text-center">
+      <span class="inline-block px-3.5 py-1 bg-amber-500/20 text-amber-300 border border-amber-500/30 rounded-full text-xs font-semibold uppercase tracking-wider mb-3">
+        Peninsula Childcare Guide
+      </span>
+      <h1 class="text-3xl md:text-5xl font-bold drop-shadow-md mb-4">
+        Authentic Montessori Preschool & Daycare Serving Foster City
+      </h1>
+      <p class="text-base md:text-lg text-slate-300 max-w-2xl">
+        A nurturing Casa dei Bambini environment located just minutes from Foster City via CA-92. Low ratios, hot organic meals, and dedicated potty training support.
+      </p>
+      <div class="mt-6 flex flex-wrap gap-4 justify-center">
+        <a
+          href="https://calendly.com/mary-kubo"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-lg transition-all text-sm"
+        >
+          Schedule a Private Campus Tour
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="py-16 bg-white">
+    <div class="container mx-auto px-4 max-w-4xl">
+      <!-- Commute Highlight -->
+      <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200/80 mb-12 flex flex-col md:flex-row items-center gap-6">
+        <div class="bg-slate-900 text-amber-400 p-4 rounded-xl text-center min-w-[140px] shadow-sm">
+          <span class="text-3xl font-black block">8-10</span>
+          <span class="text-xs uppercase font-medium tracking-wide text-slate-300">Minutes Drive</span>
+        </div>
+        <div>
+          <h2 class="text-xl font-bold text-slate-900 mb-2">Ideal Commute for Foster City Parents</h2>
+          <p class="text-slate-600 text-sm leading-relaxed">
+            Located at <strong>2823 Flores St, San Mateo</strong>, our campus is positioned right off CA-92 and Hillsdale Blvd. Whether you commute via US-101 or stay local on the Peninsula, dropping off your child takes under 10 minutes from central Foster City.
+          </p>
+        </div>
+      </div>
+
+      <h2 class="text-2xl font-bold text-slate-900 mb-4">Why Foster City Families Choose Kubo Montessori</h2>
+      <p class="text-slate-600 leading-relaxed mb-6">
+        Foster City parents seeking authentic early childhood education value Kubo Montessori's 20+ year track record. Our home-based <strong>Casa dei Bambini</strong> offers small group sizes (12:2 ratio), an in-house organic hot lunch program, and screen-free hands-on learning with classic Montessori materials.
+      </p>
+
+      <!-- Quick Fact Table -->
+      <QuickFactTable
+        title="Foster City Parent Comparison Guide"
+        subtitle="Compare Kubo Montessori's San Mateo campus details for Foster City commuters."
+        highlightCampus="san-mateo"
+      />
+
+      <!-- Map & Location Details -->
+      <div class="my-14 bg-slate-50 p-8 rounded-2xl border border-slate-200">
+        <h2 class="text-2xl font-bold text-slate-900 mb-4">Location & Driving Route from Foster City</h2>
+        <div class="grid md:grid-cols-2 gap-8 items-center">
+          <div>
+            <p class="text-slate-600 text-sm leading-relaxed mb-4">
+              <strong>San Mateo Campus:</strong> 2823 Flores St, San Mateo, CA 94403
+            </p>
+            <ul class="text-sm text-slate-600 space-y-2 list-disc pl-5 mb-6">
+              <li>Head west on Foster City Blvd / E Hillsdale Blvd toward CA-92 W</li>
+              <li>Take CA-92 W to the El Camino Real / S Norfolk exit</li>
+              <li>Turn left onto Flores St (free on-site parent parking available)</li>
+            </ul>
+            <a
+              href="https://calendly.com/mary-kubo"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-block px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-xl shadow-sm transition-colors"
+            >
+              Schedule Your Visit
+            </a>
+          </div>
+          <div class="h-64 rounded-xl overflow-hidden shadow-sm border border-slate-200">
+            <iframe
+              src="https://maps.google.com/maps?q=2823+Flores+St+San+Mateo,+CA+94403&t=&z=14&ie=UTF8&iwloc=&output=embed"
+              width="100%"
+              height="100%"
+              style="border:0;"
+              allowfullscreen=""
+              loading="lazy"
+              title="Map from Foster City to Kubo Montessori San Mateo"
+            ></iframe>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ Section -->
+      <FAQSection
+        title="Foster City Parents FAQ"
+        subtitle="Frequently asked questions for Foster City families considering Kubo Montessori."
+        faqs={fosterCityFaqs}
+      />
+    </div>
+  </div>
+
+  <Footer />
+</Layout>

@@ -10,8 +10,30 @@ const links = [
       { href: "/san-mateo-preschool-daycare", label: "Montessori Home Daycare" },
     ],
   },
+  {
+    href: "/services",
+    label: "Locations Served",
+    dropdown: [
+      { href: "/san-mateo-preschool-daycare", label: "San Mateo" },
+      { href: "/redwood-city-preschool-center", label: "Redwood City" },
+      { href: "/foster-city-preschool-daycare", label: "Foster City" },
+      { href: "/belmont-ca-montessori-daycare", label: "Belmont" },
+      { href: "/san-carlos-montessori-preschool", label: "San Carlos" },
+      { href: "/burlingame-montessori-preschool", label: "Burlingame" },
+      { href: "/menlo-park-montessori-preschool", label: "Menlo Park" },
+    ],
+  },
+  {
+    href: "/resources/montessori-vs-traditional-preschool",
+    label: "Resources",
+    dropdown: [
+      { href: "/resources/parent-handbook", label: "Parent Handbook" },
+      { href: "/resources/montessori-vs-traditional-preschool", label: "Montessori vs. Traditional" },
+      { href: "/resources/potty-training-preschool-guide", label: "Potty Training Policy" },
+      { href: "/resources/home-vs-center-childcare", label: "Home vs. Center Daycare" },
+    ],
+  },
   { href: "/blog", label: "Blog" },
-  { href: "/parent-handbook", label: "Parent Handbook" },
   {
     href: "https://schools.mybrightwheel.com/sign-in",
     label: "Brightwheel",
@@ -67,7 +89,7 @@ const currentPath = Astro.url.pathname;
             <li class="relative group">
               <a
                 href={link.href}
-                class={`block py-2 lg:py-0 hover:text-gray-300 ${currentPath === link.href ? "text-primary" : ""}`}
+                class={`block py-2 lg:py-0 hover:text-amber-300 transition-colors ${currentPath === link.href ? "text-amber-400 font-semibold" : ""}`}
                 {...(link.external
                   ? { target: "_blank", rel: "noopener noreferrer" }
                   : {})}
@@ -76,11 +98,11 @@ const currentPath = Astro.url.pathname;
               </a>
               {link.dropdown && (
                 <div class="hidden group-hover:block lg:absolute lg:top-full lg:left-0 lg:pt-2 z-50">
-                  <div class="bg-transparent lg:bg-white text-white lg:text-black lg:shadow-lg lg:py-2 lg:rounded">
+                  <div class="bg-transparent lg:bg-white text-white lg:text-gray-900 lg:shadow-xl lg:py-2 lg:rounded-lg lg:border lg:border-gray-100">
                     {link.dropdown.map((sublink) => (
                       <a
                         href={sublink.href}
-                        class="block px-4 py-2 hover:bg-gray-700 lg:hover:bg-gray-100 whitespace-nowrap"
+                        class="block px-4 py-2 text-sm hover:bg-gray-700 lg:hover:bg-amber-50 lg:hover:text-amber-950 whitespace-nowrap"
                       >
                         {sublink.label}
                       </a>
