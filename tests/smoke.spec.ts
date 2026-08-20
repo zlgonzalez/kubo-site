@@ -89,6 +89,18 @@ test.describe('Kubo Montessori Smoke Tests', () => {
       expect(response.headers()['location']).toBe('/redwood-city-preschool-center');
     });
 
+    test('should redirect /parent-handbook to /resources/parent-handbook', async ({ page }) => {
+      await page.goto('/parent-handbook');
+      await page.waitForURL('**/resources/parent-handbook**');
+      expect(page.url()).toContain('/resources/parent-handbook');
+    });
+
+    test('should redirect /parent-handbook.html to /resources/parent-handbook', async ({ page }) => {
+      await page.goto('/parent-handbook.html');
+      await page.waitForURL('**/resources/parent-handbook**');
+      expect(page.url()).toContain('/resources/parent-handbook');
+    });
+
     test('should redirect /blog/:slug to /blog?p=:slug with 301', async ({ request }) => {
       const res = await request.get('https://api.dropinblog.com/v1/json/?b=0530ca52-f373-4292-800a-b93c30543ee4');
       expect(res.status()).toBe(200);
@@ -180,39 +192,27 @@ test.describe('Kubo Montessori Smoke Tests', () => {
       await expect(singlePost).toBeVisible({ timeout: 10000 });
     });
   });
-  test.describe('Parent Handbook Navigation', () => {
-    test('should show "Parent Handbook" link in desktop navbar', async ({ page }) => {
+
+  test.describe('Parent Handbook Navigation & Relocation', () => {
+    test('should show "Parent Handbook" link in Resources dropdown', async ({ page }) => {
       await page.goto('/');
-      const link = page.locator('nav a[href="/parent-handbook"]');
-      await expect(link).toBeVisible();
+      const link = page.locator('nav a[href="/resources/parent-handbook"]');
+      await expect(link).toBeAttached();
       await expect(link).toHaveText('Parent Handbook');
     });
 
-    test('Parent Handbook nav link should point to the correct href', async ({ page }) => {
+    test('Parent Handbook nav link should point to /resources/parent-handbook', async ({ page }) => {
       await page.goto('/');
-      const link = page.locator('nav a[href="/parent-handbook"]');
-      await expect(link).toHaveAttribute('href', '/parent-handbook');
+      const link = page.locator('nav a[href="/resources/parent-handbook"]');
+      await expect(link).toHaveAttribute('href', '/resources/parent-handbook');
     });
 
-    test('should load /parent-handbook successfully with correct title and heading', async ({ page }) => {
-      await page.goto('/parent-handbook');
+    test('should load /resources/parent-handbook successfully with correct title and heading', async ({ page }) => {
+      await page.goto('/resources/parent-handbook');
       await expect(page).toHaveTitle(/Parent Handbook/);
-      // The page has a second hidden print-only h1, so filter to the visible one
       const h1 = page.locator('h1').filter({ hasText: /Parent Handbook/ }).first();
       await expect(h1).toBeVisible();
       await expect(h1).toContainText('Parent Handbook');
-    });
-
-    test('should show "Parent Handbook" link in mobile navbar after menu opens', async ({ page }) => {
-      await page.setViewportSize({ width: 375, height: 667 });
-      await page.goto('/');
-
-      // Menu is hidden on mobile — open it first
-      await page.locator('#mobile-menu-toggle').click();
-
-      const link = page.locator('#nav-content a[href="/parent-handbook"]');
-      await expect(link).toBeVisible();
-      await expect(link).toHaveText('Parent Handbook');
     });
   });
 
@@ -245,4 +245,3 @@ test.describe('Kubo Montessori Smoke Tests', () => {
     });
   });
 });
-

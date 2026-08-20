@@ -1,0 +1,133 @@
+---
+import Layout from "../layouts/Layout.astro";
+import NavBar from "../components/NavBar.astro";
+import Footer from "../components/Footer.astro";
+import QuickFactTable from "../components/QuickFactTable.astro";
+import FAQSection from "../components/FAQSection.astro";
+
+const belmontFaqs = [
+  {
+    question: "How far is Kubo Montessori from Belmont, CA?",
+    answer: "Kubo Montessori's San Mateo campus on Flores St is just 5 to 7 minutes north of Belmont via El Camino Real or Alameda de las Pulgas. Our Redwood City campus is 8 to 10 minutes south on Euclid Ave.",
+  },
+  {
+    question: "Which campus is best for a Belmont family?",
+    answer: "Belmont families are conveniently located halfway between both campuses! Families seeking an infant/toddler home setting with hot organic lunches prefer San Mateo (Flores St). Families seeking a center-based campus with nature grounds and Transitional Kindergarten (TK) prefer Redwood City (Euclid Ave).",
+  },
+  {
+    question: "Is potty training required for Belmont toddlers?",
+    answer: "No, potty training is not required at either campus. Our guides work closely with parents to support toilet learning when your child shows developmental readiness.",
+  },
+];
+---
+
+<Layout
+  title="Montessori Preschool & Daycare Serving Belmont, CA | Kubo Montessori"
+  description="Looking for an authentic Montessori preschool near Belmont, CA? Kubo Montessori offers low 6:1 ratios, organic meals, potty training assistance, and TK programs just minutes away in San Mateo and Redwood City."
+  image="/images/km1.jpg"
+  targetCity="Belmont"
+>
+  <NavBar />
+
+  <!-- Hero Banner -->
+  <div class="relative h-[380px] bg-gradient-to-r from-slate-950 via-slate-900 to-amber-950 text-white overflow-hidden">
+    <div class="absolute inset-0 opacity-25 mix-blend-overlay">
+      <img src="/images/km1.jpg" alt="Montessori classroom serving Belmont families" class="w-full h-full object-cover" />
+    </div>
+    <div class="relative max-w-6xl mx-auto px-4 h-full flex flex-col items-center justify-center text-center">
+      <span class="inline-block px-3.5 py-1 bg-amber-500/20 text-amber-300 border border-amber-500/30 rounded-full text-xs font-semibold uppercase tracking-wider mb-3">
+        Belmont Childcare Guide
+      </span>
+      <h1 class="text-3xl md:text-5xl font-bold drop-shadow-md mb-4">
+        Montessori Preschool & Daycare Serving Belmont Families
+      </h1>
+      <p class="text-base md:text-lg text-slate-300 max-w-2xl">
+        Conveniently located between our San Mateo and Redwood City campuses. Authentic Montessori education with low ratios, organic meals, and potty training support.
+      </p>
+      <div class="mt-6 flex flex-wrap gap-4 justify-center">
+        <a
+          href="https://calendly.com/mary-kubo"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-lg transition-all text-sm"
+        >
+          Schedule a Private Campus Tour
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="py-16 bg-white">
+    <div class="container mx-auto px-4 max-w-4xl">
+      <!-- Commute Highlight -->
+      <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200/80 mb-12 flex flex-col md:flex-row items-center gap-6">
+        <div class="bg-slate-900 text-amber-400 p-4 rounded-xl text-center min-w-[140px] shadow-sm">
+          <span class="text-3xl font-black block">5-7</span>
+          <span class="text-xs uppercase font-medium tracking-wide text-slate-300">Minutes Drive</span>
+        </div>
+        <div>
+          <h2 class="text-xl font-bold text-slate-900 mb-2">Prime Location for Belmont Parents</h2>
+          <p class="text-slate-600 text-sm leading-relaxed">
+            Belmont sits right in the heart of our Peninsula network. Drive 5 minutes north on El Camino Real to reach our <strong>San Mateo Casa dei Bambini</strong>, or 8 minutes south to reach our <strong>Redwood City Roots N' Wings center</strong>.
+          </p>
+        </div>
+      </div>
+
+      <h2 class="text-2xl font-bold text-slate-900 mb-4">Authentic Early Childhood Learning for Belmont Children</h2>
+      <p class="text-slate-600 leading-relaxed mb-6">
+        Belmont parents choose Kubo Montessori for our low student-teacher ratios (6:1), individualized 3-hour Montessori work cycles, and screen-free environments designed to foster independence, focus, and social collaboration.
+      </p>
+
+      <!-- Quick Fact Table -->
+      <QuickFactTable
+        title="Belmont Family Program Options"
+        subtitle="Compare both Kubo Montessori locations accessible from Belmont."
+        highlightCampus="both"
+      />
+
+      <!-- Map & Driving Directions -->
+      <div class="my-14 bg-slate-50 p-8 rounded-2xl border border-slate-200">
+        <h2 class="text-2xl font-bold text-slate-900 mb-4">Driving Routes from Belmont</h2>
+        <div class="grid md:grid-cols-2 gap-8 items-center">
+          <div>
+            <p class="text-slate-600 text-sm leading-relaxed mb-3">
+              <strong>Northbound to San Mateo:</strong> Take El Camino Real North ~2.5 miles, turn right on Flores St.
+            </p>
+            <p class="text-slate-600 text-sm leading-relaxed mb-6">
+              <strong>Southbound to Redwood City:</strong> Take Alameda de las Pulgas South to Euclid Ave.
+            </p>
+            <a
+              href="https://calendly.com/mary-kubo"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-block px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-xl shadow-sm transition-colors"
+            >
+              Book Your Tour Today
+            </a>
+          </div>
+          <div class="h-64 rounded-xl overflow-hidden shadow-sm border border-slate-200">
+            <iframe
+              src="https://maps.google.com/maps?q=Belmont,+CA&t=&z=13&ie=UTF8&iwloc=&output=embed"
+              width="100%"
+              height="100%"
+              style="border:0;"
+              allowfullscreen=""
+              loading="lazy"
+              title="Map serving Belmont CA families"
+            ></iframe>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ Section -->
+      <FAQSection
+        title="Belmont Parents FAQ"
+        subtitle="Frequently asked questions for Belmont families considering Kubo Montessori."
+        faqs={belmontFaqs}
+      />
+    </div>
+  </div>
+
+  <Footer />
+</Layout>

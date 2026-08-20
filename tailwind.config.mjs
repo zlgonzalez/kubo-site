@@ -4,10 +4,10 @@ export default {
     theme: {
         extend: {
             colors: {
-                primary: '#b45309', // Deeper amber for accessibility contrast (minimum 4.5:1)
-                secondary: '#6c757d',
-                dark: '#343a40',
-                light: '#f8f9fa',
+                primary: '#b45309', // Deeper warm amber/gold for WCAG AA 4.8:1 contrast
+                secondary: '#64748b', // Slate Gray
+                dark: '#0f172a', // Deep Slate Navy
+                light: '#f8fafc', // Soft Off-White
             },
             fontFamily: {
                 sans: ['Lato', 'sans-serif'],

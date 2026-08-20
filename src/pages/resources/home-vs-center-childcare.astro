@@ -1,0 +1,90 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import NavBar from "../../components/NavBar.astro";
+import Footer from "../../components/Footer.astro";
+import QuickFactTable from "../../components/QuickFactTable.astro";
+import FAQSection from "../../components/FAQSection.astro";
+
+const childcareFaqs = [
+  {
+    question: "What is the main difference between home-based and commercial center daycare?",
+    answer: "Home-based daycares offer intimate, home-like environments with smaller group sizes that ease emotional attachment transitions. Commercial centers provide larger dedicated facility spaces and structured group play. Kubo Montessori offers both options: a licensed home-based Casa dei Bambini in San Mateo and a center-based campus in Redwood City.",
+  },
+];
+---
+
+<Layout
+  title="Home-Based vs. Commercial Childcare Centers: Peninsula Guide | Kubo Montessori"
+  description="Evaluating home-based daycare vs. commercial childcare centers in San Mateo & Redwood City? Learn why home-based Casa dei Bambini environments foster toddler security."
+  image="/images/km1.jpg"
+  article={true}
+>
+  <NavBar />
+
+  <!-- Hero Banner -->
+  <div class="bg-gradient-to-r from-slate-950 via-slate-900 to-amber-950 text-white py-16 px-4">
+    <div class="max-w-4xl mx-auto text-center">
+      <span class="inline-block px-3 py-1 bg-amber-500/20 text-amber-300 border border-amber-500/30 rounded-full text-xs font-semibold uppercase tracking-wider mb-3">
+        Parent Decision Guide
+      </span>
+      <h1 class="text-3xl md:text-5xl font-bold mb-4 drop-shadow-sm leading-tight">
+        Home-Based vs. Commercial Childcare Centers: Why Casa dei Bambini Works for Toddlers
+      </h1>
+      <p class="text-slate-300 text-base md:text-lg max-w-2xl mx-auto">
+        Understanding setting options across San Mateo and Redwood City for working Peninsula families.
+      </p>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <article class="py-16 bg-white">
+    <div class="container mx-auto px-4 max-w-3xl text-slate-700 leading-relaxed text-base space-y-8">
+      <p class="text-lg text-slate-800 font-medium leading-relaxed">
+        When searching for toddler care, Bay Area parents often compare <strong>home-based family childcare</strong> against <strong>commercial daycare centers</strong>. At Kubo Montessori, we are proud to offer Peninsula parents the best of both worlds across our two dedicated campus environments.
+      </p>
+
+      <h2 class="text-2xl font-bold text-slate-900 pt-4 border-t border-slate-100">The Power of Home-Based Casa dei Bambini (San Mateo)</h2>
+      <p>
+        For toddlers aged 20 months to 3 years, transitioning from parent care to a large commercial center can feel overwhelming. Our <strong>San Mateo campus</strong> features two licensed home-based facilities on Flores St.
+      </p>
+      <p>
+        Operating at a low 12:2 ratio with daily hot organic lunches cooked on-site, children experience a warm, secure domestic setting while working with authentic AMI/AMS Montessori materials.
+      </p>
+
+      <h2 class="text-2xl font-bold text-slate-900 pt-4 border-t border-slate-100">Nature-Rich Center Environment (Redwood City)</h2>
+      <p>
+        For families seeking a larger campus setting with nature grounds, multilingual enrichment (Spanish, Japanese, Mandarin), and Transitional Kindergarten (TK), our <strong>Roots N' Wings campus in Redwood City</strong> delivers center-based Montessori excellence at a low 6:1 ratio.
+      </p>
+
+      <!-- Quick Fact Table -->
+      <QuickFactTable
+        title="Compare Both Kubo Montessori Environments"
+        subtitle="Explore San Mateo home-based Casa dei Bambini vs Redwood City nature center."
+      />
+
+      <!-- CTA -->
+      <div class="bg-slate-50 p-8 rounded-2xl border border-slate-200 text-center my-10 shadow-sm">
+        <h3 class="text-2xl font-bold text-slate-900 mb-2">Find the Perfect Fit for Your Child</h3>
+        <p class="text-slate-600 text-sm mb-6 max-w-lg mx-auto">
+          Schedule a tour at either campus to experience our Montessori guides in action.
+        </p>
+        <a
+          href="https://calendly.com/mary-kubo"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-block px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-md transition-colors text-sm"
+        >
+          Book Your Private Campus Tour
+        </a>
+      </div>
+
+      <FAQSection
+        title="Childcare Setting FAQ"
+        subtitle="Common questions about home-based vs center-based Montessori care."
+        faqs={childcareFaqs}
+      />
+    </div>
+  </article>
+
+  <Footer />
+</Layout>

@@ -1,0 +1,103 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import NavBar from "../../components/NavBar.astro";
+import Footer from "../../components/Footer.astro";
+import QuickFactTable from "../../components/QuickFactTable.astro";
+import FAQSection from "../../components/FAQSection.astro";
+
+const guideFaqs = [
+  {
+    question: "Is Montessori preschool good for energetic or active toddlers?",
+    answer: "Yes! Montessori classrooms provide freedom of movement within structured boundaries. Rather than sitting at desks for long periods, energetic children choose hands-on materials, work on floor mats, and direct their energy into purposeful practical life activities.",
+  },
+  {
+    question: "How do Montessori children transition to traditional kindergarten or primary schools?",
+    answer: "Children from Montessori environments adapt exceptionally well to traditional schools. Because Montessori fosters strong self-regulation, concentration, problem-solving, and social collaboration, graduates are confident, self-directed learners.",
+  },
+];
+---
+
+<Layout
+  title="Montessori vs. Traditional Preschool: Peninsula Parent Guide | Kubo Montessori"
+  description="Comparing Montessori vs. traditional preschool for your Bay Area child? Learn the key differences in learning cycles, multi-age classrooms, teacher ratios, and self-directed development."
+  image="/images/km3.jpg"
+  article={true}
+>
+  <NavBar />
+
+  <!-- Article Hero Header -->
+  <div class="bg-gradient-to-r from-slate-950 via-slate-900 to-amber-950 text-white py-16 px-4">
+    <div class="max-w-4xl mx-auto text-center">
+      <span class="inline-block px-3 py-1 bg-amber-500/20 text-amber-300 border border-amber-500/30 rounded-full text-xs font-semibold uppercase tracking-wider mb-3">
+        Educational Resource Guide
+      </span>
+      <h1 class="text-3xl md:text-5xl font-bold mb-4 drop-shadow-sm leading-tight">
+        Montessori vs. Traditional Preschool: Which is Right for Your Bay Area Child?
+      </h1>
+      <p class="text-slate-300 text-base md:text-lg max-w-2xl mx-auto">
+        A deep-dive guide for Peninsula parents navigating early education philosophies, classroom structures, and long-term developmental outcomes.
+      </p>
+    </div>
+  </div>
+
+  <!-- Article Content -->
+  <article class="py-16 bg-white">
+    <div class="container mx-auto px-4 max-w-3xl text-slate-700 leading-relaxed text-base space-y-8">
+      <p class="text-lg text-slate-800 font-medium leading-relaxed">
+        Choosing the right early education environment is one of the most significant decisions Bay Area parents make. When evaluating preschool options across San Mateo, Foster City, Belmont, and Redwood City, parents frequently wonder: <em>"How does an authentic Montessori classroom differ from a play-based or traditional academic daycare?"</em>
+      </p>
+
+      <h2 class="text-2xl font-bold text-slate-900 pt-4 border-t border-slate-100">1. Classroom Structure & Learning Pace</h2>
+      <p>
+        In a <strong>traditional preschool</strong>, instruction is predominantly teacher-led and schedule-driven. The whole class transitions simultaneously between group circle time, table crafts, snack, and outdoor play on set timer schedules.
+      </p>
+      <p>
+        In an <strong>authentic Montessori program</strong> like Kubo Montessori's <em>Casa dei Bambini</em>, children engage in uninterrupted 3-hour work cycles. Credentialed guides introduce self-correcting materials (such as Pink Towers, Cylinder Blocks, and Sandpaper Letters). Children choose work that matches their inner developmental sensitive period, fostering deep concentration, independence, and internal motivation.
+      </p>
+
+      <h2 class="text-2xl font-bold text-slate-900 pt-4 border-t border-slate-100">2. Mixed-Age Classrooms vs. Single-Age Groups</h2>
+      <p>
+        Traditional daycare centers separate children strictly by birth year (e.g., 2-year-old room, 3-year-old room).
+      </p>
+      <p>
+        Montessori classrooms intentionally group children across a 3-year span (ages 20 months to 6 years). Younger children naturally learn by observing older classmates, while older children solidify their knowledge and leadership skills by mentoring younger peers.
+      </p>
+
+      <!-- Quick Fact Table Comparison -->
+      <QuickFactTable
+        title="Montessori & Campus Overview at Kubo Montessori"
+        subtitle="Summary of Kubo Montessori's low ratios, organic meal program, and potty-training support."
+      />
+
+      <h2 class="text-2xl font-bold text-slate-900 pt-4 border-t border-slate-100">3. Teacher Ratios & Social-Emotional Guidance</h2>
+      <p>
+        At Kubo Montessori, we maintain low student-to-teacher ratios (12:2 in San Mateo, 6:1 in Redwood City). Low ratios allow our credentialed Montessori guides to observe each child's individual progress, support emotional regulation, and provide gentle, active potty-training support without rigid rules or stress.
+      </p>
+
+      <!-- CTA Box -->
+      <div class="bg-slate-50 p-8 rounded-2xl border border-slate-200 text-center my-10 shadow-sm">
+        <h3 class="text-2xl font-bold text-slate-900 mb-2">See Authentic Montessori in Action</h3>
+        <p class="text-slate-600 text-sm mb-6 max-w-lg mx-auto">
+          Schedule a private morning tour at our San Mateo or Redwood City campus to observe our peaceful work cycles firsthand.
+        </p>
+        <a
+          href="https://calendly.com/mary-kubo"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-block px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-md transition-colors text-sm"
+        >
+          Book Your Private Campus Tour
+        </a>
+      </div>
+
+      <!-- FAQ Section -->
+      <FAQSection
+        title="Montessori Philosophy FAQ"
+        subtitle="Common questions about Montessori learning for toddlers and preschoolers."
+        faqs={guideFaqs}
+      />
+    </div>
+  </article>
+
+  <Footer />
+</Layout>

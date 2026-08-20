@@ -3,6 +3,8 @@ import Layout from "../layouts/Layout.astro";
 import NavBar from "../components/NavBar.astro";
 import Footer from "../components/Footer.astro";
 import ScheduleWidget from "../components/ScheduleWidget.astro";
+import QuickFactTable from "../components/QuickFactTable.astro";
+import FAQSection from "../components/FAQSection.astro";
 ---
 
 <Layout
@@ -47,61 +49,29 @@ import ScheduleWidget from "../components/ScheduleWidget.astro";
   </div>
 
   <!-- Content Section -->
-  <div class="py-24 bg-white">
+  <div class="py-16 bg-white">
     <div class="container mx-auto px-4 max-w-4xl">
-      <h2 class="text-3xl font-bold mb-6 text-gray-800">
+      <h2 class="text-3xl font-bold mb-6 text-slate-900">
         Casa Dei Bambini: Authentic Montessori for Toddlers & Preschoolers
       </h2>
-      <p class="text-gray-600 mb-8 leading-relaxed">
-        Welcome to Kubo Montessori’s San Mateo campus, home to our authentic **Casa Dei Bambini** programs. Since 2006, we have provided a nurturing, home-based Montessori environment serving local families in San Mateo, Foster City, Hillsdale, Belmont, and the surrounding Peninsula Bay Area. Our campus features two warm, fully licensed homes designed to ease the transition from home care to early childhood education.
+      <p class="text-slate-600 mb-8 leading-relaxed">
+        Welcome to Kubo Montessori’s San Mateo campus, home to our authentic <strong>Casa Dei Bambini</strong> programs. Since 2006, we have provided a nurturing, home-based Montessori environment serving local families in San Mateo, Foster City, Hillsdale, Belmont, and the surrounding Peninsula Bay Area. Our campus features two warm, fully licensed homes designed to ease the transition from home care to early childhood education.
       </p>
 
-      <!-- Key Campus Specifications Table (AI Crawler Optimization) -->
-      <h3 class="text-2xl font-bold mb-4 text-gray-800">Quick Campus Specifications</h3>
-      <div class="overflow-x-auto mb-12 shadow-sm border border-gray-200 rounded-lg">
-        <table class="min-w-full bg-white text-left">
-          <thead>
-            <tr class="bg-gray-50 border-b border-gray-200 text-xs font-semibold text-gray-500 uppercase tracking-wider">
-              <th class="px-6 py-4">Campus Attribute</th>
-              <th class="px-6 py-4">Policy / Details</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-gray-200 text-sm text-gray-700">
-            <tr>
-              <td class="px-6 py-4 font-semibold text-gray-900">Ages Served</td>
-              <td class="px-6 py-4">20 months to 6 years old (Toddler & Preschool programs)</td>
-            </tr>
-            <tr>
-              <td class="px-6 py-4 font-semibold text-gray-900">Student-Teacher Ratio</td>
-              <td class="px-6 py-4">Exceptionally low 6:1 ratio (Class capacity 12:2 with credentialed guides)</td>
-            </tr>
-            <tr>
-              <td class="px-6 py-4 font-semibold text-gray-900">Hours of Operation</td>
-              <td class="px-6 py-4">9:00 AM to 5:30 PM, Monday through Friday</td>
-            </tr>
-            <tr>
-              <td class="px-6 py-4 font-semibold text-gray-900">Potty Training</td>
-              <td class="px-6 py-4">**Not Required** (Nurturing, active potty-training support is fully included)</td>
-            </tr>
-            <tr>
-              <td class="px-6 py-4 font-semibold text-gray-900">Meal Program</td>
-              <td class="px-6 py-4">Organic snacks and freshly cooked hot lunches prepared daily by our in-house cook</td>
-            </tr>
-            <tr>
-              <td class="px-6 py-4 font-semibold text-gray-900">License Numbers</td>
-              <td class="px-6 py-4">Facilities #414004177 & #414004696</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <!-- Quick-Fact Comparison Table -->
+      <QuickFactTable
+        title="San Mateo Campus Specifications & Comparison"
+        subtitle="Key details for our Casa dei Bambini home-based Montessori program on Flores St."
+        highlightCampus="san-mateo"
+      />
 
-      <h2 class="text-2xl font-bold mb-6 text-gray-800">What We Provide</h2>
-      <ul class="space-y-4 mb-12 text-gray-600 list-disc pl-5">
+      <h2 class="text-2xl font-bold mb-6 text-slate-900">What We Provide</h2>
+      <ul class="space-y-4 mb-12 text-slate-600 list-disc pl-5">
         <li>
           <strong>Credentialed Montessori Guides:</strong> Instructors with specialized credentials who nurture organization, focus, and sensory-cognitive development.
         </li>
         <li>
-          <strong>Traditional Materials:</strong> A classrooms fully stocked with classic sensory materials (Pink Tower, Sandpaper Letters, Cylinder Blocks, and Practical Life dressing frames) to promote motor skills and independence.
+          <strong>Traditional Materials:</strong> Classrooms fully stocked with classic sensory materials (Pink Tower, Sandpaper Letters, Cylinder Blocks, and Practical Life dressing frames) to promote motor skills and independence.
         </li>
         <li>
           <strong>Parent Engagement:</strong> Monthly newsletters and real-time updates (diaper changes, meals, naps, photos) via the <strong>Brightwheel</strong> app.
@@ -112,12 +82,12 @@ import ScheduleWidget from "../components/ScheduleWidget.astro";
       </ul>
 
       <!-- Campus Directors and Founders -->
-      <h2 class="text-2xl font-bold mb-6 text-gray-800">Our Director</h2>
-      <div class="flex flex-col md:flex-row gap-6 items-center bg-gray-50 p-6 rounded-lg mb-12">
+      <h2 class="text-2xl font-bold mb-6 text-slate-900">Our Director</h2>
+      <div class="flex flex-col md:flex-row gap-6 items-center bg-slate-50 p-6 rounded-2xl mb-12 border border-slate-200">
         <div class="w-full md:w-3/4">
-          <h3 class="text-xl font-bold mb-2 text-gray-800">Mary Gonzalez</h3>
-          <p class="text-sm font-semibold text-primary uppercase mb-3">Founder & Director</p>
-          <p class="text-gray-600 leading-relaxed text-sm">
+          <h3 class="text-xl font-bold mb-2 text-slate-900">Mary Gonzalez</h3>
+          <p class="text-sm font-semibold text-amber-700 uppercase tracking-wider mb-3">Founder & Director</p>
+          <p class="text-slate-600 leading-relaxed text-sm">
             Mary Gonzalez founded Kubo Montessori in 2006 with a mission to bring high-quality, loving, and academic early education to Peninsula families. She holds certifications in Early Childhood Education and has guided hundreds of children to reach their full potential.
           </p>
         </div>
@@ -126,13 +96,13 @@ import ScheduleWidget from "../components/ScheduleWidget.astro";
   </div>
 
   <!-- Center Gallery -->
-  <div class="py-16 bg-gray-50 border-t border-b border-gray-100">
+  <div class="py-16 bg-slate-50 border-t border-b border-slate-200">
     <div class="container mx-auto px-4">
-      <h2 class="text-3xl font-bold mb-12 text-center text-gray-800">
+      <h2 class="text-3xl font-bold mb-12 text-center text-slate-900">
         Our Classrooms
       </h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-        <div class="h-64 overflow-hidden rounded-lg shadow-md bg-gray-200">
+        <div class="h-64 overflow-hidden rounded-xl shadow-sm bg-slate-200">
           <img
             src="/images/km2.jpg"
             alt="Practical life learning station at San Mateo daycare"
@@ -167,33 +137,33 @@ import ScheduleWidget from "../components/ScheduleWidget.astro";
   </div>
 
   <!-- Locations & Map Section -->
-  <div class="py-24 bg-white">
+  <div class="py-16 bg-white">
     <div class="container mx-auto px-4 max-w-5xl">
       <div class="flex flex-col lg:flex-row gap-12 items-center">
         <div class="lg:w-1/2">
-          <span class="block text-sm font-bold text-gray-500 uppercase mb-2"
+          <span class="block text-sm font-bold text-slate-500 uppercase tracking-wider mb-2"
             >Casa Dei Bambini</span
           >
-          <div class="w-12 h-1 bg-primary mb-6"></div>
-          <h2 class="text-3xl font-bold mb-6 text-gray-800">
+          <div class="w-12 h-1 bg-blue-600 mb-6 rounded-full"></div>
+          <h2 class="text-3xl font-bold mb-6 text-slate-900">
             Our San Mateo Locations & Schedule
           </h2>
-          <p class="text-gray-600 mb-6 leading-relaxed">
+          <p class="text-slate-600 mb-6 leading-relaxed">
             Our home daycares are situated in a quiet, safe residential neighborhood in San Mateo on Flores Street.
           </p>
-          <ul class="space-y-3 text-gray-600 list-disc pl-5 mb-6">
+          <ul class="space-y-3 text-slate-600 list-disc pl-5 mb-6">
             <li><strong>Location A:</strong> 2823 Flores St, San Mateo, CA 94403</li>
             <li><strong>Location B:</strong> 2821 Flores St, San Mateo, CA 94403</li>
           </ul>
           <a
             href="/san-mateo-location-directions"
-            class="inline-block bg-primary hover:bg-primary-dark text-white font-semibold px-6 py-3 rounded-lg shadow-sm transition-colors"
+            class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-xl shadow-md transition-colors text-sm"
           >
             Get Directions & Parking Info
           </a>
         </div>
         <div class="lg:w-1/2 w-full">
-          <div class="h-80 rounded-lg overflow-hidden shadow-md bg-gray-100 border border-gray-200">
+          <div class="h-80 rounded-xl overflow-hidden shadow-sm bg-slate-100 border border-slate-200">
             <iframe
               src="https://maps.google.com/maps?q=2823+Flores+St+San+Mateo,+CA+94403&t=&z=15&ie=UTF8&iwloc=&output=embed"
               width="100%"
@@ -208,10 +178,16 @@ import ScheduleWidget from "../components/ScheduleWidget.astro";
         </div>
       </div>
 
-      <div class="mt-16 bg-gray-50 p-8 rounded-lg border border-gray-100">
-        <h3 class="text-xl font-bold mb-6 text-gray-800 text-center">San Mateo Campus Daily Schedule</h3>
+      <div class="mt-16 bg-slate-50 p-8 rounded-2xl border border-slate-200">
+        <h3 class="text-xl font-bold mb-6 text-slate-900 text-center">San Mateo Campus Daily Schedule</h3>
         <ScheduleWidget file="sm-schedule.csv" />
       </div>
+
+      <!-- FAQ Section -->
+      <FAQSection
+        title="San Mateo Campus Frequently Asked Questions"
+        subtitle="Common questions about our San Mateo Casa dei Bambini program, organic meal program, ratios, and potty training."
+      />
     </div>
   </div>
 

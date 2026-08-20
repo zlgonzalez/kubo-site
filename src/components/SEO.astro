@@ -4,13 +4,17 @@ interface Props {
   description?: string;
   image?: string;
   article?: boolean;
+  targetCity?: string;
+  keywords?: string;
 }
 
 const {
   title,
-  description = "Fun and Academic Preschool Montessori Child Care in San Mateo and Redwood City",
+  description = "Authentic Montessori Preschool & Daycare in San Mateo and Redwood City serving Bay Area Peninsula families.",
   image = "/images/kubo1.jpg",
   article = false,
+  targetCity,
+  keywords = "kubo, montessori preschool, daycare san mateo, daycare redwood city, foster city preschool, belmont ca daycare, san carlos montessori, burlingame preschool, menlo park daycare, early childhood education, Casa dei Bambini, Roots N Wings Montessori",
 } = Astro.props;
 
 const canonicalURL = new URL(
@@ -18,8 +22,146 @@ const canonicalURL = new URL(
   Astro.site || Astro.url.origin,
 );
 const socialImageURL = new URL(image, Astro.url);
-const siteName = "Kubo Montessori";
-const id = Astro.url + "#organization";
+const siteOrigin = Astro.site ? Astro.site.origin : Astro.url.origin;
+
+const allServedCities = [
+  "San Mateo",
+  "Redwood City",
+  "Foster City",
+  "Belmont",
+  "San Carlos",
+  "Burlingame",
+  "Menlo Park",
+  "Woodside",
+  "Hillsdale",
+];
+
+if (targetCity && !allServedCities.includes(targetCity)) {
+  allServedCities.push(targetCity);
+}
+
+const multiEntitySchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": ["EducationalOrganization", "Preschool", "ChildCare"],
+      "@id": `${siteOrigin}/#organization`,
+      name: "Kubo Montessori",
+      url: siteOrigin,
+      logo: `${siteOrigin}/images/logo.png`,
+      image: socialImageURL.toString(),
+      description: description,
+      telephone: "+1-408-502-6198",
+      foundingDate: "2006",
+      founder: {
+        "@type": "Person",
+        name: "Mary Gonzalez",
+        jobTitle: "Founder & Educational Director",
+      },
+      sameAs: [
+        "https://amshq.org/schools/roots-n-wings-montessori-by-kubo-montessori-llc-128193/",
+        "https://www.facebook.com/kubomontessori",
+        "https://www.instagram.com/kubomontessori",
+      ],
+      aggregateRating: {
+        "@type": "AggregateRating",
+        ratingValue: "5.0",
+        reviewCount: "25",
+      },
+      areaServed: allServedCities,
+    },
+    {
+      "@type": ["DayCare", "Preschool"],
+      "@id": `${siteOrigin}/san-mateo-preschool-daycare#campus`,
+      name: "Kubo Montessori - San Mateo Campus (Casa dei Bambini)",
+      parentOrganization: {
+        "@id": `${siteOrigin}/#organization`,
+      },
+      url: `${siteOrigin}/san-mateo-preschool-daycare`,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "2823 Flores St",
+        addressLocality: "San Mateo",
+        addressRegion: "CA",
+        postalCode: "94403",
+        addressCountry: "US",
+      },
+      telephone: "+1-650-430-4118",
+      typicalAgeRange: "20m-6y",
+      geo: {
+        "@type": "GeoCoordinates",
+        latitude: 37.54035,
+        longitude: -122.304768,
+      },
+      openingHoursSpecification: [
+        {
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+          opens: "09:00",
+          closes: "17:30",
+        },
+      ],
+      amenityFeature: [
+        {
+          "@type": "LocationFeatureSpecification",
+          name: "Fresh Cooked Hot Organic Lunch",
+          value: true,
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          name: "Potty Training Assistance",
+          value: true,
+        },
+      ],
+      areaServed: ["San Mateo", "Foster City", "Belmont", "Hillsdale", "Burlingame"],
+    },
+    {
+      "@type": ["Preschool", "ChildCare"],
+      "@id": `${siteOrigin}/redwood-city-preschool-center#campus`,
+      name: "Roots N' Wings Montessori by Kubo Montessori LLC",
+      parentOrganization: {
+        "@id": `${siteOrigin}/#organization`,
+      },
+      url: `${siteOrigin}/redwood-city-preschool-center`,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "2323 Euclid Ave",
+        addressLocality: "Redwood City",
+        addressRegion: "CA",
+        postalCode: "94061",
+        addressCountry: "US",
+      },
+      telephone: "+1-408-502-6198",
+      typicalAgeRange: "2y-6y",
+      geo: {
+        "@type": "GeoCoordinates",
+        latitude: 37.463372,
+        longitude: -122.20377,
+      },
+      openingHoursSpecification: [
+        {
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+          opens: "08:30",
+          closes: "17:30",
+        },
+      ],
+      amenityFeature: [
+        {
+          "@type": "LocationFeatureSpecification",
+          name: "Potty Training Assistance",
+          value: true,
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          name: "Transitional Kindergarten (TK) Program",
+          value: true,
+        },
+      ],
+      areaServed: ["Redwood City", "San Carlos", "Menlo Park", "Woodside", "Atherton"],
+    },
+  ],
+};
 ---
 
 <!-- Global Metadata -->
@@ -27,10 +169,7 @@ const id = Astro.url + "#organization";
 <meta name="viewport" content="width=device-width" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <meta name="generator" content={Astro.generator} />
-<meta
-  name="keywords"
-  content="kubo, child care centers, play, technology, montessori, redwood city, san mateo, daycare centers in my area, preschool, home, daycare, early education, childhood education, local Redwood City day care center"
-/>
+<meta name="keywords" content={keywords} />
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
@@ -63,129 +202,8 @@ const id = Astro.url + "#organization";
   onload="this.media='all'"
 />
 
-<!-- JSON-LD Structured Data -->
+<!-- Multi-Entity JSON-LD Structured Data Schema -->
 <script
   type="application/ld+json"
-  set:html={JSON.stringify({
-    "@id": id,
-    "@context": "https://schema.org",
-    "@type": "EducationalOrganization",
-    name: "Kubo Montessori",
-    image: socialImageURL,
-    description: description,
-    url: Astro.site || Astro.url.origin,
-    logo: (Astro.site || Astro.url.origin) + "/images/logo.png",
-    telephone: "+1-408-502-6198",
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: "2323 Euclid Ave",
-      addressLocality: "Redwood City",
-      addressRegion: "CA",
-      postalCode: "94061",
-      addressCountry: "US",
-    },
-    sameAs: [
-      "https://amshq.org/schools/roots-n-wings-montessori-by-kubo-montessori-llc-128193/",
-      "https://www.facebook.com/kubomontessori",
-      "https://www.instagram.com/kubomontessori",
-    ],
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "5.0",
-      reviewCount: "25",
-    },
-    subOrganization: [
-      {
-        "@type": "DayCare",
-        "@id": (Astro.site || Astro.url.origin) + "/san-mateo-preschool-daycare#organization",
-        "url": (Astro.site || Astro.url.origin) + "/san-mateo-preschool-daycare",
-        name: "Kubo Montessori - San Mateo Campus",
-        address: {
-          "@type": "PostalAddress",
-          streetAddress: "2823 Flores St",
-          addressLocality: "San Mateo",
-          addressRegion: "CA",
-          postalCode: "94403",
-          addressCountry: "US",
-        },
-        telephone: "+16504304118",
-        typicalAgeRange: "20m-6y",
-        amenityFeature: [
-          {
-            "@type": "LocationFeatureSpecification",
-            name: "Fresh Cooked Hot Lunch",
-            value: true,
-          },
-          {
-            "@type": "LocationFeatureSpecification",
-            name: "Potty Training Assistance",
-            value: true,
-          },
-        ],
-        geo: {
-          "@type": "GeoCoordinates",
-          latitude: 37.54035,
-          longitude: -122.304768,
-        },
-      },
-      {
-        "@type": "Preschool",
-        "@id": (Astro.site || Astro.url.origin) + "/redwood-city-preschool-center#organization",
-        "url": (Astro.site || Astro.url.origin) + "/redwood-city-preschool-center",
-        name: "Roots N' Wings Montessori by Kubo Montessori LLC",
-        address: {
-          "@type": "PostalAddress",
-          streetAddress: "2323 Euclid Ave",
-          addressLocality: "Redwood City",
-          addressRegion: "CA",
-          postalCode: "94061",
-          addressCountry: "US",
-        },
-        telephone: "+14085026198",
-        typicalAgeRange: "2y-6y",
-        amenityFeature: [
-          {
-            "@type": "LocationFeatureSpecification",
-            name: "Potty Training Assistance",
-            value: true,
-          },
-        ],
-        geo: {
-          "@type": "GeoCoordinates",
-          latitude: 37.463372,
-          longitude: -122.20377,
-        },
-      },
-    ],
-    openingHoursSpecification: [
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-        opens: "08:00",
-        closes: "17:00",
-      },
-    ],
-    knowsAbout: [
-      "Montessori Method",
-      "Early Childhood Education",
-      "Child Development",
-      "Practical Life Skills",
-      "Maria Montessori Method",
-    ],
-    hasOfferCatalog: {
-      "@type": "OfferCatalog",
-      name: "Preschool Programs",
-      itemListElement: [
-        {
-          "@type": "Offer",
-          itemOffered: {
-            "@type": "EducationalOccupationalProgram",
-            name: "Montessori Preschool Program",
-            description:
-              "An authentic Montessori environment focusing on independence, social development, and academic foundation.",
-          },
-        },
-      ],
-    },
-  })}
+  set:html={JSON.stringify(multiEntitySchema)}
 />

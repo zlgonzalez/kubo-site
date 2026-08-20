@@ -1,0 +1,129 @@
+---
+import Layout from "../layouts/Layout.astro";
+import NavBar from "../components/NavBar.astro";
+import Footer from "../components/Footer.astro";
+import QuickFactTable from "../components/QuickFactTable.astro";
+import FAQSection from "../components/FAQSection.astro";
+
+const sanCarlosFaqs = [
+  {
+    question: "How close is Kubo Montessori to San Carlos, CA?",
+    answer: "Our Redwood City campus (Roots N' Wings) on Euclid Ave is located just 5 minutes from San Carlos via Alameda de las Pulgas or San Carlos Ave. Our San Mateo campus on Flores St is ~10 minutes north via El Camino Real.",
+  },
+  {
+    question: "What programs are offered for San Carlos preschoolers?",
+    answer: "San Carlos families love our Roots N' Wings campus, which offers 6:1 ratios, nature-rich grounds, active potty-training support, and Transitional Kindergarten (TK) prep, as well as multilingual enrichment in Spanish, Japanese, and Mandarin.",
+  },
+];
+---
+
+<Layout
+  title="Montessori Preschool & Daycare Serving San Carlos, CA | Kubo Montessori"
+  description="Looking for an authentic Montessori preschool near San Carlos? Roots N' Wings by Kubo Montessori in Redwood City offers 6:1 ratios, nature-rich grounds, TK prep, and potty training support just 5 minutes away."
+  image="/images/image6.jpg"
+  targetCity="San Carlos"
+>
+  <NavBar />
+
+  <!-- Hero Banner -->
+  <div class="relative h-[380px] bg-gradient-to-r from-slate-950 via-slate-900 to-amber-950 text-white overflow-hidden">
+    <div class="absolute inset-0 opacity-25 mix-blend-overlay">
+      <img src="/images/image6.jpg" alt="Roots N Wings Montessori serving San Carlos" class="w-full h-full object-cover" />
+    </div>
+    <div class="relative max-w-6xl mx-auto px-4 h-full flex flex-col items-center justify-center text-center">
+      <span class="inline-block px-3.5 py-1 bg-amber-500/20 text-amber-300 border border-amber-500/30 rounded-full text-xs font-semibold uppercase tracking-wider mb-3">
+        San Carlos Childcare Guide
+      </span>
+      <h1 class="text-3xl md:text-5xl font-bold drop-shadow-md mb-4">
+        Montessori Preschool & Daycare Serving San Carlos
+      </h1>
+      <p class="text-base md:text-lg text-slate-300 max-w-2xl">
+        Just 5 minutes from San Carlos! Nature-based Montessori campus with low 6:1 ratios, TK program, and dedicated potty training assistance.
+      </p>
+      <div class="mt-6 flex flex-wrap gap-4 justify-center">
+        <a
+          href="https://calendly.com/mary-kubo"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-lg transition-all text-sm"
+        >
+          Schedule a Private Campus Tour
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="py-16 bg-white">
+    <div class="container mx-auto px-4 max-w-4xl">
+      <!-- Commute Highlight -->
+      <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200/80 mb-12 flex flex-col md:flex-row items-center gap-6">
+        <div class="bg-slate-900 text-amber-400 p-4 rounded-xl text-center min-w-[140px] shadow-sm">
+          <span class="text-3xl font-black block">5</span>
+          <span class="text-xs uppercase font-medium tracking-wide text-slate-300">Minutes Drive</span>
+        </div>
+        <div>
+          <h2 class="text-xl font-bold text-slate-900 mb-2">Short Commute from San Carlos</h2>
+          <p class="text-slate-600 text-sm leading-relaxed">
+            Located at <strong>2323 Euclid Ave, Redwood City</strong>, our Roots N' Wings campus sits immediately adjacent to the San Carlos border. Drive 5 minutes up Alameda de las Pulgas or San Carlos Ave for seamless morning drop-offs.
+          </p>
+        </div>
+      </div>
+
+      <h2 class="text-2xl font-bold text-slate-900 mb-4">Nature-Rich Montessori Education for San Carlos Children</h2>
+      <p class="text-slate-600 leading-relaxed mb-6">
+        San Carlos parents appreciate our outdoor gardening, baking, gymnastics, and language enrichment programs. With a low 6:1 student-to-teacher ratio, credentialed guides provide the individual attention young learners need to thrive.
+      </p>
+
+      <!-- Quick Fact Table -->
+      <QuickFactTable
+        title="San Carlos Campus Specifications"
+        subtitle="Compare Kubo Montessori's Redwood City campus features for San Carlos families."
+        highlightCampus="redwood-city"
+      />
+
+      <!-- Map & Driving Directions -->
+      <div class="my-14 bg-slate-50 p-8 rounded-2xl border border-slate-200">
+        <h2 class="text-2xl font-bold text-slate-900 mb-4">Driving Routes from San Carlos</h2>
+        <div class="grid md:grid-cols-2 gap-8 items-center">
+          <div>
+            <p class="text-slate-600 text-sm leading-relaxed mb-3">
+              <strong>To Redwood City Campus (5 mins):</strong> Head south on Alameda de las Pulgas or San Carlos Ave ~2 miles, turn onto Euclid Ave (2323 Euclid Ave).
+            </p>
+            <p class="text-slate-600 text-sm leading-relaxed mb-6">
+              <strong>To San Mateo Campus (10 mins):</strong> Take El Camino Real North ~4 miles, turn right on Flores St (2823 Flores St).
+            </p>
+            <a
+              href="https://calendly.com/mary-kubo"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-block px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-xl shadow-sm transition-colors"
+            >
+              Book Your Tour Today
+            </a>
+          </div>
+          <div class="h-64 rounded-xl overflow-hidden shadow-sm border border-slate-200">
+            <iframe
+              src="https://maps.google.com/maps?q=2323+Euclid+Ave+Redwood+City,+CA+94061&t=&z=14&ie=UTF8&iwloc=&output=embed"
+              width="100%"
+              height="100%"
+              style="border:0;"
+              allowfullscreen=""
+              loading="lazy"
+              title="Map from San Carlos to Kubo Montessori Redwood City"
+            ></iframe>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ Section -->
+      <FAQSection
+        title="San Carlos Parents FAQ"
+        subtitle="Answers to common questions from San Carlos families."
+        faqs={sanCarlosFaqs}
+      />
+    </div>
+  </div>
+
+  <Footer />
+</Layout>

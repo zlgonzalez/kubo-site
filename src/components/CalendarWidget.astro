@@ -38,13 +38,13 @@ const formatDate = (dateString: string) => {
 ---
 
 <div
-  class="calendar-widget bg-white rounded-lg shadow-lg overflow-hidden border border-gray-100"
+  class="calendar-widget bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-200"
 >
-  <div class="bg-primary px-6 py-4">
+  <div class="bg-slate-900 px-6 py-4">
     <h3 class="text-white text-xl font-bold flex items-center">
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        class="h-6 w-6 mr-2"
+        class="h-6 w-6 mr-2 text-amber-400"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -60,35 +60,33 @@ const formatDate = (dateString: string) => {
     </h3>
   </div>
 
-  <div class="calendar-list divide-y divide-gray-100">
+  <div class="calendar-list divide-y divide-slate-100">
     {
       events.length > 0 ? (
         events.map((event, index) => (
           <div
-            class={`calendar-event-item px-6 py-4 hover:bg-gray-50 transition-colors ${index % 2 === 0 ? "bg-white" : "bg-gray-50/50"}`}
+            class={`calendar-event-item px-6 py-4 hover:bg-slate-50 transition-colors ${index % 2 === 0 ? "bg-white" : "bg-slate-50/50"}`}
           >
-            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start">
-              <div class="mb-1 sm:mb-0">
-                <span class="font-bold text-gray-800 text-lg">
+            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center">
+              <div class="mb-1 sm:mb-0 pr-4">
+                <span class="font-bold text-slate-900 text-base">
                   {event.Title}
                 </span>
                 {event.Description &&
                   (event.Description.trim() ? (
-                    <p class="text-sm text-gray-500 mt-1">
+                    <p class="text-xs text-slate-500 mt-0.5">
                       {event.Description}
                     </p>
-                  ) : (
-                    <div class="text-sm mt-1">&nbsp;</div>
-                  ))}
+                  ) : null)}
               </div>
-              <div class="text-amber-900 font-medium whitespace-nowrap bg-primary/10 px-3 py-1 rounded text-sm">
+              <div class="text-blue-600 font-semibold whitespace-nowrap bg-blue-50 border border-blue-100 px-3 py-1 rounded-full text-xs">
                 {formatDate(event.Date)}
               </div>
             </div>
           </div>
         ))
       ) : (
-        <div class="px-6 py-8 text-center text-gray-500 italic">
+        <div class="px-6 py-8 text-center text-slate-500 italic text-sm">
           No upcoming events at this time.
         </div>
       )
@@ -96,16 +94,16 @@ const formatDate = (dateString: string) => {
   </div>
 
   <div
-    class="pagination-controls hidden px-6 py-3 bg-gray-50 border-t border-gray-100 flex justify-between items-center text-sm"
+    class="pagination-controls hidden px-6 py-3 bg-slate-50 border-t border-slate-100 flex justify-between items-center text-xs"
   >
     <button
-      class="prev-btn px-3 py-1 rounded border border-gray-300 bg-white text-gray-600 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+      class="prev-btn px-3 py-1 rounded-lg border border-slate-300 bg-white text-slate-700 hover:bg-slate-100 disabled:opacity-50 disabled:cursor-not-allowed font-medium"
     >
       &larr; Previous
     </button>
-    <span class="page-info text-gray-600 font-medium">Page 1</span>
+    <span class="page-info text-slate-600 font-medium">Page 1</span>
     <button
-      class="next-btn px-3 py-1 rounded border border-gray-300 bg-white text-gray-600 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+      class="next-btn px-3 py-1 rounded-lg border border-slate-300 bg-white text-slate-700 hover:bg-slate-100 disabled:opacity-50 disabled:cursor-not-allowed font-medium"
     >
       Next &rarr;
     </button>
@@ -113,11 +111,11 @@ const formatDate = (dateString: string) => {
 </div>
 
 <script>
-  function setupPagination(widget) {
+  function setupPagination(widget: Element) {
     const list = widget.querySelector(".calendar-list");
     const controls = widget.querySelector(".pagination-controls");
-    const prevBtn = widget.querySelector(".prev-btn");
-    const nextBtn = widget.querySelector(".next-btn");
+    const prevBtn = widget.querySelector(".prev-btn") as HTMLButtonElement | null;
+    const nextBtn = widget.querySelector(".next-btn") as HTMLButtonElement | null;
     const pageInfo = widget.querySelector(".page-info");
 
     if (!list || !controls) return;
@@ -134,15 +132,16 @@ const formatDate = (dateString: string) => {
     let currentPage = 1;
     const totalPages = Math.ceil(items.length / itemsPerPage);
 
-    function showPage(page) {
+    function showPage(page: number) {
       const start = (page - 1) * itemsPerPage;
       const end = start + itemsPerPage;
 
       items.forEach((item, index) => {
+        const htmlItem = item as HTMLElement;
         if (index >= start && index < end) {
-          item.style.display = "block";
+          htmlItem.style.display = "block";
         } else {
-          item.style.display = "none";
+          htmlItem.style.display = "none";
         }
       });
 
