@@ -9,11 +9,11 @@ install:
 
 # Run development server
 dev:
-	npm run dev
+	ASTRO_TELEMETRY_DISABLED=1 npm run dev
 
 # Build the project
 build:
-	npm run build
+	ASTRO_TELEMETRY_DISABLED=1 npm run build
 
 # Preview the built project
 preview:
@@ -21,7 +21,7 @@ preview:
 
 # Run test suite
 test:
-	npm test
+	ASTRO_TELEMETRY_DISABLED=1 npm test
 
 
 # Clean build artifacts
