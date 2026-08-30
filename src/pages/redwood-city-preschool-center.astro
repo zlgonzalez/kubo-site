@@ -9,27 +9,56 @@ import FAQSection from "../components/FAQSection.astro";
 
 const teachers = [
   {
+    name: "Ms. Mary Gonzalez",
+    role: "Owner",
+    img: "/images/mary-gonzalez.jpg",
+    bio: "Ms. Mary has dedicated over 26 years to Montessori education, beginning in the 1990s working with children with special needs and pursuing postgraduate studies in Special Education. Inspired by her mother, who was also a teacher, Ms. Mary sees teaching as a gift and a calling. She is AMS credentialed in Early Childhood Education and AMI certified in Montessori for Dementia and Aging. With patience, understanding, and love, she believes Montessori can help shape future mathematicians, scientists, artists, builders, creators, engineers, and leaders. Most importantly, she believes in nurturing emotional intelligence, knowing that when children feel loved, confident, and inspired to learn, their intellectual potential naturally follows.",
+  },
+  {
     name: "Mr. Roi Brigino",
+    role: "Onsite Director",
     img: "/images/roi-brigino.jpeg",
     bio: "Mr. Roi Brigino has been a preschool teacher since 2012. He completed 18 units of Early Childhood Education from Canada College. Mr. Roi attended AMI training courses for Early Childhood Education. He has 8 years of teaching experience in a Montessori classroom and constantly attending seminars to update his Montessori teaching skills.",
   },
   {
     name: "Ms. Griselda Salazar",
+    role: "Administrator & Montessori Teacher",
     img: "/images/griselda-salazar.jpeg",
     bio: "Ms. Griselda Salazar was born and raised in the Bay Area. She is Mexican American and can speak both English and Spanish. She started her teaching journey in community college studying Early Childhood Education. During her time in college, she learned about the Montessori Method and was instantly a huge fan. She became extremely passionate about the teaching approach. She worked as a teacher at Outschool for a few years where she did more traditional teaching but over time realized that her interest in learning and practicing the Montessori Method is something she wants to pursue. Working and teaching at Roots N Wings Montessori was a wonderful opportunity to start her teaching career. She is currently taking her Montesori certificate at MTEC/San Francisco Bay Area and taking each day as a one big step of becoming a true Montessori guide.",
   },
   {
-    name: "Mr. Lawrence Viray",
-    img: "/images/lawrence-viray.jpeg",
-    bio: "Mr. Lawrence has been with Roots N Wings Montessori since the school year 2023. He has a Bachelor of Science Degree in Physical Therapy and an Early Childhood Montessori teacher credential from American Montessori Society. He was teaching kids with disabilities for 2 years before exploring the preschool age group. Mr. Lawrence's mother was a teacher as well and he wanted to continue his mother's legacy. Mr. Lawrence is very patient and knowledgeable on the Montessori approach. He is currently continuing his education in the infant toddler program with Montessori Teacher Education Center San Francisco Bay Area.",
-  },
-  {
     name: "Ms. Aileen Amar",
+    role: "Montessori Teacher",
     img: "/images/aileen-amar.jpeg",
     bio: "Aileen is a passionate educator at Roots N Wings Montessori School, holding an Early Childhood Montessori teacher credential from the American Montessori Society. She has a Bachelor of Science in Economics with a Minor in Math and Statistics, which enhances her ability to create a structured and engaging learning environment. Her love for teaching began early—she started tutoring children during high school and continues to be inspired by working with young learners. Writing is another passion, allowing her to creatively express ideas and explore educational concepts. Aileen is committed to understanding each child’s individual needs and fostering a nurturing environment where they can thrive academically and emotionally.",
   },
   {
+    name: "Miss Angela Rincon",
+    role: "Montessori Teacher",
+    img: "/images/angela-rincon.jpg",
+    bio: "Miss Angela holds a Bachelor’s Degree in English and Bilingualism from Colombia and is currently continuing her professional training in Early Childhood Education with a focus on Montessori education at the Montessori Teacher Education Center (MTEC). Miss Angela has always enjoyed working with children and watching them discover the world around them. What she loves most about teaching is supporting each child’s individual development, celebrating their progress, and creating a safe and encouraging environment where they feel confident to learn and explore. Outside of the classroom, Miss Angela enjoys expressing her creativity through arts and crafts, listening to music, spending time in nature, and exploring different languages and cultures. She loves discovering new ways to be creative and learning about the world around her, and she enjoys bringing that same sense of curiosity and creativity into her work with children.",
+  },
+  {
+    name: "Ms. Joy Pacaigue",
+    role: "Montessori Teacher",
+    img: "/images/joy-pacaigue.jpg",
+    bio: "Ms. Joy is a compassionate Montessori educator who brings a strong academic foundation, professional expertise, and genuine warmth to her work with children. She holds American Montessori Society (AMS) credentials in both Infant & Toddler and Early Childhood Education, as well as a Bachelor of Secondary Education, major in Physical Science. Her diverse educational background gives her a well-rounded understanding of child development, learning, and effective teaching practices. Ms. Joy approaches each child with patience, respect, and understanding, recognizing that every child learns and develops at their own pace. Through thoughtful guidance, purposeful Montessori activities, and a nurturing classroom presence, she strives to foster independence, confidence, curiosity, and a lifelong love of learning. Her combination of academic preparation, Montessori expertise, and heartfelt dedication makes her a valued and trusted member of the Montessori community.",
+  },
+  {
+    name: "Miss Madel Coronacion",
+    role: "Montessori Teacher",
+    img: "/images/madel-coronacion.jpg",
+    bio: "Miss Madel is a dedicated guide at Roots N Wings Montessori School, holding an Early Childhood Montessori credential as well as an Infant & Toddler credential from the American Montessori Society. She earned a Bachelor's degree in Political Science, which enriches her ability to prepare a thoughtful, structured environment where children are free to explore, discover, and grow at their own pace. Rooted in the Montessori philosophy of following the child, Madelaine believes in honoring each child's natural curiosity and innate desire to learn. As a mother of two, she brings a deep, personal understanding of child development into her work, observing each child with the same care and respect she gives her own. Her passion for education has been shaped through hands-on experience working alongside children, and she is committed to seeing and understanding each child as a whole person, creating a nurturing, prepared environment where they can thrive academically, emotionally, and socially.",
+  },
+  {
+    name: "Ms. Yun Zhang",
+    role: "Montessori Teacher",
+    img: "/images/yun-zhang.jpg",
+    bio: "Ms. Yun Zhang is a dedicated and passionate Early Childhood Educator with over 10 years of experience working in bilingual Montessori and traditional preschool environments. She is AMS credentialed and brings a warm, engaging, and nurturing approach to working with children ages 2.5 to 6 years. With a degree in Dance from Hainan University in China, Ms. Yun brings creativity, movement, music, and cultural learning into the classroom. She especially enjoys teaching Mandarin through songs, movement, and playful activities, making language learning natural and enjoyable for young children. Her Montessori training, early childhood education experience, and genuine love for children allow her to create a supportive environment where children can develop independence, confidence, language skills, and a lifelong love of learning.",
+  },
+  {
     name: "Mr. Ron Gonzalez",
+    role: "Japanese Language & Music Teacher",
     img: "/images/ron-gonzalez-opt.jpg",
     bio: "Mr. Ron Gonzalez is the Japanese language teacher every Friday. He passed the first level Japanese Language Proficiency exam many years ago. Early on in his career, he lived in Tokyo, Japan while interning at Hitachi Semiconductor Ltd, working on semiconductor simulation software. He moved to the US and has worked in technology companies like Oracle, Salesforce and Apple specializing in Data, Machine Learning and AI. Today, he is Vice President at WEX, where he leads the AI and Data Lake Engineering teams. He loves playing the guitar and singing both English and Japanese songs with the kids and he constantly seeks to find technology applications in preschool education.",
   },
@@ -274,11 +303,11 @@ const carouselImages = [
     </div>
   </div>
 
-  <!-- Teachers -->
+  <!-- Leadership & Teachers -->
   <div class="py-24 bg-white">
     <div class="container mx-auto px-4 max-w-5xl">
       <h2 class="text-3xl font-bold mb-16 text-center text-gray-800">
-        Our Teachers
+        Leadership & Teachers
       </h2>
       <div class="space-y-16">
         {
@@ -287,9 +316,14 @@ const carouselImages = [
               class={`flex flex-col lg:flex-row gap-8 items-center ${index % 2 !== 0 ? "lg:flex-row-reverse" : ""}`}
             >
               <div class="lg:w-1/2">
-                <h3 class="text-2xl font-bold mb-4 text-gray-800">
+                <h3 class="text-2xl font-bold mb-1 text-gray-800">
                   {teacher.name}
                 </h3>
+                {teacher.role && (
+                  <span class="block text-sm font-semibold text-amber-900 uppercase tracking-wider mb-4">
+                    {teacher.role}
+                  </span>
+                )}
                 <p class="text-gray-600 leading-relaxed text-sm">{teacher.bio}</p>
               </div>
               <div class="lg:w-1/2">
