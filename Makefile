@@ -5,7 +5,7 @@ all: help
 
 # Install dependencies
 install:
-	npm install
+	npm install --legacy-peer-deps
 
 # Run development server
 dev:
