@@ -8,11 +8,11 @@ test('Card component renders correctly with input props', async () => {
     props: {
       title: 'Hello Montessori',
       body: 'Nurturing independence in a prepared environment.',
-      href: '/services',
+      href: '/services/',
     },
   });
 
-  expect(html).toContain('href="/services"');
+  expect(html).toContain('href="/services/"');
   expect(html).toContain('Hello Montessori');
   expect(html).toContain('Nurturing independence in a prepared environment.');
   expect(html).toContain('&rarr;');

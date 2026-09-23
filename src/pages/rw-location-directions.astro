@@ -5,7 +5,7 @@ import Footer from "../components/Footer.astro";
 ---
 
 <Layout
-  title="Location & Directions - Boots N' Wings"
+  title="Location & Directions - Roots N' Wings"
   description="Directions to Roots N Wings Montessori in Redwood City. Find the best route to our nature-based campus near Redwood Baptist Church."
   image="/images/rw-location.jpg"
 >
@@ -26,9 +26,9 @@ import Footer from "../components/Footer.astro";
       <p class="text-lg">
         <a href="/" class="hover:underline">Home</a>
         <span class="mx-3">/</span>
-        <a href="/services" class="hover:underline">Programs</a>
+        <a href="/services/" class="hover:underline">Programs</a>
         <span class="mx-3">/</span>
-        <a href="/redwood-city-preschool-center" class="hover:underline">Roots N' Wings</a>
+        <a href="/redwood-city-preschool-center/" class="hover:underline">Roots N' Wings</a>
         <span class="mx-3">/</span>
         Location & Directions
       </p>
@@ -37,24 +37,34 @@ import Footer from "../components/Footer.astro";
 
   <!-- Content -->
   <div class="py-16 bg-white">
-    <div class="container mx-auto px-4 text-center max-w-3xl">
-      <h2 class="text-3xl font-bold mb-6 text-gray-800">
-        How to get to Roots N' Wings
+    <div class="container mx-auto px-4 max-w-3xl">
+      <h2 class="text-3xl font-bold mb-6 text-gray-800 text-center">
+        Visiting Our Redwood City Campus
       </h2>
       <p class="text-gray-600 mb-6 leading-relaxed">
-        Some parents have given feedback that getting to Roots N' Wings can be
-        confusing, even with the aid of online maps. A suggested route is the
-        following:
+        Our Roots N' Wings campus is nestled in a quiet residential neighborhood at 2323 Euclid Ave in Redwood City, sharing grounds behind the Redwood Baptist Church. Because the campus entrance is set back from main arterial roads to create a tranquil, child-safe environment, GPS navigation apps can occasionally place the arrival pin slightly off course. We recommend following these simple landmark-based directions:
       </p>
-      <ul class="text-left text-gray-600 list-disc pl-5 mb-8 inline-block">
-        <li>Take Roosevelt Ave</li>
-        <li>Turn right on Connecticut Drive</li>
-        <li>Turn right after the 5th house</li>
-        <li>
-          The Montessori school should be on your right behind the Redwood
-          Baptist Church
-        </li>
-      </ul>
+
+      <div class="bg-gray-50 border border-gray-200 rounded-2xl p-6 mb-8">
+        <h3 class="text-xl font-bold text-gray-900 mb-4">Step-by-Step Driving Directions</h3>
+        <ol class="space-y-3 text-gray-700 list-decimal pl-5">
+          <li>Travel along Roosevelt Avenue toward Connecticut Drive.</li>
+          <li>Turn onto Connecticut Drive heading toward Euclid Avenue.</li>
+          <li>Proceed slowly down the block and make a right turn immediately after the 5th residential house.</li>
+          <li>Drive into the designated campus access driveway located directly behind Redwood Baptist Church.</li>
+          <li>The Montessori classroom building and secure outdoor play yards will be directly on your right.</li>
+        </ol>
+      </div>
+
+      <div class="space-y-4 text-gray-600 leading-relaxed text-left">
+        <h3 class="text-xl font-bold text-gray-900">Drop-off & Parking Guidelines</h3>
+        <p>
+          Dedicated visitor parking bays are situated adjacent to the main gated entrance. For safety during morning arrival (8:30 AM – 9:00 AM) and afternoon departure (5:00 PM – 5:30 PM), please observe a strict 5 MPH speed limit within the church and school driveway.
+        </p>
+        <p>
+          If you are visiting for a scheduled morning tour, please park in any visitor space and ring the entrance bell at the main office gate. If you need navigation assistance on the day of your visit, please call our direct campus line at <a href="tel:+14085026198" class="text-primary font-semibold hover:underline">(408) 502-6198</a>.
+        </p>
+      </div>
     </div>
   </div>
 

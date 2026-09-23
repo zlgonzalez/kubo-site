@@ -33,61 +33,116 @@ import Footer from "../components/Footer.astro";
 
   <!-- Contact Info -->
   <div class="py-16 bg-white">
-    <div class="container mx-auto px-4 max-w-3xl text-center">
-      <h2 class="text-3xl font-bold mb-8 text-gray-800">Contact</h2>
-
-      <div class="mb-8">
-        <p class="text-lg mb-2">
-          <strong>Redwood City: </strong>contact@kubomontessori.com or call <a
-            href="tel:+14085026198"
-            class="underline text-primary">408-502-6198</a
-          >
-        </p>
-        <p class="text-lg">
-          <strong>San Mateo: </strong>kubomontessori2006@gmail.com
+    <div class="container mx-auto px-4 max-w-4xl">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold mb-4 text-gray-800">We Would Love to Meet You</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto leading-relaxed">
+          Choosing the right preschool or early daycare environment is one of the most meaningful decisions you will make for your child. Whether you are interested in our licensed home-based Casa dei Bambini campus in San Mateo or our spacious center-based program at Roots N' Wings in Redwood City, we welcome your questions and encourage scheduled family visits.
         </p>
       </div>
 
-      <h2 class="text-3xl font-bold mb-8 text-gray-800">Connect with Us!</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+        <!-- San Mateo Campus -->
+        <div class="bg-gray-50 p-8 rounded-2xl shadow-sm border border-gray-100">
+          <span class="inline-block px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-xs font-semibold mb-4">
+            Casa dei Bambini
+          </span>
+          <h3 class="text-2xl font-bold text-gray-900 mb-3">San Mateo Campus</h3>
+          <p class="text-gray-600 mb-4 text-sm leading-relaxed">
+            Our intimate home daycare setting serving toddlers and preschoolers from 20 months to 6 years of age. Featuring home-cooked hot organic meals, gentle potty training support, and low 6:1 ratios.
+          </p>
+          <div class="space-y-2 text-sm text-gray-700">
+            <p><strong>Address:</strong> 2823 Flores St, San Mateo, CA 94403</p>
+            <p><strong>Hours:</strong> Monday – Friday: 9:00 AM – 5:30 PM</p>
+            <p><strong>Phone:</strong> <a href="tel:+16504304118" class="text-primary hover:underline font-medium">(650) 430-4118</a></p>
+            <p><strong>Email:</strong> <a href="mailto:kubomontessori2006@gmail.com" class="text-primary hover:underline font-medium">kubomontessori2006@gmail.com</a></p>
+          </div>
+          <div class="mt-6">
+            <a href="/san-mateo-location-directions/" class="text-primary font-semibold hover:underline text-sm inline-flex items-center gap-1">
+              San Mateo Directions & Parking &rarr;
+            </a>
+          </div>
+        </div>
 
-      <div class="mb-4">
-        <p class="font-bold mb-2">Facebook</p>
-        <p>
-          <a
-            href="https://www.facebook.com/Kubo-Montessori-152010708167589/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="underline text-primary block mb-1">Montessori Home Daycare</a
-          >
-        </p>
-        <p>
-          <a
-            href="https://www.facebook.com/Roots-N-Wings-Montessori-by-Kubo-Montessori-LLC-104738995560952/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="underline text-primary block">Roots N Wings School</a
-          >
-        </p>
+        <!-- Redwood City Campus -->
+        <div class="bg-gray-50 p-8 rounded-2xl shadow-sm border border-gray-100">
+          <span class="inline-block px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-semibold mb-4">
+            Roots N' Wings
+          </span>
+          <h3 class="text-2xl font-bold text-gray-900 mb-3">Redwood City Campus</h3>
+          <p class="text-gray-600 mb-4 text-sm leading-relaxed">
+            Our preschool and child care center located on expansive grounds near Redwood Baptist Church. Offering nature-rich playgrounds, baking and gardening programs, and Transitional Kindergarten (TK).
+          </p>
+          <div class="space-y-2 text-sm text-gray-700">
+            <p><strong>Address:</strong> 2323 Euclid Ave, Redwood City, CA 94061</p>
+            <p><strong>Hours:</strong> Monday – Friday: 8:30 AM – 5:30 PM</p>
+            <p><strong>Phone:</strong> <a href="tel:+14085026198" class="text-primary hover:underline font-medium">(408) 502-6198</a></p>
+            <p><strong>Email:</strong> <a href="mailto:contact@kubomontessori.com" class="text-primary hover:underline font-medium">contact@kubomontessori.com</a></p>
+          </div>
+          <div class="mt-6">
+            <a href="/rw-location-directions/" class="text-primary font-semibold hover:underline text-sm inline-flex items-center gap-1">
+              Redwood City Directions & Parking &rarr;
+            </a>
+          </div>
+        </div>
       </div>
 
-      <div>
-        <p class="mb-2">Leave us a review on <strong>Yelp</strong>!</p>
-        <p>
+      <!-- Schedule Tour & Admissions Note -->
+      <div class="bg-primary/5 rounded-2xl p-8 mb-16 text-center border border-primary/20">
+        <h3 class="text-2xl font-bold text-gray-900 mb-3">Scheduling an In-Person Tour</h3>
+        <p class="text-gray-600 max-w-2xl mx-auto mb-6 text-sm leading-relaxed">
+          Tours are scheduled on weekday mornings so families can observe authentic Montessori work cycles in session. Click the button below to select a convenient date and time with our Educational Director Mary Gonzalez, or give our office a call.
+        </p>
+        <a
+          href="https://calendly.com/mary-kubo"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-block bg-primary text-white font-bold py-3 px-8 rounded-xl shadow-md hover:bg-primary/90 transition-colors"
+        >
+          Book a School Tour
+        </a>
+      </div>
+
+      <!-- Social & Reviews -->
+      <div class="text-center">
+        <h3 class="text-2xl font-bold mb-6 text-gray-800">Connect with Our Community</h3>
+        <p class="text-gray-600 text-sm max-w-xl mx-auto mb-6">
+          Follow our daily classroom moments, holiday celebrations, and seasonal updates, or read verified parent reviews on Yelp.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4 text-sm">
+          <a
+            href="https://www.facebook.com/kubomontessori"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="px-5 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-lg font-medium transition-colors"
+          >
+            Facebook Page
+          </a>
+          <a
+            href="https://www.instagram.com/kubomontessori"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="px-5 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-lg font-medium transition-colors"
+          >
+            Instagram Profile
+          </a>
           <a
             href="https://www.yelp.com/biz/kubo-montessori-san-mateo-2"
             target="_blank"
             rel="noopener noreferrer"
-            class="underline text-primary block mb-1">Montessori Home Daycare</a
+            class="px-5 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-lg font-medium transition-colors"
           >
-        </p>
-        <p>
+            Yelp: San Mateo Campus
+          </a>
           <a
             href="https://www.yelp.com/biz/roots-n-wings-montessori-school-redwood-city"
             target="_blank"
             rel="noopener noreferrer"
-            class="underline text-primary block">Roots N Wings School</a
+            class="px-5 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-lg font-medium transition-colors"
           >
-        </p>
+            Yelp: Redwood City Campus
+          </a>
+        </div>
       </div>
     </div>
   </div>
