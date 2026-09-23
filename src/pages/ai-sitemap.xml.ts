@@ -4,22 +4,22 @@ export const GET: APIRoute = async ({ site, url }) => {
   const baseUrl = site ? site.toString().replace(/\/$/, "") : url.origin;
 
   const pages = [
-    "",
-    "/san-mateo-preschool-daycare",
-    "/redwood-city-preschool-center",
-    "/foster-city-preschool-daycare",
-    "/belmont-ca-montessori-daycare",
-    "/san-carlos-montessori-preschool",
-    "/burlingame-montessori-preschool",
-    "/menlo-park-montessori-preschool",
-    "/resources/montessori-vs-traditional-preschool",
-    "/resources/potty-training-preschool-guide",
-    "/resources/home-vs-center-childcare",
-    "/resources/parent-handbook",
-    "/about",
-    "/services",
-    "/san-mateo-location-directions",
-    "/rw-location-directions",
+    "/",
+    "/san-mateo-preschool-daycare/",
+    "/redwood-city-preschool-center/",
+    "/foster-city-preschool-daycare/",
+    "/belmont-ca-montessori-daycare/",
+    "/san-carlos-montessori-preschool/",
+    "/burlingame-montessori-preschool/",
+    "/menlo-park-montessori-preschool/",
+    "/resources/montessori-vs-traditional-preschool/",
+    "/resources/potty-training-preschool-guide/",
+    "/resources/home-vs-center-childcare/",
+    "/resources/parent-handbook/",
+    "/about/",
+    "/services/",
+    "/san-mateo-location-directions/",
+    "/rw-location-directions/",
   ];
 
   // Fetch blog posts for AI sitemap
@@ -29,7 +29,7 @@ export const GET: APIRoute = async ({ site, url }) => {
       const json = await res.json();
       const posts = json.data?.posts || [];
       posts.forEach((post: any) => {
-        pages.push(`/blog?p=${post.slug}`);
+        pages.push(`/blog/?p=${post.slug}`);
       });
     }
   } catch (e) {
@@ -44,7 +44,7 @@ export const GET: APIRoute = async ({ site, url }) => {
   <url>
     <loc>${baseUrl}${page}</loc>
     <changefreq>weekly</changefreq>
-    <priority>${page === "" ? "1.0" : "0.8"}</priority>
+    <priority>${page === "/" ? "1.0" : "0.8"}</priority>
   </url>`,
     )
     .join("")}

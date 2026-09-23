@@ -44,49 +44,49 @@ test.describe('Kubo Montessori Smoke Tests', () => {
     test('should redirect /rw to /redwood-city-preschool-center with 301', async ({ request }) => {
       const response = await request.get('/rw', { maxRedirects: 0 });
       expect(response.status()).toBe(301);
-      expect(response.headers()['location']).toBe('/redwood-city-preschool-center');
+      expect(response.headers()['location']).toBe('/redwood-city-preschool-center/');
     });
 
     test('should redirect /rw/ to /redwood-city-preschool-center with 301', async ({ request }) => {
       const response = await request.get('/rw/', { maxRedirects: 0 });
       expect(response.status()).toBe(301);
-      expect(response.headers()['location']).toBe('/redwood-city-preschool-center');
+      expect(response.headers()['location']).toBe('/redwood-city-preschool-center/');
     });
 
     test('should redirect /homedaycare to /san-mateo-preschool-daycare with 301', async ({ request }) => {
       const response = await request.get('/homedaycare', { maxRedirects: 0 });
       expect(response.status()).toBe(301);
-      expect(response.headers()['location']).toBe('/san-mateo-preschool-daycare');
+      expect(response.headers()['location']).toBe('/san-mateo-preschool-daycare/');
     });
 
     test('should redirect /homedaycare/ to /san-mateo-preschool-daycare with 301', async ({ request }) => {
       const response = await request.get('/homedaycare/', { maxRedirects: 0 });
       expect(response.status()).toBe(301);
-      expect(response.headers()['location']).toBe('/san-mateo-preschool-daycare');
+      expect(response.headers()['location']).toBe('/san-mateo-preschool-daycare/');
     });
 
     test('should redirect /rw.html to /redwood-city-preschool-center with 301', async ({ request }) => {
       const response = await request.get('/rw.html', { maxRedirects: 0 });
       expect(response.status()).toBe(301);
-      expect(response.headers()['location']).toBe('/redwood-city-preschool-center');
+      expect(response.headers()['location']).toBe('/redwood-city-preschool-center/');
     });
 
     test('should redirect /about.html to /about with 301', async ({ request }) => {
       const response = await request.get('/about.html', { maxRedirects: 0 });
       expect(response.status()).toBe(301);
-      expect(response.headers()['location']).toBe('/about');
+      expect(response.headers()['location']).toBe('/about/');
     });
 
     test('should redirect /homedaycare.html to /san-mateo-preschool-daycare with 301', async ({ request }) => {
       const response = await request.get('/homedaycare.html', { maxRedirects: 0 });
       expect(response.status()).toBe(301);
-      expect(response.headers()['location']).toBe('/san-mateo-preschool-daycare');
+      expect(response.headers()['location']).toBe('/san-mateo-preschool-daycare/');
     });
 
     test('should redirect /roots-n-wings-montessori-school to /redwood-city-preschool-center with 301', async ({ request }) => {
       const response = await request.get('/roots-n-wings-montessori-school', { maxRedirects: 0 });
       expect(response.status()).toBe(301);
-      expect(response.headers()['location']).toBe('/redwood-city-preschool-center');
+      expect(response.headers()['location']).toBe('/redwood-city-preschool-center/');
     });
 
     test('should redirect /parent-handbook to /resources/parent-handbook', async ({ page }) => {
@@ -111,13 +111,13 @@ test.describe('Kubo Montessori Smoke Tests', () => {
 
       const response = await request.get(`/blog/${slug}`, { maxRedirects: 0 });
       expect(response.status()).toBe(301);
-      expect(response.headers()['location']).toBe(`/blog?p=${slug}`);
+      expect(response.headers()['location']).toBe(`/blog/?p=${slug}`);
     });
 
     test('should redirect /blog.html?p=slug client-side to /blog?p=slug', async ({ page }) => {
       await page.goto('/blog.html?p=some-post-slug');
       // Verify client-side redirect preserves query parameter
-      expect(page.url()).toContain('/blog?p=some-post-slug');
+      expect(page.url()).toContain('/blog/?p=some-post-slug');
     });
   });
 
@@ -163,7 +163,7 @@ test.describe('Kubo Montessori Smoke Tests', () => {
       const response = await request.get('/sitemap-0.xml');
       expect(response.status()).toBe(200);
       const text = await response.text();
-      expect(text).toContain('/blog?p=');
+      expect(text).toContain('/blog/?p=');
     });
 
     test('clicking a blog post should navigate to details page successfully', async ({ page }) => {
@@ -175,7 +175,7 @@ test.describe('Kubo Montessori Smoke Tests', () => {
       const href = await firstPostLink.getAttribute('href');
       expect(href).not.toBeNull();
       const localHref = href!.replace('https://www.kubomontessori.com', '').replace('https://kubomontessori.com', '');
-      expect(localHref).toContain('/blog?p=');
+      expect(localHref).toMatch(/\/blog\/?\?p=/);
       
       await page.goto(localHref);
       
@@ -196,15 +196,15 @@ test.describe('Kubo Montessori Smoke Tests', () => {
   test.describe('Parent Handbook Navigation & Relocation', () => {
     test('should show "Parent Handbook" link in Resources dropdown', async ({ page }) => {
       await page.goto('/');
-      const link = page.locator('nav a[href="/resources/parent-handbook"]');
+      const link = page.locator('nav a[href="/resources/parent-handbook/"]');
       await expect(link).toBeAttached();
       await expect(link).toHaveText('Parent Handbook');
     });
 
     test('Parent Handbook nav link should point to /resources/parent-handbook', async ({ page }) => {
       await page.goto('/');
-      const link = page.locator('nav a[href="/resources/parent-handbook"]');
-      await expect(link).toHaveAttribute('href', '/resources/parent-handbook');
+      const link = page.locator('nav a[href="/resources/parent-handbook/"]');
+      await expect(link).toHaveAttribute('href', '/resources/parent-handbook/');
     });
 
     test('should load /resources/parent-handbook successfully with correct title and heading', async ({ page }) => {
