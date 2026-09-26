@@ -159,11 +159,12 @@ test.describe('Kubo Montessori Smoke Tests', () => {
       await context.close();
     });
 
-    test('sitemap should contain blog post URLs', async ({ request }) => {
+    test('sitemap should contain canonical blog URL and omit query parameters', async ({ request }) => {
       const response = await request.get('/sitemap-0.xml');
       expect(response.status()).toBe(200);
       const text = await response.text();
-      expect(text).toContain('/blog/?p=');
+      expect(text).toContain('/blog/');
+      expect(text).not.toContain('/blog/?p=');
     });
 
     test('clicking a blog post should navigate to details page successfully', async ({ page }) => {

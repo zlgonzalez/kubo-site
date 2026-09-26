@@ -4,11 +4,26 @@ import NavBar from "../components/NavBar.astro";
 import Footer from "../components/Footer.astro";
 
 const images = [
-  "/images/gardening-1-opt.jpeg",
-  "/images/gardening-2-opt.jpeg",
-  "/images/gardening-3-opt.jpeg",
-  "/images/gardening-4-opt.jpeg",
-  "/images/gardening-5-opt.jpeg",
+  {
+    src: "/images/gardening-1-opt.jpeg",
+    alt: "Montessori students watering plants and caring for the outdoor garden",
+  },
+  {
+    src: "/images/gardening-2-opt.jpeg",
+    alt: "Children planting vegetable seeds in the school garden beds",
+  },
+  {
+    src: "/images/gardening-3-opt.jpeg",
+    alt: "Preschool child closely examining green leaves and garden sprouts",
+  },
+  {
+    src: "/images/gardening-4-opt.jpeg",
+    alt: "Hands-on nature discovery and practical life gardening activities",
+  },
+  {
+    src: "/images/gardening-5-opt.jpeg",
+    alt: "Montessori toddlers harvesting vegetables in the outdoor learning environment",
+  },
 ];
 ---
 
@@ -80,7 +95,8 @@ const images = [
           images.map((img) => (
             <div class="h-64 overflow-hidden rounded shadow-lg">
               <img
-                src={img}
+                src={img.src}
+                alt={img.alt}
                 class="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
               />
             </div>

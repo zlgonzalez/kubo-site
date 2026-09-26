@@ -4,11 +4,26 @@ import NavBar from "../components/NavBar.astro";
 import Footer from "../components/Footer.astro";
 
 const images = [
-  "/images/gymnastics-1.jpeg",
-  "/images/gymnastics-2.jpeg",
-  "/images/gymnastics-3.jpeg",
-  "/images/gymnastics-4.jpeg",
-  "/images/gymnastics-5.jpeg",
+  {
+    src: "/images/gymnastics-1.jpeg",
+    alt: "Preschool children practicing balance and physical coordination",
+  },
+  {
+    src: "/images/gymnastics-2.jpeg",
+    alt: "Montessori gymnastics movement and gross motor skill exercises",
+  },
+  {
+    src: "/images/gymnastics-3.jpeg",
+    alt: "Children doing gymnastics stretches and tumbling on padded mats",
+  },
+  {
+    src: "/images/gymnastics-4.jpeg",
+    alt: "Toddler obstacle course and indoor active play in the movement studio",
+  },
+  {
+    src: "/images/gymnastics-5.jpeg",
+    alt: "Preschoolers developing physical agility and balance skills",
+  },
 ];
 ---
 
@@ -80,7 +95,8 @@ const images = [
           images.map((img) => (
             <div class="h-64 overflow-hidden rounded shadow-lg">
               <img
-                src={img}
+                src={img.src}
+                alt={img.alt}
                 class="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
               />
             </div>
