@@ -24,14 +24,14 @@ describe('SEMrush Audit Full Remediation', () => {
   });
 
   // Primary Sitemap Blog URLs
-  test('Primary sitemap formats blog URLs with canonical trailing slash before query parameter', () => {
+  test('Primary sitemap excludes non-canonical query URLs and indexes canonical static pages', () => {
     const astroConfig = fs.readFileSync(astroConfigPath, 'utf-8');
-    expect(astroConfig).toContain('/blog/?p=${post.slug}');
-    expect(astroConfig).not.toMatch(/\/blog\?p=\$\{post\.slug\}/);
+    expect(astroConfig).not.toContain('customPages: blogPostUrls');
+    expect(astroConfig).not.toContain('customPages');
   });
 
   // AI Sitemap Canonical URLs
-  test('ai-sitemap.xml formats all static and blog paths with trailing slashes', () => {
+  test('ai-sitemap.xml formats all static paths with trailing slashes, includes /blog/, and excludes query parameters', () => {
     const aiSitemap = fs.readFileSync(aiSitemapPath, 'utf-8');
 
     const staticPagesToCheck = [
@@ -51,14 +51,15 @@ describe('SEMrush Audit Full Remediation', () => {
       '/services/',
       '/san-mateo-location-directions/',
       '/rw-location-directions/',
+      '/blog/',
     ];
 
     for (const page of staticPagesToCheck) {
       expect(aiSitemap).toContain(`"${page}"`);
     }
 
-    expect(aiSitemap).toContain('/blog/?p=${post.slug}');
-    expect(aiSitemap).not.toMatch(/\/blog\?p=\$\{post\.slug\}/);
+    expect(aiSitemap).not.toContain('/blog/?p=${post.slug}');
+    expect(aiSitemap).not.toContain('/blog/?p=');
   });
 
   // Remove Redirect Stubs from Sitemaps
@@ -112,6 +113,44 @@ describe('SEMrush Audit Full Remediation', () => {
     const bakingContent = fs.readFileSync(rwBakingPath, 'utf-8');
     expect(bakingContent).toContain('alt={img.alt}');
     expect(bakingContent).not.toMatch(/<img\s+src=\{img\}\s+class=/);
+  });
+
+  test('Gardening and Gymnastics page images all contain alt attributes', () => {
+    const gardeningPath = path.join(repoRoot, 'src/pages/rw-gardening.astro');
+    const gymnasticsPath = path.join(repoRoot, 'src/pages/rw-gymnastics.astro');
+
+    const gardeningContent = fs.readFileSync(gardeningPath, 'utf-8');
+    expect(gardeningContent).toContain('alt={img.alt}');
+    expect(gardeningContent).not.toMatch(/<img\s+src=\{img\}\s+class=/);
+
+    const gymnasticsContent = fs.readFileSync(gymnasticsPath, 'utf-8');
+    expect(gymnasticsContent).toContain('alt={img.alt}');
+    expect(gymnasticsContent).not.toMatch(/<img\s+src=\{img\}\s+class=/);
+  });
+
+  // Image Payload Performance Budget (< 1 MB)
+  test('All images referenced on Redwood City page are strictly under 1 MB', () => {
+    const rwcPath = path.join(repoRoot, 'src/pages/redwood-city-preschool-center.astro');
+    const rwcContent = fs.readFileSync(rwcPath, 'utf-8');
+    const imageMatches = rwcContent.matchAll(/["'](\/images\/[^"']+)["']/g);
+    const seenImages = new Set<string>();
+
+    for (const match of imageMatches) {
+      const relPath = match[1];
+      if (seenImages.has(relPath)) continue;
+      seenImages.add(relPath);
+
+      const filePath = path.join(repoRoot, 'public', relPath);
+      if (fs.existsSync(filePath)) {
+        const stats = fs.statSync(filePath);
+        expect(
+          stats.size,
+          `Image ${relPath} exceeds 1 MB limit: ${stats.size} bytes`,
+        ).toBeLessThan(1000000);
+      }
+    }
+
+    expect(seenImages.size).toBeGreaterThan(0);
   });
 
   // Single H1 Tag

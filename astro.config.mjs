@@ -2,18 +2,16 @@ import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
 import robotsTxt from 'astro-robots-txt';
-// Fetch blog posts at build-time for sitemap inclusion and dynamic redirects
-let blogPostUrls = [];
+// Fetch blog posts at build-time for dynamic redirects
 let postsList = [];
 try {
   const res = await fetch("https://api.dropinblog.com/v1/json/?b=0530ca52-f373-4292-800a-b93c30543ee4");
   if (res.ok) {
     const json = await res.json();
     postsList = json.data?.posts || [];
-    blogPostUrls = postsList.map(post => `https://www.kubomontessori.com/blog/?p=${post.slug}`);
   }
 } catch (e) {
-  console.error("Failed to fetch blog posts for sitemap dynamic configuration:", e);
+  console.error("Failed to fetch blog posts for dynamic redirects configuration:", e);
 }
 
 // Define redirects mapping
@@ -91,7 +89,6 @@ export default defineConfig({
     integrations: [
         tailwind(),
         sitemap({
-            customPages: blogPostUrls,
             filter: (page) => !page.endsWith('/blog.html/') && !page.endsWith('/blog.html')
         }),
         robotsTxt({

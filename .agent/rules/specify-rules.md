@@ -1,6 +1,6 @@
 # kubo-site Development Guidelines
 
-Auto-generated from all feature plans. Last updated: 2026-09-13
+Auto-generated from all feature plans. Last updated: 2026-09-26
 
 ## Active Technologies
 - Node.js v20+, Astro v5.0.0 + `@astrojs/tailwind`, `@astrojs/sitemap`, `astro-robots-txt`, `@lhci/cli`, `@playwright/test` (002-preschool-user-acquisition)
@@ -11,6 +11,8 @@ Auto-generated from all feature plans. Last updated: 2026-09-13
 - Static Site Generation (SSG) / Markdown & Astro component templates (004-local-seo-and-geo)
 - Node.js 22+, TypeScript / JavaScript (ESM) + Astro 7.0.3, `@astrojs/sitemap` 3.7.3, `astro-robots-txt` 1.0.0, `tailwindcss` 3.4.0 (005-fix-sitemap-redirects)
 - Static build output in `dist/` (005-fix-sitemap-redirects)
+- TypeScript / JavaScript (Node.js 18+) + Astro 4.x, `@astrojs/sitemap`, `@astrojs/tailwind`, `sharp` (006-fix-audit-issues)
+- Static asset directory (`public/images/`) (006-fix-audit-issues)
 
 - TypeScript / Astro 5.x / JavaScrip + astro, @astrojs/sitemap, astro-robots-txt, tailwindcss (001-optimize-ai-visibility)
 
@@ -31,9 +33,9 @@ npm test && npm run lint
 TypeScript / Astro 5.x / JavaScrip: Follow standard conventions
 
 ## Recent Changes
+- 006-fix-audit-issues: Added TypeScript / JavaScript (Node.js 18+) + Astro 4.x, `@astrojs/sitemap`, `@astrojs/tailwind`, `sharp`
 - 005-fix-sitemap-redirects: Added Node.js 22+, TypeScript / JavaScript (ESM) + Astro 7.0.3, `@astrojs/sitemap` 3.7.3, `astro-robots-txt` 1.0.0, `tailwindcss` 3.4.0
 - 004-local-seo-and-geo: Added TypeScript / Astro 4.x / Node.js 18+ + Astro, Tailwind CSS, CSV Parse (for calendar data), Calendly JS SDK / iframe postMessage listener
-- 003-calendly-ga-tracking: Added TypeScript / JavaScript (Astro v7.0.3) + Astro v7, Tailwind CSS v3
 
 
 <!-- MANUAL ADDITIONS START -->
