@@ -233,7 +233,56 @@ test.describe('Kubo Montessori Smoke Tests', () => {
 
       // Verify dataLayer captures conversion event
       const dataLayerEvent = await page.evaluate(() => {
-        return (window.dataLayer || []).find((item) => item.event === 'tour_booking_scheduled');
+        return ((window.dataLayer || []) as Record<string, unknown>[]).find(
+          (item) => item && item.event === 'tour_booking_scheduled'
+        );
+      });
+
+      expect(dataLayerEvent).toBeDefined();
+      expect(dataLayerEvent).toMatchObject({
+        event: 'tour_booking_scheduled',
+        event_category: 'engagement',
+        event_label: 'Calendly Widget',
+        value: 1,
+      });
+    });
+
+    test('San Mateo tour button should open Calendly popup on-page and track tour_booking_scheduled', async ({ page }) => {
+      await page.goto('/san-mateo-preschool-daycare/');
+
+      // Stub window.Calendly.initPopupWidget to verify the CTA button triggers the in-page popup
+      await page.evaluate(() => {
+        (window as any).__popupUrls = [];
+        window.Calendly = {
+          initPopupWidget: ({ url }: { url: string }) => {
+            (window as any).__popupUrls.push(url);
+          },
+        };
+      });
+
+      const tourButton = page.getByRole('link', { name: /Schedule a Private Campus Tour/i });
+      await expect(tourButton).toBeVisible();
+      await tourButton.click();
+
+      // Verify we stayed on the San Mateo page and triggered the embedded popup widget
+      expect(page.url()).toContain('/san-mateo-preschool-daycare/');
+      const popupUrls = await page.evaluate(() => (window as any).__popupUrls);
+      expect(popupUrls).toEqual(['https://calendly.com/mary-kubo']);
+
+      // Simulate booking completion inside the popup widget
+      await page.evaluate(() => {
+        window.dispatchEvent(
+          new MessageEvent('message', {
+            data: { event: 'calendly.event_scheduled', payload: {} },
+            origin: 'https://calendly.com',
+          })
+        );
+      });
+
+      const dataLayerEvent = await page.evaluate(() => {
+        return ((window.dataLayer || []) as Record<string, unknown>[]).find(
+          (item) => item && item.event === 'tour_booking_scheduled'
+        );
       });
 
       expect(dataLayerEvent).toBeDefined();
