@@ -25,40 +25,56 @@ const { title, description, image, article } = Astro.props;
 
     <!-- Dynamic Loading of Third-Party Scripts to Optimize Mobile Performance -->
     <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = window.gtag || function() { dataLayer.push(arguments); };
+      gtag("js", new Date());
+      gtag("config", "G-BE43SM2H4T");
+
+      function initCalendlyBadge() {
+        if (window.Calendly && !window.__calendlyBadgeInitialized) {
+          window.__calendlyBadgeInitialized = true;
+          Calendly.initBadgeWidget({
+            url: "https://calendly.com/mary-kubo",
+            text: "Click to Schedule a Tour",
+            color: "#2563eb",
+            textColor: "#ffffff",
+            branding: true,
+          });
+        }
+      }
+
       function loadThirdPartyScripts() {
         // 1. Google Tag Manager
-        const gtmScript = document.createElement('script');
-        gtmScript.src = "https://www.googletagmanager.com/gtag/js?id=G-BE43SM2H4T";
-        gtmScript.async = true;
-        document.head.appendChild(gtmScript);
-
-        window.dataLayer = window.dataLayer || [];
-        window.gtag = function() { dataLayer.push(arguments); };
-        gtag("js", new Date());
-        gtag("config", "G-BE43SM2H4T");
+        if (!document.querySelector('script[src*="googletagmanager.com/gtag/js"]')) {
+          const gtmScript = document.createElement('script');
+          gtmScript.src = "https://www.googletagmanager.com/gtag/js?id=G-BE43SM2H4T";
+          gtmScript.async = true;
+          document.head.appendChild(gtmScript);
+        }
 
         // 2. Calendly Stylesheet
-        const calendlyCSS = document.createElement('link');
-        calendlyCSS.rel = 'stylesheet';
-        calendlyCSS.href = "https://assets.calendly.com/assets/external/widget.css";
-        document.head.appendChild(calendlyCSS);
+        const cssHref = "https://assets.calendly.com/assets/external/widget.css";
+        if (!document.querySelector(`link[href="${cssHref}"]`)) {
+          const calendlyCSS = document.createElement('link');
+          calendlyCSS.rel = 'stylesheet';
+          calendlyCSS.href = cssHref;
+          document.head.appendChild(calendlyCSS);
+        }
 
         // 3. Calendly Script & Widget Init
-        const calendlyJS = document.createElement('script');
-        calendlyJS.src = "https://assets.calendly.com/assets/external/widget.js";
-        calendlyJS.async = true;
-        calendlyJS.onload = function() {
-          if (window.Calendly) {
-            Calendly.initBadgeWidget({
-              url: "https://calendly.com/mary-kubo",
-              text: "Click to Schedule a Tour",
-              color: "#2563eb",
-              textColor: "#ffffff",
-              branding: true,
-            });
-          }
-        };
-        document.head.appendChild(calendlyJS);
+        const jsSrc = "https://assets.calendly.com/assets/external/widget.js";
+        let calendlyJS = document.querySelector(`script[src="${jsSrc}"]`);
+        if (window.Calendly) {
+          initCalendlyBadge();
+        } else if (calendlyJS) {
+          calendlyJS.addEventListener('load', initCalendlyBadge, { once: true });
+        } else {
+          calendlyJS = document.createElement('script');
+          calendlyJS.src = jsSrc;
+          calendlyJS.async = true;
+          calendlyJS.addEventListener('load', initCalendlyBadge, { once: true });
+          document.head.appendChild(calendlyJS);
+        }
       }
 
       // Load dynamically after critical paint when the main thread goes idle

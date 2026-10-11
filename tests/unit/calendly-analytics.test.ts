@@ -1,7 +1,9 @@
 import { describe, test, expect, beforeEach, vi } from 'vitest';
 import {
   isValidCalendlyOrigin,
+  isValidCalendlyUrl,
   handleCalendlyMessage,
+  handleCalendlyLinkClick,
   dispatchGAConversionEvent,
   CALENDLY_BOOKING_EVENT,
   GA_CONVERSION_EVENT,
@@ -13,6 +15,9 @@ describe('Calendly Analytics Utility', () => {
     global.window = global.window || ({} as any);
     global.window.dataLayer = [];
     global.window.gtag = vi.fn();
+    global.window.Calendly = {
+      initPopupWidget: vi.fn(),
+    };
   });
 
   test('isValidCalendlyOrigin validates calendly domains strictly', () => {
@@ -21,6 +26,74 @@ describe('Calendly Analytics Utility', () => {
     expect(isValidCalendlyOrigin('https://sub.calendly.com')).toBe(true);
     expect(isValidCalendlyOrigin('https://malicious-calendly.com')).toBe(false);
     expect(isValidCalendlyOrigin('https://example.com')).toBe(false);
+  });
+
+  test('isValidCalendlyUrl validates calendly booking links', () => {
+    expect(isValidCalendlyUrl('https://calendly.com/mary-kubo')).toBe(true);
+    expect(isValidCalendlyUrl('https://calendly.com')).toBe(true);
+    expect(isValidCalendlyUrl('https://malicious-calendly.com/mary-kubo')).toBe(false);
+    expect(isValidCalendlyUrl('/san-mateo-preschool-daycare/')).toBe(false);
+  });
+
+  test('handleCalendlyLinkClick intercepts Calendly link clicks and opens popup widget', () => {
+    const preventDefault = vi.fn();
+    const mockAnchor = {
+      getAttribute: (attr: string) => (attr === 'href' ? 'https://calendly.com/mary-kubo' : null),
+      href: 'https://calendly.com/mary-kubo',
+    };
+    const mockEvent = {
+      defaultPrevented: false,
+      button: 0,
+      metaKey: false,
+      ctrlKey: false,
+      shiftKey: false,
+      altKey: false,
+      preventDefault,
+      target: {
+        closest: (selector: string) => (selector === 'a[href]' ? mockAnchor : null),
+      },
+    } as unknown as MouseEvent;
+
+    handleCalendlyLinkClick(mockEvent);
+
+    expect(preventDefault).toHaveBeenCalledTimes(1);
+    expect(global.window.Calendly?.initPopupWidget).toHaveBeenCalledWith({
+      url: 'https://calendly.com/mary-kubo',
+    });
+  });
+
+  test('handleCalendlyLinkClick ignores non-Calendly links and modified clicks', () => {
+    const preventDefault = vi.fn();
+    const internalAnchor = {
+      getAttribute: () => '/contact/',
+      href: 'https://www.kubomontessori.com/contact/',
+    };
+
+    handleCalendlyLinkClick({
+      defaultPrevented: false,
+      button: 0,
+      preventDefault,
+      target: { closest: () => internalAnchor },
+    } as unknown as MouseEvent);
+
+    expect(preventDefault).not.toHaveBeenCalled();
+    expect(global.window.Calendly?.initPopupWidget).not.toHaveBeenCalled();
+
+    // Cmd+click on a Calendly link should not be intercepted
+    const calendlyAnchor = {
+      getAttribute: () => 'https://calendly.com/mary-kubo',
+      href: 'https://calendly.com/mary-kubo',
+    };
+    handleCalendlyLinkClick({
+      defaultPrevented: false,
+      button: 0,
+      metaKey: true,
+      preventDefault,
+      target: { closest: () => calendlyAnchor },
+    } as unknown as MouseEvent);
+
+    expect(preventDefault).not.toHaveBeenCalled();
+    expect(global.window.Calendly?.initPopupWidget).not.toHaveBeenCalled();
   });
 
   test('dispatchGAConversionEvent pushes event to dataLayer and calls gtag safely', () => {

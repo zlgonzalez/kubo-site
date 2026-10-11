@@ -10,14 +10,121 @@ export interface CalendlyEventPayload {
 }
 
 export const CALENDLY_ORIGIN_REGEX = /^https:\/\/(.*\.)?calendly\.com$/;
+export const CALENDLY_URL_REGEX = /^https:\/\/(.*\.)?calendly\.com(\/|$)/;
 export const CALENDLY_BOOKING_EVENT = 'calendly.event_scheduled';
 export const GA_CONVERSION_EVENT = 'tour_booking_scheduled';
+export const CALENDLY_WIDGET_CSS_URL = 'https://assets.calendly.com/assets/external/widget.css';
+export const CALENDLY_WIDGET_JS_URL = 'https://assets.calendly.com/assets/external/widget.js';
+
+declare global {
+  interface Window {
+    dataLayer?: Record<string, unknown>[] | unknown[];
+    gtag?: (...args: unknown[]) => void;
+    Calendly?: {
+      initPopupWidget?: (options: { url: string }) => void;
+      initBadgeWidget?: (options: Record<string, unknown>) => void;
+    };
+  }
+}
 
 /**
  * Checks if a MessageEvent originates from a valid Calendly domain.
  */
 export function isValidCalendlyOrigin(origin: string): boolean {
   return CALENDLY_ORIGIN_REGEX.test(origin);
+}
+
+/**
+ * Checks if a URL points to a valid Calendly booking link.
+ */
+export function isValidCalendlyUrl(url: string): boolean {
+  return CALENDLY_URL_REGEX.test(url);
+}
+
+/**
+ * Opens the embedded Calendly popup widget for a given URL, loading the widget script on demand if needed.
+ */
+export function openCalendlyPopup(url: string): void {
+  if (typeof window === 'undefined') return;
+
+  if (window.Calendly && typeof window.Calendly.initPopupWidget === 'function') {
+    window.Calendly.initPopupWidget({ url });
+    return;
+  }
+
+  if (typeof document === 'undefined') return;
+
+  if (!document.querySelector(`link[href="${CALENDLY_WIDGET_CSS_URL}"]`)) {
+    const calendlyCSS = document.createElement('link');
+    calendlyCSS.rel = 'stylesheet';
+    calendlyCSS.href = CALENDLY_WIDGET_CSS_URL;
+    document.head.appendChild(calendlyCSS);
+  }
+
+  let calendlyJS = document.querySelector(
+    `script[src="${CALENDLY_WIDGET_JS_URL}"]`
+  ) as HTMLScriptElement | null;
+
+  if (!calendlyJS) {
+    calendlyJS = document.createElement('script');
+    calendlyJS.src = CALENDLY_WIDGET_JS_URL;
+    calendlyJS.async = true;
+    document.head.appendChild(calendlyJS);
+  }
+
+  calendlyJS.addEventListener(
+    'load',
+    () => {
+      if (window.Calendly && typeof window.Calendly.initPopupWidget === 'function') {
+        window.Calendly.initPopupWidget({ url });
+      }
+    },
+    { once: true }
+  );
+
+  calendlyJS.addEventListener(
+    'error',
+    () => {
+      window.open(url, '_blank', 'noopener,noreferrer');
+    },
+    { once: true }
+  );
+}
+
+/**
+ * Intercepts clicks on external Calendly anchor links and opens the embedded Calendly popup widget instead,
+ * ensuring the parent stays on the site and `calendly.event_scheduled` postMessage events are captured by GA.
+ */
+export function handleCalendlyLinkClick(event: MouseEvent): void {
+  if (
+    !event ||
+    event.defaultPrevented ||
+    (typeof event.button === 'number' && event.button !== 0) ||
+    event.metaKey ||
+    event.ctrlKey ||
+    event.shiftKey ||
+    event.altKey
+  ) {
+    return;
+  }
+
+  const target = event.target as Element | null;
+  if (!target || typeof target.closest !== 'function') {
+    return;
+  }
+
+  const anchor = target.closest('a[href]') as HTMLAnchorElement | null;
+  if (!anchor) {
+    return;
+  }
+
+  const href = anchor.getAttribute('href') || anchor.href;
+  if (!href || !isValidCalendlyUrl(href)) {
+    return;
+  }
+
+  event.preventDefault();
+  openCalendlyPopup(href);
 }
 
 /**
@@ -66,7 +173,7 @@ export function handleCalendlyMessage(event: MessageEvent): void {
 }
 
 /**
- * Initializes the global window postMessage event listener for Calendly widgets.
+ * Initializes the global window postMessage event listener and link click interceptor for Calendly widgets.
  */
 export function initCalendlyAnalytics(): () => void {
   if (typeof window === 'undefined') {
@@ -74,8 +181,14 @@ export function initCalendlyAnalytics(): () => void {
   }
 
   window.addEventListener('message', handleCalendlyMessage);
+  if (typeof document !== 'undefined' && typeof document.addEventListener === 'function') {
+    document.addEventListener('click', handleCalendlyLinkClick);
+  }
 
   return () => {
     window.removeEventListener('message', handleCalendlyMessage);
+    if (typeof document !== 'undefined' && typeof document.removeEventListener === 'function') {
+      document.removeEventListener('click', handleCalendlyLinkClick);
+    }
   };
 }
