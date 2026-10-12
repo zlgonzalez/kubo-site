@@ -69,6 +69,15 @@ const multiEntitySchema = {
         reviewCount: "25",
       },
       areaServed: allServedCities,
+      potentialAction: {
+        "@type": "ReserveAction",
+        target: "https://calendly.com/mary-kubo",
+        name: "Schedule a Campus Tour",
+        result: {
+          "@type": "Reservation",
+          name: "Kubo Montessori Campus Tour",
+        },
+      },
     },
     {
       "@type": ["DayCare", "Preschool"],
@@ -113,6 +122,11 @@ const multiEntitySchema = {
         },
       ],
       areaServed: ["San Mateo", "Foster City", "Belmont", "Hillsdale", "Burlingame"],
+      potentialAction: {
+        "@type": "ReserveAction",
+        target: "https://calendly.com/mary-kubo",
+        name: "Schedule a Campus Tour",
+      },
     },
     {
       "@type": ["Preschool", "ChildCare"],
@@ -157,6 +171,11 @@ const multiEntitySchema = {
         },
       ],
       areaServed: ["Redwood City", "San Carlos", "Menlo Park", "Woodside", "Atherton"],
+      potentialAction: {
+        "@type": "ReserveAction",
+        target: "https://calendly.com/mary-kubo",
+        name: "Schedule a Campus Tour",
+      },
     },
   ],
 };

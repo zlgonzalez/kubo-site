@@ -42,13 +42,58 @@ export function isValidCalendlyUrl(url: string): boolean {
 }
 
 /**
+ * Forwards inbound marketing and tracking parameters (e.g. utm_*, gclid) from the current page to a Calendly URL.
+ */
+export function buildCalendlyUrlWithUtms(targetUrl: string, searchParams?: string): string {
+  let search = searchParams;
+  if (typeof search === 'undefined') {
+    if (typeof window !== 'undefined' && window.location && typeof window.location.search === 'string') {
+      search = window.location.search;
+    } else {
+      return targetUrl;
+    }
+  }
+
+  if (!search || !search.includes('=')) {
+    return targetUrl;
+  }
+
+  try {
+    const currentParams = new URLSearchParams(search);
+    const target = new URL(targetUrl);
+    const marketingKeys = [
+      'utm_source',
+      'utm_medium',
+      'utm_campaign',
+      'utm_term',
+      'utm_content',
+      'gclid',
+      'fbclid',
+    ];
+
+    for (const key of marketingKeys) {
+      const val = currentParams.get(key);
+      if (val && !target.searchParams.has(key)) {
+        target.searchParams.set(key, val);
+      }
+    }
+
+    return target.toString();
+  } catch {
+    return targetUrl;
+  }
+}
+
+/**
  * Opens the embedded Calendly popup widget for a given URL, loading the widget script on demand if needed.
  */
 export function openCalendlyPopup(url: string): void {
   if (typeof window === 'undefined') return;
 
+  const targetUrl = buildCalendlyUrlWithUtms(url);
+
   if (window.Calendly && typeof window.Calendly.initPopupWidget === 'function') {
-    window.Calendly.initPopupWidget({ url });
+    window.Calendly.initPopupWidget({ url: targetUrl });
     return;
   }
 
@@ -76,7 +121,7 @@ export function openCalendlyPopup(url: string): void {
     'load',
     () => {
       if (window.Calendly && typeof window.Calendly.initPopupWidget === 'function') {
-        window.Calendly.initPopupWidget({ url });
+        window.Calendly.initPopupWidget({ url: targetUrl });
       }
     },
     { once: true }
@@ -85,7 +130,7 @@ export function openCalendlyPopup(url: string): void {
   calendlyJS.addEventListener(
     'error',
     () => {
-      window.open(url, '_blank', 'noopener,noreferrer');
+      window.open(targetUrl, '_blank', 'noopener,noreferrer');
     },
     { once: true }
   );
