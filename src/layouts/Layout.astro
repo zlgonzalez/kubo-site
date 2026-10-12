@@ -33,8 +33,24 @@ const { title, description, image, article } = Astro.props;
       function initCalendlyBadge() {
         if (window.Calendly && !window.__calendlyBadgeInitialized) {
           window.__calendlyBadgeInitialized = true;
+          var calendlyUrl = "https://calendly.com/mary-kubo";
+          try {
+            var search = window.location.search;
+            if (search && search.indexOf('=') !== -1) {
+              var params = new URLSearchParams(search);
+              var target = new URL(calendlyUrl);
+              var utms = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "gclid", "fbclid"];
+              utms.forEach(function(k) {
+                if (params.has(k) && !target.searchParams.has(k)) {
+                  target.searchParams.set(k, params.get(k));
+                }
+              });
+              calendlyUrl = target.toString();
+            }
+          } catch (e) {}
+
           Calendly.initBadgeWidget({
-            url: "https://calendly.com/mary-kubo",
+            url: calendlyUrl,
             text: "Click to Schedule a Tour",
             color: "#2563eb",
             textColor: "#ffffff",

@@ -5,6 +5,8 @@ import {
   handleCalendlyMessage,
   handleCalendlyLinkClick,
   dispatchGAConversionEvent,
+  buildCalendlyUrlWithUtms,
+  openCalendlyPopup,
   CALENDLY_BOOKING_EVENT,
   GA_CONVERSION_EVENT,
 } from '../../src/utils/calendly-analytics';
@@ -145,5 +147,32 @@ describe('Calendly Analytics Utility', () => {
 
     handleCalendlyMessage(nonBookingMessage);
     expect(global.window.dataLayer).toHaveLength(0);
+  });
+
+  test('buildCalendlyUrlWithUtms forwards UTM parameters properly', () => {
+    const target = 'https://calendly.com/mary-kubo';
+    const search = '?utm_source=google&utm_medium=cpc&utm_campaign=preschool_launch&other=123';
+    const result = buildCalendlyUrlWithUtms(target, search);
+    expect(result).toContain('utm_source=google');
+    expect(result).toContain('utm_medium=cpc');
+    expect(result).toContain('utm_campaign=preschool_launch');
+    expect(result).not.toContain('other=123');
+  });
+
+  test('buildCalendlyUrlWithUtms does not overwrite existing params on target URL', () => {
+    const target = 'https://calendly.com/mary-kubo?utm_source=existing';
+    const search = '?utm_source=new&utm_medium=email';
+    const result = buildCalendlyUrlWithUtms(target, search);
+    expect(result).toContain('utm_source=existing');
+    expect(result).toContain('utm_medium=email');
+  });
+
+  test('openCalendlyPopup passes UTM parameters to initPopupWidget', () => {
+    global.window.location = { search: '?utm_source=seo_audit&utm_campaign=peninsula' } as any;
+    openCalendlyPopup('https://calendly.com/mary-kubo');
+
+    expect(global.window.Calendly?.initPopupWidget).toHaveBeenCalledWith({
+      url: expect.stringMatching(/utm_source=seo_audit/),
+    });
   });
 });
