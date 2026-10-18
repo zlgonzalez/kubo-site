@@ -11,7 +11,7 @@
       ],
       "numberOfRuns": 1,
       "settings": {
-        "chromeFlags": "--no-sandbox --headless --disable-gpu"
+        "chromeFlags": "--no-sandbox --headless --disable-gpu --disable-dev-shm-usage"
       }
     },
     "assert": {
