@@ -78,5 +78,5 @@ const faqSchemaData = {
   </div>
 
   <!-- FAQPage JSON-LD Schema -->
-  <script type="application/ld+json" set:html={JSON.stringify(faqSchemaData)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchemaData).replace(/</g, "\\u003c")} />
 </section>

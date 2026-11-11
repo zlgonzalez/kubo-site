@@ -9,3 +9,11 @@ Redirect 301 /rw /redwood-city-preschool-center/
 Redirect 301 /rw/ /redwood-city-preschool-center/
 Redirect 301 /homedaycare /san-mateo-preschool-daycare/
 Redirect 301 /homedaycare/ /san-mateo-preschool-daycare/
+
+# Security & Privacy Headers
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+</IfModule>

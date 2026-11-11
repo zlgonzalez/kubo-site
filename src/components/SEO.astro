@@ -71,7 +71,7 @@ const multiEntitySchema = {
       areaServed: allServedCities,
       potentialAction: {
         "@type": "ReserveAction",
-        target: "https://calendly.com/mary-kubo",
+        target: `${siteOrigin}/contact/`,
         name: "Schedule a Campus Tour",
         result: {
           "@type": "Reservation",
@@ -124,7 +124,7 @@ const multiEntitySchema = {
       areaServed: ["San Mateo", "Foster City", "Belmont", "Hillsdale", "Burlingame"],
       potentialAction: {
         "@type": "ReserveAction",
-        target: "https://calendly.com/mary-kubo",
+        target: `${siteOrigin}/contact/`,
         name: "Schedule a Campus Tour",
       },
     },
@@ -173,7 +173,7 @@ const multiEntitySchema = {
       areaServed: ["Redwood City", "San Carlos", "Menlo Park", "Woodside", "Atherton"],
       potentialAction: {
         "@type": "ReserveAction",
-        target: "https://calendly.com/mary-kubo",
+        target: `${siteOrigin}/contact/`,
         name: "Schedule a Campus Tour",
       },
     },
@@ -222,5 +222,5 @@ const multiEntitySchema = {
 <!-- Multi-Entity JSON-LD Structured Data Schema -->
 <script
   type="application/ld+json"
-  set:html={JSON.stringify(multiEntitySchema)}
+  set:html={JSON.stringify(multiEntitySchema).replace(/</g, "\\u003c")}
 />

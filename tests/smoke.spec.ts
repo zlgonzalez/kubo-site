@@ -218,28 +218,33 @@ test.describe('Kubo Montessori Smoke Tests', () => {
   });
 
   test.describe('Calendly Analytics Event Tracking', () => {
-    test('should capture calendly.event_scheduled postMessage and push tour_booking_scheduled to dataLayer', async ({ page }) => {
-      await page.goto('/');
+    test('should load gtag.js async in head with low fetchpriority and capture pre-idle conversions', async ({ page }) => {
+      await page.route('**/assets/external/widget.js', (route) =>
+        route.fulfill({ status: 200, contentType: 'application/javascript', body: '' })
+      );
 
-      // Simulate Calendly widget dispatching event_scheduled message with valid origin
-      await page.evaluate(() => {
+      await page.goto('/', { waitUntil: 'domcontentloaded' });
+
+      // Verify exact gtag.js script tag is in <head> with async and fetchpriority="low"
+      const gtagScript = page.locator('head script[src="https://www.googletagmanager.com/gtag/js?id=G-BE43SM2H4T"]');
+      await expect(gtagScript).toHaveAttribute('async', '');
+      await expect(gtagScript).toHaveAttribute('fetchpriority', 'low');
+
+      // Verify window.dataLayer and gtag are immediately initialized and capture pre-idle events
+      const capturedImmediateEvent = await page.evaluate(() => {
+        const hasGtag = typeof (window as any).gtag === 'function' && Array.isArray((window as any).dataLayer);
         window.dispatchEvent(
           new MessageEvent('message', {
-            data: { event: 'calendly.event_scheduled', payload: {} },
+            data: JSON.stringify({ event: 'calendly.event_scheduled', payload: {} }),
             origin: 'https://calendly.com',
           })
         );
+        const dl = (window.dataLayer || []) as Array<Record<string, unknown> | ArrayLike<unknown>>;
+        const dataLayerEntry = dl.find((item: any) => item && item.event === 'tour_booking_scheduled');
+        return { hasGtag, dataLayerEntry };
       });
-
-      // Verify dataLayer captures conversion event
-      const dataLayerEvent = await page.evaluate(() => {
-        return ((window.dataLayer || []) as Record<string, unknown>[]).find(
-          (item) => item && item.event === 'tour_booking_scheduled'
-        );
-      });
-
-      expect(dataLayerEvent).toBeDefined();
-      expect(dataLayerEvent).toMatchObject({
+      expect(capturedImmediateEvent.hasGtag).toBe(true);
+      expect(capturedImmediateEvent.dataLayerEntry).toMatchObject({
         event: 'tour_booking_scheduled',
         event_category: 'engagement',
         event_label: 'Calendly Widget',
@@ -247,29 +252,39 @@ test.describe('Kubo Montessori Smoke Tests', () => {
       });
     });
 
-    test('San Mateo tour button should open Calendly popup on-page and track tour_booking_scheduled', async ({ page }) => {
-      await page.goto('/san-mateo-preschool-daycare/');
+    test('SEO structured data should point all ReserveAction targets to on-site contact page and preserve city areaServed', async ({ page }) => {
+      for (const route of ['/san-mateo-preschool-daycare/', '/belmont-ca-montessori-daycare/']) {
+        await page.goto(route);
 
-      // Stub window.Calendly.initPopupWidget to verify the CTA button triggers the in-page popup
-      await page.evaluate(() => {
-        (window as any).__popupUrls = [];
-        window.Calendly = {
-          initPopupWidget: ({ url }: { url: string }) => {
-            (window as any).__popupUrls.push(url);
-          },
-        };
-      });
+        const schemaScript = page.locator('head script[type="application/ld+json"]').first();
+        const content = await schemaScript.textContent();
+        expect(content).not.toBeNull();
 
-      const tourButton = page.getByRole('link', { name: /Schedule a Private Campus Tour/i });
-      await expect(tourButton).toBeVisible();
-      await tourButton.click();
+        const schema = JSON.parse(content!);
+        const items = Array.isArray(schema) ? schema : schema['@graph'] || [schema];
+        const reserveActionItems = items.filter(
+          (item: any) => item.potentialAction && item.potentialAction['@type'] === 'ReserveAction'
+        );
 
-      // Verify we stayed on the San Mateo page and triggered the embedded popup widget
-      expect(page.url()).toContain('/san-mateo-preschool-daycare/');
-      const popupUrls = await page.evaluate(() => (window as any).__popupUrls);
-      expect(popupUrls).toEqual(['https://calendly.com/mary-kubo']);
+        expect(reserveActionItems).toHaveLength(3);
+        for (const item of reserveActionItems) {
+          expect(item.potentialAction.target).toBe('https://www.kubomontessori.com/contact/');
+        }
 
-      // Simulate booking completion inside the popup widget
+        if (route === '/belmont-ca-montessori-daycare/') {
+          const orgItem = items.find((item: any) => item['@type'] === 'EducationalOrganization');
+          expect(orgItem?.areaServed).toContain('Belmont');
+        }
+      }
+    });
+
+    test('should capture object and stringified calendly.event_scheduled postMessages to dataLayer', async ({ page }) => {
+      await page.route('**/assets/external/widget.js', (route) =>
+        route.fulfill({ status: 200, contentType: 'application/javascript', body: '' })
+      );
+      await page.goto('/');
+
+      // Simulate both object and stringified Calendly postMessage payloads with valid origin
       await page.evaluate(() => {
         window.dispatchEvent(
           new MessageEvent('message', {
@@ -277,21 +292,119 @@ test.describe('Kubo Montessori Smoke Tests', () => {
             origin: 'https://calendly.com',
           })
         );
+        window.dispatchEvent(
+          new MessageEvent('message', {
+            data: JSON.stringify({ event: 'calendly.event_scheduled', payload: {} }),
+            origin: 'https://calendly.com',
+          })
+        );
       });
 
-      const dataLayerEvent = await page.evaluate(() => {
-        return ((window.dataLayer || []) as Record<string, unknown>[]).find(
+      // Verify dataLayer captures both conversion events
+      const matchingEvents = await page.evaluate(() => {
+        return ((window.dataLayer || []) as Record<string, unknown>[]).filter(
           (item) => item && item.event === 'tour_booking_scheduled'
         );
       });
 
-      expect(dataLayerEvent).toBeDefined();
-      expect(dataLayerEvent).toMatchObject({
-        event: 'tour_booking_scheduled',
-        event_category: 'engagement',
-        event_label: 'Calendly Widget',
-        value: 1,
-      });
+      expect(matchingEvents).toHaveLength(2);
+      for (const dataLayerEvent of matchingEvents) {
+        expect(dataLayerEvent).toMatchObject({
+          event: 'tour_booking_scheduled',
+          event_category: 'engagement',
+          event_label: 'Calendly Widget',
+          value: 1,
+        });
+      }
+    });
+
+    test('San Mateo and Contact tour buttons should open Calendly popup on-page and track tour_booking_scheduled', async ({ page }) => {
+      await page.route('**/assets/external/widget.js', (route) =>
+        route.fulfill({ status: 200, contentType: 'application/javascript', body: '' })
+      );
+
+      for (const routeCase of [
+        { path: '/san-mateo-preschool-daycare/', buttonName: /Schedule a Private Campus Tour/i },
+        { path: '/contact/', buttonName: /Book a School Tour/i },
+      ]) {
+        await page.goto(routeCase.path);
+
+        await page.evaluate(() => {
+          (window as any).__popupUrls = [];
+          window.Calendly = {
+            initPopupWidget: ({ url }: { url: string }) => {
+              (window as any).__popupUrls.push(url);
+            },
+          };
+        });
+
+        const tourButton = page.getByRole('link', { name: routeCase.buttonName });
+        await expect(tourButton).toBeVisible();
+        await tourButton.click();
+
+        expect(page.url()).toContain(routeCase.path);
+        const popupUrls = await page.evaluate(() => (window as any).__popupUrls);
+        expect(popupUrls).toEqual(['https://calendly.com/mary-kubo']);
+
+        await page.evaluate(() => {
+          window.dispatchEvent(
+            new MessageEvent('message', {
+              data: JSON.stringify({ event: 'calendly.event_scheduled', payload: {} }),
+              origin: 'https://calendly.com',
+            })
+          );
+        });
+
+        const dataLayerEvent = await page.evaluate(() => {
+          return ((window.dataLayer || []) as Record<string, unknown>[]).find(
+            (item) => item && item.event === 'tour_booking_scheduled'
+          );
+        });
+
+        expect(dataLayerEvent).toMatchObject({
+          event: 'tour_booking_scheduled',
+          event_category: 'engagement',
+          event_label: 'Calendly Widget',
+          value: 1,
+        });
+      }
+    });
+
+    test('falls back to a single new tab without double-navigating the parent page when widget script fails', async ({ page, context }) => {
+      await context.route('https://calendly.com/**', (route) =>
+        route.fulfill({ status: 200, contentType: 'text/html', body: '<html><body>Calendly</body></html>' })
+      );
+      await page.route('**/assets/external/widget.js', (route) => route.abort());
+
+      // 1. Immediate click after module load (before idle badge script settles) triggers window.open(..., 'noopener,noreferrer')
+      await page.goto('/san-mateo-preschool-daycare/?utm_source=e2e_immediate');
+      const tourButton = page.getByRole('link', { name: /Schedule a Private Campus Tour/i });
+      await expect(tourButton).toBeVisible();
+
+      const [immediatePopup] = await Promise.all([
+        context.waitForEvent('page'),
+        tourButton.click(),
+      ]);
+      await immediatePopup.waitForLoadState('domcontentloaded');
+      expect(immediatePopup.url()).toBe('https://calendly.com/mary-kubo?utm_source=e2e_immediate');
+      await immediatePopup.close();
+
+      // Parent tab must remain on Kubo Montessori (never double-navigated via location.assign)
+      await page.waitForTimeout(200);
+      expect(page.url()).toContain('/san-mateo-preschool-daycare/');
+
+      // 2. Subsequent click once script is already marked error (allows native <a target="_blank"> with UTMs)
+      await page.waitForSelector('head script[data-calendly-status="error"]', { state: 'attached' });
+      const [nativePopup] = await Promise.all([
+        context.waitForEvent('page'),
+        tourButton.click(),
+      ]);
+      await nativePopup.waitForLoadState('domcontentloaded');
+      expect(nativePopup.url()).toBe('https://calendly.com/mary-kubo?utm_source=e2e_immediate');
+      await nativePopup.close();
+
+      await page.waitForTimeout(200);
+      expect(page.url()).toContain('/san-mateo-preschool-daycare/');
     });
   });
 });

@@ -10,7 +10,6 @@ describe('SEMrush Audit Full Remediation', () => {
   const seoComponentPath = path.join(repoRoot, 'src/components/SEO.astro');
   const parentHandbookPath = path.join(repoRoot, 'src/pages/resources/parent-handbook.astro');
   const rwBakingPath = path.join(repoRoot, 'src/pages/rw-baking.astro');
-  const contactPath = path.join(repoRoot, 'src/pages/contact.astro');
   const rwLocationPath = path.join(repoRoot, 'src/pages/rw-location-directions.astro');
   const llmsPath = path.join(repoRoot, 'public/llms.txt');
 
@@ -48,6 +47,7 @@ describe('SEMrush Audit Full Remediation', () => {
       '/resources/home-vs-center-childcare/',
       '/resources/parent-handbook/',
       '/about/',
+      '/contact/',
       '/services/',
       '/san-mateo-location-directions/',
       '/rw-location-directions/',
