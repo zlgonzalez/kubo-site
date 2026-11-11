@@ -6,9 +6,10 @@ interface Props {
   description?: string;
   image?: string;
   article?: boolean;
+  targetCity?: string;
 }
 
-const { title, description, image, article } = Astro.props;
+const { title, description, image, article, targetCity } = Astro.props;
 ---
 
 <!doctype html>
@@ -19,96 +20,25 @@ const { title, description, image, article } = Astro.props;
       description={description}
       image={image}
       article={article}
+      targetCity={targetCity}
     />
 
     <slot name="head" />
 
-    <!-- Dynamic Loading of Third-Party Scripts to Optimize Mobile Performance -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async fetchpriority="low" src="https://www.googletagmanager.com/gtag/js?id=G-BE43SM2H4T"></script>
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
       window.gtag = window.gtag || function() { dataLayer.push(arguments); };
       gtag("js", new Date());
       gtag("config", "G-BE43SM2H4T");
-
-      function initCalendlyBadge() {
-        if (window.Calendly && !window.__calendlyBadgeInitialized) {
-          window.__calendlyBadgeInitialized = true;
-          var calendlyUrl = "https://calendly.com/mary-kubo";
-          try {
-            var search = window.location.search;
-            if (search && search.indexOf('=') !== -1) {
-              var params = new URLSearchParams(search);
-              var target = new URL(calendlyUrl);
-              var utms = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "gclid", "fbclid"];
-              utms.forEach(function(k) {
-                if (params.has(k) && !target.searchParams.has(k)) {
-                  target.searchParams.set(k, params.get(k));
-                }
-              });
-              calendlyUrl = target.toString();
-            }
-          } catch (e) {}
-
-          Calendly.initBadgeWidget({
-            url: calendlyUrl,
-            text: "Click to Schedule a Tour",
-            color: "#2563eb",
-            textColor: "#ffffff",
-            branding: true,
-          });
-        }
-      }
-
-      function loadThirdPartyScripts() {
-        // 1. Google Tag Manager
-        if (!document.querySelector('script[src*="googletagmanager.com/gtag/js"]')) {
-          const gtmScript = document.createElement('script');
-          gtmScript.src = "https://www.googletagmanager.com/gtag/js?id=G-BE43SM2H4T";
-          gtmScript.async = true;
-          document.head.appendChild(gtmScript);
-        }
-
-        // 2. Calendly Stylesheet
-        const cssHref = "https://assets.calendly.com/assets/external/widget.css";
-        if (!document.querySelector(`link[href="${cssHref}"]`)) {
-          const calendlyCSS = document.createElement('link');
-          calendlyCSS.rel = 'stylesheet';
-          calendlyCSS.href = cssHref;
-          document.head.appendChild(calendlyCSS);
-        }
-
-        // 3. Calendly Script & Widget Init
-        const jsSrc = "https://assets.calendly.com/assets/external/widget.js";
-        let calendlyJS = document.querySelector(`script[src="${jsSrc}"]`);
-        if (window.Calendly) {
-          initCalendlyBadge();
-        } else if (calendlyJS) {
-          calendlyJS.addEventListener('load', initCalendlyBadge, { once: true });
-        } else {
-          calendlyJS = document.createElement('script');
-          calendlyJS.src = jsSrc;
-          calendlyJS.async = true;
-          calendlyJS.addEventListener('load', initCalendlyBadge, { once: true });
-          document.head.appendChild(calendlyJS);
-        }
-      }
-
-      // Load dynamically after critical paint when the main thread goes idle
-      if (window.requestIdleCallback) {
-        window.requestIdleCallback(function() {
-          setTimeout(loadThirdPartyScripts, 1000);
-        });
-      } else {
-        window.addEventListener('load', function() {
-          setTimeout(loadThirdPartyScripts, 1000);
-        });
-      }
     </script>
 
-    <!-- Client-side Calendly analytics conversion listener -->
+    <!-- Client-side Calendly analytics conversion listener and deferred floating badge -->
     <script>
-      import { initCalendlyAnalytics } from "../utils/calendly-analytics";
+      import { initCalendlyAnalytics, scheduleCalendlyBadge } from "../utils/calendly-analytics";
       initCalendlyAnalytics();
+      scheduleCalendlyBadge();
     </script>
   </head>
   <body class="font-sans text-gray-700 antialiased">

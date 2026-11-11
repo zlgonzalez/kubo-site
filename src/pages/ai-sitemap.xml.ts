@@ -1,5 +1,14 @@
 import type { APIRoute } from "astro";
 
+function escapeXml(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&apos;");
+}
+
 export const GET: APIRoute = async ({ site, url }) => {
   const baseUrl = site ? site.toString().replace(/\/$/, "") : url.origin;
 
@@ -17,6 +26,7 @@ export const GET: APIRoute = async ({ site, url }) => {
     "/resources/home-vs-center-childcare/",
     "/resources/parent-handbook/",
     "/about/",
+    "/contact/",
     "/services/",
     "/san-mateo-location-directions/",
     "/rw-location-directions/",
@@ -29,7 +39,7 @@ export const GET: APIRoute = async ({ site, url }) => {
     .map(
       (page) => `
   <url>
-    <loc>${baseUrl}${page}</loc>
+    <loc>${escapeXml(`${baseUrl}${page}`)}</loc>
     <changefreq>weekly</changefreq>
     <priority>${page === "/" ? "1.0" : "0.8"}</priority>
   </url>`,

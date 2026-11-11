@@ -20,3 +20,12 @@ lighthouse-report*.json
 .ai/
 .specify/memory
 
+
+# Parallel review reports
+.review-reports/
+ 
+# Agent directories
+.agent/*
+.agents/*
+.specify/*
+.codegraph/*

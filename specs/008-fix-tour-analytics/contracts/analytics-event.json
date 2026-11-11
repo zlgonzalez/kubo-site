@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "GA4 Tour Booking Conversion Event",
+  "type": "object",
+  "properties": {
+    "event": {
+      "type": "string",
+      "enum": ["tour_booking_scheduled"]
+    },
+    "event_category": {
+      "type": "string",
+      "enum": ["engagement"]
+    },
+    "event_label": {
+      "type": "string",
+      "enum": ["Calendly Widget"]
+    },
+    "value": {
+      "type": "number",
+      "enum": [1]
+    }
+  },
+  "required": ["event", "event_category", "event_label", "value"],
+  "additionalProperties": false
+}
