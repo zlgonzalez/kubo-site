@@ -10,6 +10,7 @@ import {
   initCalendlyAnalytics,
   initCalendlyBadge,
   scheduleCalendlyBadge,
+  resetCalendlyDeduplicationForTests,
   CALENDLY_BOOKING_EVENT,
   GA_CONVERSION_EVENT,
   CALENDLY_WIDGET_CSS_URL,
@@ -127,6 +128,7 @@ describe('Calendly Analytics Utility', () => {
   let cleanupBadgeSchedule: (() => void) | null = null;
 
   beforeEach(() => {
+    resetCalendlyDeduplicationForTests();
     const winListeners = new Map<string, Set<EventListener>>();
     global.window = {
       dataLayer: [],
@@ -298,16 +300,11 @@ describe('Calendly Analytics Utility', () => {
     expect(global.window.Calendly?.initPopupWidget).not.toHaveBeenCalled();
   });
 
-  test('dispatchGAConversionEvent pushes event to dataLayer and calls gtag safely', () => {
+  test('dispatchGAConversionEvent calls gtag exclusively without pushing custom event object to dataLayer', () => {
     dispatchGAConversionEvent();
 
-    expect(global.window.dataLayer).toContainEqual({
-      event: GA_CONVERSION_EVENT,
-      event_category: 'engagement',
-      event_label: 'Calendly Widget',
-      value: 1,
-    });
-
+    expect(global.window.dataLayer).toHaveLength(0);
+    expect(global.window.gtag).toHaveBeenCalledTimes(1);
     expect(global.window.gtag).toHaveBeenCalledWith('event', GA_CONVERSION_EVENT, {
       event_category: 'engagement',
       event_label: 'Calendly Widget',
@@ -315,20 +312,17 @@ describe('Calendly Analytics Utility', () => {
     });
   });
 
-  test('dispatchGAConversionEvent continues calling gtag if dataLayer is corrupted or throws', () => {
+  test('dispatchGAConversionEvent handles missing or throwing gtag gracefully', () => {
     const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
-    global.window.dataLayer = {
-      push: () => {
-        throw new Error('blocked dataLayer');
-      },
-    } as unknown as unknown[];
+    global.window.gtag = vi.fn(() => {
+      throw new Error('blocked gtag');
+    });
 
     expect(() => dispatchGAConversionEvent()).not.toThrow();
-    expect(global.window.gtag).toHaveBeenCalledWith('event', GA_CONVERSION_EVENT, {
-      event_category: 'engagement',
-      event_label: 'Calendly Widget',
-      value: 1,
-    });
+    expect(global.window.dataLayer).toHaveLength(0);
+
+    global.window.gtag = undefined;
+    expect(() => dispatchGAConversionEvent()).not.toThrow();
 
     errorSpy.mockRestore();
   });
@@ -344,9 +338,12 @@ describe('Calendly Analytics Utility', () => {
 
     handleCalendlyMessage(validMessage);
 
-    expect(global.window.dataLayer).toContainEqual(
-      expect.objectContaining({ event: GA_CONVERSION_EVENT })
-    );
+    expect(global.window.gtag).toHaveBeenCalledTimes(1);
+    expect(global.window.gtag).toHaveBeenCalledWith('event', GA_CONVERSION_EVENT, {
+      event_category: 'engagement',
+      event_label: 'Calendly Widget',
+      value: 1,
+    });
   });
 
   test('handleCalendlyMessage triggers conversion event for stringified JSON booking message', () => {
@@ -360,9 +357,125 @@ describe('Calendly Analytics Utility', () => {
 
     handleCalendlyMessage(stringifiedMessage);
 
-    expect(global.window.dataLayer).toContainEqual(
-      expect.objectContaining({ event: GA_CONVERSION_EVENT })
-    );
+    expect(global.window.gtag).toHaveBeenCalledTimes(1);
+    expect(global.window.gtag).toHaveBeenCalledWith('event', GA_CONVERSION_EVENT, {
+      event_category: 'engagement',
+      event_label: 'Calendly Widget',
+      value: 1,
+    });
+  });
+
+  test('handleCalendlyMessage deduplicates repeated object and stringified messages with same invitee.uri or event.uri', () => {
+    const inviteeUri = 'https://api.calendly.com/scheduled_events/evt-1/invitees/inv-1';
+    handleCalendlyMessage({
+      origin: 'https://calendly.com',
+      data: {
+        event: CALENDLY_BOOKING_EVENT,
+        payload: {
+          event: { uri: 'https://api.calendly.com/scheduled_events/evt-1' },
+          invitee: { uri: inviteeUri },
+        },
+      },
+    } as MessageEvent);
+
+    handleCalendlyMessage({
+      origin: 'https://calendly.com',
+      data: JSON.stringify({
+        event: CALENDLY_BOOKING_EVENT,
+        payload: {
+          event: { uri: 'https://api.calendly.com/scheduled_events/evt-1' },
+          invitee: { uri: inviteeUri },
+        },
+      }),
+    } as MessageEvent);
+
+    // Distinct invitee URI should still be recorded
+    handleCalendlyMessage({
+      origin: 'https://calendly.com',
+      data: {
+        event: CALENDLY_BOOKING_EVENT,
+        payload: {
+          event: { uri: 'https://api.calendly.com/scheduled_events/evt-2' },
+          invitee: { uri: 'https://api.calendly.com/scheduled_events/evt-2/invitees/inv-2' },
+        },
+      },
+    } as MessageEvent);
+
+    // Event-URI-only duplicate should also be suppressed
+    const eventOnlyUri = 'https://api.calendly.com/scheduled_events/evt-3';
+    handleCalendlyMessage({
+      origin: 'https://calendly.com',
+      data: { event: CALENDLY_BOOKING_EVENT, payload: { event: { uri: eventOnlyUri } } },
+    } as MessageEvent);
+    handleCalendlyMessage({
+      origin: 'https://calendly.com',
+      data: { event: CALENDLY_BOOKING_EVENT, payload: { event: { uri: eventOnlyUri } } },
+    } as MessageEvent);
+
+    expect(global.window.gtag).toHaveBeenCalledTimes(3);
+  });
+
+  test('handleCalendlyMessage persists URI deduplication in sessionStorage and falls back gracefully when storage throws', () => {
+    const storageMap = new Map<string, string>();
+    (global.window as any).sessionStorage = {
+      getItem: vi.fn((k: string) => storageMap.get(k) ?? null),
+      setItem: vi.fn((k: string, v: string) => storageMap.set(k, v)),
+    };
+
+    const uri = 'https://api.calendly.com/scheduled_events/evt-ss/invitees/inv-ss';
+    handleCalendlyMessage({
+      origin: 'https://calendly.com',
+      data: { event: CALENDLY_BOOKING_EVENT, payload: { invitee: { uri } } },
+    } as MessageEvent);
+    expect(global.window.gtag).toHaveBeenCalledTimes(1);
+
+    // Simulate reload (clear in-memory cache via reset helper only if storage is preserved, or check storage directly)
+    expect((global.window as any).sessionStorage.setItem).toHaveBeenCalled();
+
+    // Throwing sessionStorage falls back to in-memory Set without errors
+    resetCalendlyDeduplicationForTests();
+    (global.window as any).sessionStorage = {
+      getItem: vi.fn(() => {
+        throw new Error('SecurityError');
+      }),
+      setItem: vi.fn(() => {
+        throw new Error('QuotaExceededError');
+      }),
+    };
+
+    handleCalendlyMessage({
+      origin: 'https://calendly.com',
+      data: { event: CALENDLY_BOOKING_EVENT, payload: { invitee: { uri } } },
+    } as MessageEvent);
+    handleCalendlyMessage({
+      origin: 'https://calendly.com',
+      data: { event: CALENDLY_BOOKING_EVENT, payload: { invitee: { uri } } },
+    } as MessageEvent);
+
+    expect(global.window.gtag).toHaveBeenCalledTimes(2);
+  });
+
+  test('handleCalendlyMessage suppresses rapid identical payloads without URIs within 5s and allows after 5s', () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date('2026-11-12T20:00:00Z'));
+
+    const msg = {
+      origin: 'https://calendly.com',
+      data: { event: CALENDLY_BOOKING_EVENT, payload: {} },
+    } as MessageEvent;
+    const stringMsg = {
+      origin: 'https://calendly.com',
+      data: JSON.stringify({ event: CALENDLY_BOOKING_EVENT, payload: {} }),
+    } as MessageEvent;
+
+    handleCalendlyMessage(msg);
+    vi.advanceTimersByTime(4999);
+    handleCalendlyMessage(stringMsg);
+    expect(global.window.gtag).toHaveBeenCalledTimes(1);
+
+    vi.advanceTimersByTime(1);
+    handleCalendlyMessage(stringMsg);
+    expect(global.window.gtag).toHaveBeenCalledTimes(2);
   });
 
   test('handleCalendlyMessage safely ignores malformed, oversized, array, primitive, and prototype payloads', () => {
@@ -385,7 +498,7 @@ describe('Calendly Analytics Utility', () => {
       ).not.toThrow();
     }
 
-    expect(global.window.dataLayer).toHaveLength(0);
+    expect(global.window.gtag).not.toHaveBeenCalled();
   });
 
   test('handleCalendlyMessage ignores non-booking events or invalid origins', () => {
@@ -395,7 +508,7 @@ describe('Calendly Analytics Utility', () => {
     } as MessageEvent;
 
     handleCalendlyMessage(invalidOriginMessage);
-    expect(global.window.dataLayer).toHaveLength(0);
+    expect(global.window.gtag).not.toHaveBeenCalled();
 
     const nonBookingMessage = {
       origin: 'https://calendly.com',
@@ -403,7 +516,7 @@ describe('Calendly Analytics Utility', () => {
     } as MessageEvent;
 
     handleCalendlyMessage(nonBookingMessage);
-    expect(global.window.dataLayer).toHaveLength(0);
+    expect(global.window.gtag).not.toHaveBeenCalled();
   });
 
   test('buildCalendlyUrlWithUtms forwards UTM parameters properly and normalizes valid URLs', () => {
@@ -688,5 +801,26 @@ describe('Calendly Analytics Utility', () => {
     cancel();
     vi.advanceTimersByTime(1000);
     expect(initBadgeWidget).toHaveBeenCalledTimes(1);
+  });
+
+  test('initCalendlyAnalytics + scheduleCalendlyBadge + openCalendlyPopup register one message listener and dispatch once', () => {
+    const { mockDocument } = createMockDom();
+    global.document = mockDocument as unknown as Document;
+
+    cleanupAnalytics = initCalendlyAnalytics();
+    cleanupBadgeSchedule = scheduleCalendlyBadge();
+    openCalendlyPopup('https://calendly.com/mary-kubo');
+
+    expect(global.window.addEventListener).toHaveBeenCalledTimes(1);
+
+    handleCalendlyMessage({
+      origin: 'https://calendly.com',
+      data: {
+        event: CALENDLY_BOOKING_EVENT,
+        payload: { invitee: { uri: 'https://api.calendly.com/scheduled_events/evt-coexist/invitees/inv-1' } },
+      },
+    } as MessageEvent);
+
+    expect(global.window.gtag).toHaveBeenCalledTimes(1);
   });
 });
