@@ -1,4 +1,4 @@
-.PHONY: all install dev build preview test clean help
+.PHONY: all install dev build preview test deploy clean help
 
 # Default target
 all: help
@@ -23,6 +23,10 @@ preview:
 test:
 	ASTRO_TELEMETRY_DISABLED=1 npm test
 
+# Deploy built site via lftp
+deploy:
+	./scripts/deploy.sh $(if $(FTP_PASSWORD),"$(FTP_PASSWORD)")
+
 
 # Clean build artifacts
 clean:
@@ -36,4 +40,5 @@ help:
 	@echo "  make build    - Build the project"
 	@echo "  make preview  - Preview the built project"
 	@echo "  make test     - Run full test suite"
+	@echo "  make deploy   - Deploy built site via lftp (requires FTP_PASSWORD)"
 	@echo "  make clean    - Clean build artifacts"

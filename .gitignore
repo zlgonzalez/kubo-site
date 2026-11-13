@@ -25,7 +25,7 @@ lighthouse-report*.json
 .review-reports/
  
 # Agent directories
-.agent/*
-.agents/*
-.specify/*
-.codegraph/*
+.agent
+.agents
+.specify
+.codegraph

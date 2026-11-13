@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "GA4 Tour Booking Conversion Event Contract (Exclusive gtag Dispatch)",
+  "type": "object",
+  "required": ["command", "eventName", "params"],
+  "properties": {
+    "command": {
+      "const": "event"
+    },
+    "eventName": {
+      "const": "tour_booking_scheduled"
+    },
+    "params": {
+      "type": "object",
+      "required": ["event_category", "event_label", "value"],
+      "properties": {
+        "event_category": {
+          "const": "engagement"
+        },
+        "event_label": {
+          "const": "Calendly Widget"
+        },
+        "value": {
+          "const": 1
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

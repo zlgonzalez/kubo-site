@@ -17,8 +17,7 @@ export interface CalendlyEventPayload {
   };
 }
 
-export interface GAConversionEventPayload {
-  event: 'tour_booking_scheduled';
+export interface GAConversionParameters {
   event_category: 'engagement';
   event_label: 'Calendly Widget';
   value: 1;
@@ -34,6 +33,9 @@ export const CALENDLY_WIDGET_JS_URL = 'https://assets.calendly.com/assets/extern
 const MAX_MESSAGE_DATA_LENGTH = 8192;
 const MAX_UTM_PARAM_LENGTH = 256;
 const CALENDLY_POPUP_LOAD_TIMEOUT_MS = 5000;
+const CALENDLY_DEDUPE_STORAGE_KEY = 'kubo_processed_calendly_bookings';
+const CALENDLY_DEDUPE_MAX_URIS = 50;
+const CALENDLY_FALLBACK_DEDUPE_WINDOW_MS = 5000;
 const MARKETING_QUERY_KEYS = [
   'utm_source',
   'utm_medium',
@@ -61,6 +63,16 @@ let pendingPopupTimer: ReturnType<typeof setTimeout> | null = null;
 let pendingScriptElement: HTMLScriptElement | null = null;
 let registeredAnalyticsWindow: Window | null = null;
 let activeAnalyticsCleanup: (() => void) | null = null;
+const processedBookingUris = new Set<string>();
+const recentFallbackDispatches = new Map<string, number>();
+
+/**
+ * Clears in-memory booking deduplication state for deterministic unit testing.
+ */
+export function resetCalendlyDeduplicationForTests(): void {
+  processedBookingUris.clear();
+  recentFallbackDispatches.clear();
+}
 
 type CalendlyScriptStatus = 'loading' | 'loaded' | 'error';
 
@@ -517,37 +529,91 @@ export function handleCalendlyLinkClick(event: MouseEvent): void {
   openCalendlyPopup(href);
 }
 
+function extractBookingDedupeKey(payload: CalendlyEventPayload['payload']): string | null {
+  if (!payload || typeof payload !== 'object') return null;
+  const inviteeUri = typeof payload.invitee?.uri === 'string' ? payload.invitee.uri.trim() : '';
+  if (inviteeUri) return inviteeUri;
+  const eventUri = typeof payload.event?.uri === 'string' ? payload.event.uri.trim() : '';
+  return eventUri || null;
+}
+
+function readSessionProcessedUris(): string[] {
+  if (typeof window === 'undefined') return [];
+  try {
+    const raw = window.sessionStorage?.getItem(CALENDLY_DEDUPE_STORAGE_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed)
+      ? parsed.filter((item): item is string => typeof item === 'string' && item.length > 0)
+      : [];
+  } catch {
+    return [];
+  }
+}
+
+function hasProcessedBookingUri(uri: string): boolean {
+  if (processedBookingUris.has(uri)) return true;
+  const sessionUris = readSessionProcessedUris();
+  if (sessionUris.includes(uri)) {
+    processedBookingUris.add(uri);
+    return true;
+  }
+  return false;
+}
+
+function markProcessedBookingUri(uri: string): void {
+  processedBookingUris.add(uri);
+  if (typeof window === 'undefined') return;
+  try {
+    const existing = readSessionProcessedUris();
+    if (!existing.includes(uri)) {
+      const updated = [...existing, uri].slice(-CALENDLY_DEDUPE_MAX_URIS);
+      window.sessionStorage?.setItem(CALENDLY_DEDUPE_STORAGE_KEY, JSON.stringify(updated));
+    }
+  } catch {
+    // Graceful fallback to in-memory Set when sessionStorage is unavailable or restricted.
+  }
+}
+
+function shouldSuppressFallbackDuplicate(data: CalendlyEventPayload): boolean {
+  let fingerprint: string;
+  try {
+    fingerprint = JSON.stringify(data);
+  } catch {
+    fingerprint = CALENDLY_BOOKING_EVENT;
+  }
+
+  const now = Date.now();
+  const lastDispatchedAt = recentFallbackDispatches.get(fingerprint);
+  if (lastDispatchedAt !== undefined && now - lastDispatchedAt < CALENDLY_FALLBACK_DEDUPE_WINDOW_MS) {
+    return true;
+  }
+
+  // Prune expired entries to keep the fallback map bounded.
+  for (const [key, timestamp] of recentFallbackDispatches.entries()) {
+    if (now - timestamp >= CALENDLY_FALLBACK_DEDUPE_WINDOW_MS) {
+      recentFallbackDispatches.delete(key);
+    }
+  }
+  recentFallbackDispatches.set(fingerprint, now);
+  return false;
+}
+
 /**
- * Safely dispatches a conversion event to Google Analytics / Google Tag Manager dataLayer.
+ * Safely dispatches a conversion event exclusively via Google Tag (`gtag`).
  */
 export function dispatchGAConversionEvent(): void {
   if (typeof window === 'undefined') return;
 
-  const eventData: GAConversionEventPayload = {
-    event: GA_CONVERSION_EVENT,
+  const eventParams: GAConversionParameters = {
     event_category: 'engagement',
     event_label: 'Calendly Widget',
     value: 1,
   };
 
-  // 1. Push to window.dataLayer for GTM / GA4
-  try {
-    if (!window.dataLayer || typeof window.dataLayer.push !== 'function') {
-      window.dataLayer = [];
-    }
-    window.dataLayer.push(eventData);
-  } catch (e) {
-    console.error('Failed to push event to dataLayer:', e);
-  }
-
-  // 2. Call gtag directly if defined
   if (typeof window.gtag === 'function') {
     try {
-      window.gtag('event', GA_CONVERSION_EVENT, {
-        event_category: eventData.event_category,
-        event_label: eventData.event_label,
-        value: eventData.value,
-      });
+      window.gtag('event', GA_CONVERSION_EVENT, eventParams);
     } catch (e) {
       console.error('Failed to send event to gtag:', e);
     }
@@ -584,6 +650,17 @@ export function handleCalendlyMessage(event: MessageEvent): void {
     Object.prototype.hasOwnProperty.call(rawData, 'event') &&
     (rawData as CalendlyEventPayload).event === CALENDLY_BOOKING_EVENT
   ) {
+    const calendlyPayload = rawData as CalendlyEventPayload;
+    const dedupeUri = extractBookingDedupeKey(calendlyPayload.payload);
+    if (dedupeUri) {
+      if (hasProcessedBookingUri(dedupeUri)) {
+        return;
+      }
+      markProcessedBookingUri(dedupeUri);
+    } else if (shouldSuppressFallbackDuplicate(calendlyPayload)) {
+      return;
+    }
+
     dispatchGAConversionEvent();
   }
 }

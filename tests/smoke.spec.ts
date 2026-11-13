@@ -176,11 +176,16 @@ test.describe('Kubo Montessori Smoke Tests', () => {
       const href = await firstPostLink.getAttribute('href');
       expect(href).not.toBeNull();
       const localHref = href!.replace('https://www.kubomontessori.com', '').replace('https://kubomontessori.com', '');
-      expect(localHref).toMatch(/\/blog\/?\?p=/);
-      
+      expect(localHref).toMatch(/^\/blog\/?(?:\?p=[a-z0-9-]+|[a-z0-9-]+)\/?$/i);
+
+      const slug = localHref.includes('p=')
+        ? localHref.split('p=')[1].split('&')[0]
+        : localHref.replace(/^\/blog\/?/, '').replace(/\/$/, '');
+      expect(slug.length).toBeGreaterThan(0);
+
       await page.goto(localHref);
-      
-      expect(page.url()).toContain(localHref.split('p=')[1]);
+
+      expect(page.url()).toContain(slug);
       
       const h1 = page.locator('h1').first();
       await expect(h1).toBeVisible();
@@ -230,7 +235,7 @@ test.describe('Kubo Montessori Smoke Tests', () => {
       await expect(gtagScript).toHaveAttribute('async', '');
       await expect(gtagScript).toHaveAttribute('fetchpriority', 'low');
 
-      // Verify window.dataLayer and gtag are immediately initialized and capture pre-idle events
+      // Verify window.dataLayer and gtag are immediately initialized and capture pre-idle events via gtag exclusively
       const capturedImmediateEvent = await page.evaluate(() => {
         const hasGtag = typeof (window as any).gtag === 'function' && Array.isArray((window as any).dataLayer);
         window.dispatchEvent(
@@ -240,12 +245,19 @@ test.describe('Kubo Montessori Smoke Tests', () => {
           })
         );
         const dl = (window.dataLayer || []) as Array<Record<string, unknown> | ArrayLike<unknown>>;
-        const dataLayerEntry = dl.find((item: any) => item && item.event === 'tour_booking_scheduled');
-        return { hasGtag, dataLayerEntry };
+        const gtagCommand = dl.find(
+          (item: any) => item && item[0] === 'event' && item[1] === 'tour_booking_scheduled'
+        ) as any;
+        const customObjects = dl.filter((item: any) => item && item.event === 'tour_booking_scheduled');
+        return {
+          hasGtag,
+          gtagParams: gtagCommand ? gtagCommand[2] : null,
+          customObjectCount: customObjects.length,
+        };
       });
       expect(capturedImmediateEvent.hasGtag).toBe(true);
-      expect(capturedImmediateEvent.dataLayerEntry).toMatchObject({
-        event: 'tour_booking_scheduled',
+      expect(capturedImmediateEvent.customObjectCount).toBe(0);
+      expect(capturedImmediateEvent.gtagParams).toMatchObject({
         event_category: 'engagement',
         event_label: 'Calendly Widget',
         value: 1,
@@ -278,39 +290,40 @@ test.describe('Kubo Montessori Smoke Tests', () => {
       }
     });
 
-    test('should capture object and stringified calendly.event_scheduled postMessages to dataLayer', async ({ page }) => {
+    test('should deduplicate repeated object and stringified calendly.event_scheduled postMessages with same invitee URI and record distinct URIs via gtag', async ({ page }) => {
       await page.route('**/assets/external/widget.js', (route) =>
         route.fulfill({ status: 200, contentType: 'application/javascript', body: '' })
       );
       await page.goto('/');
 
-      // Simulate both object and stringified Calendly postMessage payloads with valid origin
+      // Simulate duplicate object + stringified payloads for booking 1, plus a distinct booking 2
       await page.evaluate(() => {
-        window.dispatchEvent(
-          new MessageEvent('message', {
-            data: { event: 'calendly.event_scheduled', payload: {} },
-            origin: 'https://calendly.com',
-          })
-        );
-        window.dispatchEvent(
-          new MessageEvent('message', {
-            data: JSON.stringify({ event: 'calendly.event_scheduled', payload: {} }),
-            origin: 'https://calendly.com',
-          })
-        );
+        const booking1 = {
+          event: 'calendly.event_scheduled',
+          payload: { invitee: { uri: 'https://api.calendly.com/scheduled_events/e1/invitees/i1' } },
+        };
+        const booking2 = {
+          event: 'calendly.event_scheduled',
+          payload: { invitee: { uri: 'https://api.calendly.com/scheduled_events/e2/invitees/i2' } },
+        };
+        window.dispatchEvent(new MessageEvent('message', { data: booking1, origin: 'https://calendly.com' }));
+        window.dispatchEvent(new MessageEvent('message', { data: JSON.stringify(booking1), origin: 'https://calendly.com' }));
+        window.dispatchEvent(new MessageEvent('message', { data: JSON.stringify(booking2), origin: 'https://calendly.com' }));
       });
 
-      // Verify dataLayer captures both conversion events
-      const matchingEvents = await page.evaluate(() => {
-        return ((window.dataLayer || []) as Record<string, unknown>[]).filter(
-          (item) => item && item.event === 'tour_booking_scheduled'
-        );
+      const result = await page.evaluate(() => {
+        const dl = (window.dataLayer || []) as Array<Record<string, unknown> | ArrayLike<unknown>>;
+        const gtagEvents = dl
+          .filter((item: any) => item && item[0] === 'event' && item[1] === 'tour_booking_scheduled')
+          .map((item: any) => item[2]);
+        const customObjects = dl.filter((item: any) => item && item.event === 'tour_booking_scheduled');
+        return { gtagEvents, customObjectCount: customObjects.length };
       });
 
-      expect(matchingEvents).toHaveLength(2);
-      for (const dataLayerEvent of matchingEvents) {
-        expect(dataLayerEvent).toMatchObject({
-          event: 'tour_booking_scheduled',
+      expect(result.customObjectCount).toBe(0);
+      expect(result.gtagEvents).toHaveLength(2);
+      for (const params of result.gtagEvents) {
+        expect(params).toMatchObject({
           event_category: 'engagement',
           event_label: 'Calendly Widget',
           value: 1,
@@ -355,14 +368,18 @@ test.describe('Kubo Montessori Smoke Tests', () => {
           );
         });
 
-        const dataLayerEvent = await page.evaluate(() => {
-          return ((window.dataLayer || []) as Record<string, unknown>[]).find(
-            (item) => item && item.event === 'tour_booking_scheduled'
-          );
+        const result = await page.evaluate(() => {
+          const dl = (window.dataLayer || []) as Array<Record<string, unknown> | ArrayLike<unknown>>;
+          const gtagEvents = dl
+            .filter((item: any) => item && item[0] === 'event' && item[1] === 'tour_booking_scheduled')
+            .map((item: any) => item[2]);
+          const customObjects = dl.filter((item: any) => item && item.event === 'tour_booking_scheduled');
+          return { gtagEvents, customObjectCount: customObjects.length };
         });
 
-        expect(dataLayerEvent).toMatchObject({
-          event: 'tour_booking_scheduled',
+        expect(result.customObjectCount).toBe(0);
+        expect(result.gtagEvents).toHaveLength(1);
+        expect(result.gtagEvents[0]).toMatchObject({
           event_category: 'engagement',
           event_label: 'Calendly Widget',
           value: 1,
