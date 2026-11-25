@@ -5,6 +5,9 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   test:
     name: Build & Test
@@ -13,6 +16,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Verify canonical blueprint gate (hard contradictions)
+        run: bash .specify/extensions/blueprint-index/scripts/bash/blueprint-state.sh check
 
       - name: Setup Node.js
         uses: actions/setup-node@v4

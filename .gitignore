@@ -18,14 +18,16 @@ lighthouse-report*.json
 
 # Agent/Local tools
 .ai/
-.specify/memory
+.specify/extensions/.cache/
+.specify/extensions/.backup/
+.specify/extensions/.registry
+.specify/extensions/*/.specify-dev/
 
 
 # Parallel review reports
 .review-reports/
  
 # Agent directories
-.agent
-.agents
-.specify
+.agent/*
+.agents/*
 .codegraph

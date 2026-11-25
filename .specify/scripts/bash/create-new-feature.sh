@@ -39,6 +39,10 @@ while [ $i -le $# ]; do
                 echo 'Error: --number requires a value' >&2
                 exit 1
             fi
+            if [[ ! "$next_arg" =~ ^[0-9]+$ ]]; then
+                echo "Error: --number must be a non-negative integer (got '$next_arg')" >&2
+                exit 1
+            fi
             BRANCH_NUMBER="$next_arg"
             ;;
         --timestamp)
@@ -73,20 +77,22 @@ if [ -z "$FEATURE_DESCRIPTION" ]; then
     exit 1
 fi
 
-# Trim whitespace and validate description is not empty (e.g., user passed only whitespace)
-FEATURE_DESCRIPTION=$(echo "$FEATURE_DESCRIPTION" | xargs)
+# Trim leading/trailing whitespace safely without xargs quote/command interpretation
+FEATURE_DESCRIPTION="$(printf '%s' "$FEATURE_DESCRIPTION" | sed 's/^[[:space:]]*//; s/[[:space:]]*$//')"
 if [ -z "$FEATURE_DESCRIPTION" ]; then
     echo "Error: Feature description cannot be empty or contain only whitespace" >&2
     exit 1
 fi
 
-# Function to get highest number from specs directory
+# Function to get highest number from specs directory (including _legacy archive)
 get_highest_from_specs() {
     local specs_dir="$1"
     local highest=0
-    
-    if [ -d "$specs_dir" ]; then
-        for dir in "$specs_dir"/*; do
+    local search_dir
+
+    for search_dir in "$specs_dir" "$specs_dir/_legacy"; do
+        [ -d "$search_dir" ] || continue
+        for dir in "$search_dir"/*; do
             [ -d "$dir" ] || continue
             dirname=$(basename "$dir")
             # Match sequential prefixes (>=3 digits), but skip timestamp dirs.
@@ -98,8 +104,8 @@ get_highest_from_specs() {
                 fi
             fi
         done
-    fi
-    
+    done
+
     echo "$highest"
 }
 
